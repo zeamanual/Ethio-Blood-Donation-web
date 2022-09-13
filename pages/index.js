@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -18,6 +19,7 @@ export default function Home() {
 
         <p className={styles.description}>
           Get started by editing{' '}
+          <Button variant='contained'>hay</Button>
           <code className={styles.code}>pages/index.js</code>
         </p>
 
