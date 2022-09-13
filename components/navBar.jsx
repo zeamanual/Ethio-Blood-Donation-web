@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 let NavBar = function() {
     let StyledBox = styled(Box)({
-        display:'flex',
+        
         flexDirection:'row',
         flexWrap:'nowrap',
         justifyContent:'center',
@@ -14,25 +14,33 @@ let NavBar = function() {
       })
     let navItems = ['HOME','STATISTICS','ABOUT','CONTACT']
   return (
-    <AppBar  sx={{backgroundColor:'black',opacity:0.7}}>
+    <AppBar position='sticky'  sx={{backgroundColor:'black',opacity:0.7}}>
     <Toolbar>
-      <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-around'}>
+      <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
       <Box  sx = {{maxWidth:35}}>
         <Image  height={'100%'} width={'100%'} src = {logoImg} alt ='logo picture'/>
       </Box>
-        <StyledBox>
+        <StyledBox sx={{display:{md:'flex',xs:'none'},}}>
         {
           navItems.map((item,index)=>{
-            return <Button key={index} m={2}sx={{'&:hover':{backgroundColor:'rgb(0, 132, 255)'}}} variant='h4' >{item}</Button>
+            return <Button key={index} m={2}sx={{'&:hover':{backgroundColor:'primary.main'}}} variant='h4' >{item}</Button>
           })
         }
         </StyledBox>
-        <StyledBox  >
+        <StyledBox sx={{display:{md:'flex',xs:'none'},}} >
         <ButtonGroup>
           <Button  variant='contained'>Log In</Button>
           <Button  variant='contained'>Register</Button>
         </ButtonGroup>
         </StyledBox>
+
+        <Box sx={{
+          display:{xs:'block',md:'none'}
+        }} >
+          <Button variant='contained'>
+            MENU ICON
+          </Button>
+        </Box>
       </Stack>
     </Toolbar>
   </AppBar>
