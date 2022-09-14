@@ -7,6 +7,8 @@ function Footer() {
     let StyledBox= styled(Box)({
         backgroundColor:'black',
         opacity:0.7,
+        marginBottom:0,
+        padding:20
     })
     return (
       <StyledBox>
@@ -23,7 +25,7 @@ function Footer() {
                 padding:2
             }}
             >
-             <Image  height={'100%'} width={'100%'} src = {logoImg} alt ='logo picture'/>
+             <Image  height={60} width={100} src = {logoImg} alt ='logo picture'/>
              <Button sx={{width:'100%'}} variant='text'>Habesha Blood Donation</Button>
             </Box>
         </Grid>

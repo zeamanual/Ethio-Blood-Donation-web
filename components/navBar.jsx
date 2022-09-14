@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography,Box } from '@mui/material'
+import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography,Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider } from '@mui/material'
 import logoImg from '../public/lo.png'
 import Image from 'next/image'
 
@@ -12,13 +12,18 @@ let NavBar = function() {
         alignItems:'center',
     
       })
+      let [drawerOpened,setDrawerOpened]= React.useState(false)
+      let handleDrawerSwitch=()=>{
+        setDrawerOpened(!drawerOpened)
+      }
     let navItems = ['HOME','STATISTICS','ABOUT','CONTACT']
   return (
+    <>
     <AppBar position='sticky'  sx={{backgroundColor:'black',opacity:0.7}}>
     <Toolbar>
       <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
-      <Box  sx = {{maxWidth:35}}>
-        <Image  height={'100%'} width={'100%'} src = {logoImg} alt ='logo picture'/>
+      <Box  sx = {{maxWidth:60}}>
+        <Image  height={70} width={100} src = {logoImg} alt ='logo picture'/>
       </Box>
         <StyledBox sx={{display:{md:'flex',xs:'none'},}}>
         {
@@ -37,13 +42,40 @@ let NavBar = function() {
         <Box sx={{
           display:{xs:'block',md:'none'}
         }} >
-          <Button variant='contained'>
+          <Button onClick={handleDrawerSwitch} variant='contained'>
             MENU ICON
           </Button>
         </Box>
       </Stack>
     </Toolbar>
   </AppBar>
+
+  <Drawer
+  open={drawerOpened}
+  anchor={'left'}
+  onClose={()=>{setDrawerOpened(!drawerOpened)}}
+  >
+  <List sx={{marginTop:10,marginLeft:5,marginRight:5}} >
+    {navItems.map((item,index)=>{
+      return (
+          <ListItemButton key={index}>
+            <ListItemText>{item}</ListItemText>
+          </ListItemButton>
+      )
+    })}
+
+    <Divider></Divider>
+    <ListItem>
+    <Box sx={{display:'flex',flexDirection:'column',gap:2,marginTop:2}}>
+      <Button  variant='contained'>Log In</Button>
+      <Button  variant='contained'>Register</Button>
+    </Box>
+
+    </ListItem>
+  </List>
+  {/* <Typography variant='h2' >hay dude</Typography> */}
+  </Drawer>
+  </>
   )
 }
 
