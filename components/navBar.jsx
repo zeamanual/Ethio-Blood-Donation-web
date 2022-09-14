@@ -1,7 +1,8 @@
 import React from 'react'
-import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography,Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider } from '@mui/material'
+import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography,Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider, IconButton } from '@mui/material'
 import logoImg from '../public/lo.png'
 import Image from 'next/image'
+import { Menu, Settings } from '@mui/icons-material'
 
 let NavBar = function() {
     let StyledBox = styled(Box)({
@@ -16,10 +17,15 @@ let NavBar = function() {
       let handleDrawerSwitch=()=>{
         setDrawerOpened(!drawerOpened)
       }
-    let navItems = ['HOME','STATISTICS','ABOUT','CONTACT']
+    let navItems = [
+      {path:'/',name:'HOME'},
+      {path:'/statistics',name:'STATISTICS'},
+      {path:'/about',name:'ABOUT'},
+      {path:'/contact',name:'CONTACT'}
+    ]
   return (
     <>
-    <AppBar position='sticky'  sx={{backgroundColor:'black',opacity:0.7}}>
+    <AppBar position='sticky'  sx={{backgroundColor:'black',opacity:0.7,}}>
     <Toolbar>
       <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
       <Box  sx = {{maxWidth:60}}>
@@ -28,20 +34,25 @@ let NavBar = function() {
         <StyledBox sx={{display:{md:'flex',xs:'none'},}}>
         {
           navItems.map((item,index)=>{
-            return <Button key={index} m={2}sx={{'&:hover':{backgroundColor:'primary.main'}}} variant='h4' >{item}</Button>
+            return <Button href={item.path} key={index} m={2}sx={{'&:hover':{backgroundColor:'primary.main'}}} variant='h4' >{item.name}</Button>
           })
         }
         </StyledBox>
         <StyledBox sx={{display:{md:'flex',xs:'none'},}} >
         <ButtonGroup>
-          <Button  variant='contained'>Log In</Button>
-          <Button  variant='contained'>Register</Button>
+          <Button href='/login'  variant='contained'>Log In</Button>
+          <Button href="/signup" variant='contained'>Sign Up</Button>
         </ButtonGroup>
         </StyledBox>
 
         <Box sx={{
           display:{xs:'block',md:'none'}
         }} >
+        {/* <IconButton onClick={handleDrawerSwitch}>
+          <Menu color='white'></Menu>
+          
+          <Settings></Settings>
+        </IconButton> */}
           <Button onClick={handleDrawerSwitch} variant='contained'>
             MENU ICON
           </Button>
@@ -58,8 +69,8 @@ let NavBar = function() {
   <List sx={{marginTop:10,marginLeft:5,marginRight:5}} >
     {navItems.map((item,index)=>{
       return (
-          <ListItemButton key={index}>
-            <ListItemText>{item}</ListItemText>
+          <ListItemButton href={item.path} key={index}>
+            <ListItemText>{item.name}</ListItemText>
           </ListItemButton>
       )
     })}
@@ -67,8 +78,8 @@ let NavBar = function() {
     <Divider></Divider>
     <ListItem>
     <Box sx={{display:'flex',flexDirection:'column',gap:2,marginTop:2}}>
-      <Button  variant='contained'>Log In</Button>
-      <Button  variant='contained'>Register</Button>
+      <Button href='/login' variant='contained'>Log In</Button>
+      <Button href='/signup'  variant='contained'>Sign Up</Button>
     </Box>
 
     </ListItem>
