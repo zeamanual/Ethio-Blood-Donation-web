@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Stack, styled, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
-import logoImg from '../public/lo.png'
+import logoImg from '../../public/lo.png'
 function Footer() {
     let navItems = ['HOME','STATISTICS','ABOUT','CONTACT']
     let StyledBox= styled(Box)({

@@ -1,5 +1,6 @@
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Alert, Box, Button, Grid, IconButton, InputAdornment, Link, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Grid, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
+import Link from 'next/link'
 import React from 'react'
 import Layout from '../components/layout'
 
@@ -114,7 +115,7 @@ function Login() {
                             </Box>
                             <Box>
                            <Typography align='center'>
-                           Don't have Habesha Donate account yet? <Link underline='hover' href="/signup" >Sign Up</Link>
+                           Don't have Habesha Donate account yet? <Box component={'span'} color='primary' ><Link underline='hover' href="/signup" >Sign Up</Link></Box> 
                            </Typography> 
                             </Box>
                         </Stack>
