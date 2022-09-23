@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/navBar.jsx'
 import Footer from '../components/footer'
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Modal, Snackbar, Typography } from '@mui/material'
 import Layout from '../components/layout'
 export default function Home() {
 

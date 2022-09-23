@@ -1,16 +1,26 @@
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Alert, Box, Button, Grid, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Grid, IconButton, InputAdornment, LinearProgress, Stack, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/layout'
+import { logInUser, resetFormStatus } from '../state/slices/userSlice'
 
 function Login() {
+    let state = useSelector(state=>state)
+    let dispatch = useDispatch()
+    let router = useRouter()
     let [loginDetails,setLoginDetails]= React.useState({userName:'',password:''})
     let [errorDetails,setErrorDetails]= React.useState({userName:{hasError:false,msg:''},password:{hasError:false,msg:''},isFormValid:false})
     let [showPassword,setShowPassword]= React.useState(false)
+    React.useEffect(()=>{
+        dispatch(resetFormStatus())
+    },[])
     let formSubmitHandler = (e)=>{
         e.preventDefault();
         if((!errorDetails.userName.hasError  && loginDetails.userName)  && (!errorDetails.password.hasError && loginDetails.password )){
+            dispatch(logInUser({username:loginDetails.userName,password:loginDetails.password,router}))
             console.log("no error")
         }else{
             console.log("form not submitted")
@@ -67,6 +77,7 @@ function Login() {
   return (
     <Layout>
         <Box my={5} mx={{md:25,xs:2}} sx={{borderRadius:4,overflow:'hidden',boxShadow:'2px 2px 5px gray'}}>
+        { state.user.loading &&  <LinearProgress></LinearProgress>}
             <Grid container >
                 <Grid item xs={12} md={7}>
                     <Box sx={{height:'100%',width:'100%',
@@ -82,12 +93,14 @@ function Login() {
                 </Grid>
 
                 <Grid item xs={12} md={5}>
-                    <Box sx={{ackgroundColor:'yellow'}}> 
+                    <Box> 
                         <form onSubmit={formSubmitHandler}>
                         <Stack px={6} py={15} gap={2}  direction={'column'}>
+                        <Typography sx={{marginBottom:3}} variant='h3'>LogIn</Typography>
+                            {state.user.login.errorMsg && <Alert severity='error'>{state.user.login.errorMsg}</Alert>}
                             <Box>
                                 <TextField fullWidth={true}  value={loginDetails.userName} onChange={usernameChangeHandler} size='small' label='Username' ></TextField>
-                            {errorDetails.userName.hasError ? <Alert sx={{padding:0,marginTop:1}} severity="error">{errorDetails.userName.msg}</Alert>:<></> }
+                                {errorDetails.userName.hasError ? <Alert sx={{padding:0,marginTop:1}} severity="error">{errorDetails.userName.msg}</Alert>:<></> }
                             </Box>
 
                             <Box>
@@ -115,7 +128,7 @@ function Login() {
                             </Box>
                             <Box>
                            <Typography align='center'>
-                           Don't have Habesha Donate account yet? <Box component={'span'} color='primary' ><Link underline='hover' href="/signup" >Sign Up</Link></Box> 
+                           Dont have Habesha Donate account yet? <Box component={'span'} color='primary' ><Link underline='hover' href="/signup" >Sign Up</Link></Box> 
                            </Typography> 
                             </Box>
                         </Stack>
