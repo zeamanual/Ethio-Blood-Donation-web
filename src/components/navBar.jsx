@@ -67,7 +67,7 @@ let NavBar = function () {
               {state.user.isAuthenticated
                 ? <ButtonGroup>
                   <Button onClick={() => { router.push(`/donateNow`) }} variant='contained'>Donate Now</Button>
-                  <Button onClick={() => { router.push(`/createRequest`) }} variant='contained'>Create Request</Button>
+                  <Button onClick={() => { router.push(`/newRequest`) }} variant='contained'>Create Request</Button>
                 </ButtonGroup>
                 : <></>
               }
@@ -145,7 +145,7 @@ let NavBar = function () {
               }
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
                 <Button onClick={() => { router.push(`/donatenow`) }} variant='contained'>Donate Now</Button>
-                <Button onClick={() => { router.push(`/createRequest`) }} variant='contained'>Create Request</Button>
+                <Button onClick={() => { router.push(`/newRequest`) }} variant='contained'>Create Request</Button>
               </Box>
 
             </Box>

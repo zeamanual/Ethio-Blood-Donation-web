@@ -4,8 +4,9 @@ import React from 'react'
 import { resetFormStatus, signUpUser } from '../state/slices/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/layout'
-import Summary from '../components/summary'
+import Summary from '../components/summary' 
 import { useRouter } from 'next/router'
+import { BLOODTYPES, CITIES } from '../constants'
 
 function SignUp() {
     let state = useSelector(state => state)
@@ -15,31 +16,6 @@ function SignUp() {
     React.useEffect(() => {
         dispatch(resetFormStatus())
     }, [])
-
-    let bloodTypes = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
-    let cities = [
-        {
-            name: 'Addis Ababa',
-            latitude: 45.67,
-            longtitude: 78.9
-        },
-        {
-            name: 'Dire Dewa',
-            latitude: 55.67,
-            longtitude: 25.9
-        },
-        {
-            name: 'Dessie',
-            latitude: 85.67,
-            longtitude: 28.9
-        },
-        {
-            name: 'Bahir Dar',
-            latitude: 35.67,
-            longtitude: 53.9
-        }
-    ]
-
     let [showPassword, setShowPassword] = React.useState(false)
     let [modalOpen, setModalOpen] = React.useState(false)
 
@@ -234,7 +210,7 @@ function SignUp() {
                                     if (fieldName == 'address') {
                                         inputField = (
                                             <TextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' select >
-                                                {cities.map(city => {
+                                                {CITIES.map(city => {
                                                     return <MenuItem key={city.name} value={city.name} >{city.name}</MenuItem>
                                                 })}
                                             </TextField>
@@ -254,7 +230,7 @@ function SignUp() {
                                         inputField = (
                                             <TextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} select variant='outlined' >
                                                 {
-                                                    bloodTypes.map(bloodType => {
+                                                    BLOODTYPES.map(bloodType => {
                                                         return <MenuItem key={bloodType} value={bloodType}>{bloodType}</MenuItem>
                                                     })
                                                 }
