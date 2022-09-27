@@ -2,7 +2,7 @@ import { Alert, Box, Button, Modal, Stack } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-function CustomeResponseModal({open,path,msg,severity,btnName}) {
+function CustomResponseModal({open,path,msg,severity,btnName}) {
     let router = useRouter()
     return (
         <Modal open={open} onClose={() => { router.push(`${path}`) }} >
@@ -18,4 +18,4 @@ function CustomeResponseModal({open,path,msg,severity,btnName}) {
     )
 }
 
-export default CustomeResponseModal
+export default CustomResponseModal

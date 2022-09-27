@@ -7,7 +7,7 @@ import Layout from '../components/layout'
 import Summary from '../components/summary'
 import { useRouter } from 'next/router'
 import { BLOODTYPES, CITIES } from '../constants'
-import CustomeResponseModal from '../components/customeResponseModal'
+import CustomResponseModal from '../components/customResponseModal'
 
 function SignUp() {
     let state = useSelector(state => state)
@@ -307,13 +307,13 @@ function SignUp() {
                                 <Box m={1}>
                                     {state.user.signUp.errorMsg && <Alert severity='error' >{state.user.signUp.errorMsg}</Alert>}
 
-                                    <CustomeResponseModal
+                                    <CustomResponseModal
                                         open={Boolean(state.user.signUp.sucessMsg)}
                                         btnName='Log In Now.'
                                         msg={state.user.signUp.sucessMsg}
                                         path='login'
                                         severity='success'
-                                    ></CustomeResponseModal>
+                                    ></CustomResponseModal>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
                                     <Button type='submit' variant='contained'>Sign Up</Button>

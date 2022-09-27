@@ -2,7 +2,7 @@ import { Alert, Autocomplete, Box, Button, Grid, LinearProgress, MenuItem, Modal
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CustomeResponseModal from '../components/customeResponseModal'
+import CustomResponseModal from '../components/customResponseModal'
 import Layout from '../components/layout'
 import { BLOODTYPES, CITIES } from '../constants'
 import { createRequest, resetRequestFormStatus } from '../state/slices/requestSlice'
@@ -123,13 +123,13 @@ function NewRequest() {
     return (
         <Layout>
             {/* create request sucess modal */}
-            <CustomeResponseModal
+            <CustomResponseModal
                 open={Boolean(requestState.newRequest.successMsg)}
                 msg={requestState.newRequest.successMsg}
                 path='/'
                 btnName='Back To Home.'
                 severity={'success'}
-            ></CustomeResponseModal>
+            ></CustomResponseModal>
 
             <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
                 {requestState.loading && <LinearProgress></LinearProgress>}
