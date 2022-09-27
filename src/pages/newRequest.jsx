@@ -1,13 +1,17 @@
-import { Autocomplete, Box, Button, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Autocomplete, Box, Button, Grid, LinearProgress, MenuItem, Modal, Stack, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import CustomeResponseModal from '../components/customeResponseModal'
 import Layout from '../components/layout'
 import { BLOODTYPES, CITIES } from '../constants'
+import { createRequest, resetRequestFormStatus } from '../state/slices/requestSlice'
 
 function NewRequest() {
     let isAuthenticated = useSelector(state => state.user.isAuthenticated)
     let router = useRouter()
+    let dispatch = useDispatch()
+    let requestState = useSelector(state => state.request)
     let [fieldsValue, setFieldsValue] = React.useState({
         bloodType: {
             value: "",
@@ -35,6 +39,7 @@ function NewRequest() {
         if (!isAuthenticated) {
             router.push('login')
         }
+        dispatch(resetRequestFormStatus())
     }, [isAuthenticated])
 
     let handleAddressChange = (e, value) => {
@@ -102,95 +107,111 @@ function NewRequest() {
         })
         if (isFormValid) {
             let requestData = {
-                address:fieldsValue.address.value,
-                bloodType:fieldsValue.bloodType.value,
-                requiredBloodUnit:fieldsValue.requiredBloodUnit.value,
-                specificLocationName:fieldsValue.specificLocationName.value,
-                message:fieldsValue.message.value
+                address: fieldsValue.address.value,
+                bloodType: fieldsValue.bloodType.value,
+                requiredBloodUnit: fieldsValue.requiredBloodUnit.value,
+                // specificLocationName:fieldsValue.specificLocationName.value,
+                message: fieldsValue.message.value
             }
-            console.log('request form submitted', fieldsValue,'/n',requestData)
+
+            dispatch(createRequest({ requestData, router }))
+            console.log('request form submitted', fieldsValue, '/n', requestData)
         } else {
             console.log('request form not submiited')
         }
     }
     return (
         <Layout>
-            <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, padding: 4, boxShadow: 10, borderRadius: 2 }}>
-                <form onSubmit={formSubmitHandler}>
-                    <Stack gap={2} direction={'column'}>
-                        <Box display={'flex'} m={{ md: 4, xs: 2 }} justifyContent={'center'}>
-                            <Typography align='center' variant='h4' >Enter The Details Of Your Request</Typography>
-                        </Box>
-                        <Stack gap={2} direction={{ xs: 'column', md: 'row' }}>
+            {/* create request sucess modal */}
+            <CustomeResponseModal
+                open={Boolean(requestState.newRequest.successMsg)}
+                msg={requestState.newRequest.successMsg}
+                path='/'
+                btnName='Back To Home.'
+                severity={'success'}
+            ></CustomeResponseModal>
+
+            <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
+                {requestState.loading && <LinearProgress></LinearProgress>}
+                <Box sx={{ padding: 4 }}>
+
+                    <form onSubmit={formSubmitHandler}>
+                        <Stack gap={2} direction={'column'}>
+                            <Box display={'flex'} m={{ md: 4, xs: 2 }} justifyContent={'center'}>
+                                <Typography align='center' variant='h4' >Enter The Details Of Your Request</Typography>
+                            </Box>
+                            <Stack gap={2} direction={{ xs: 'column', md: 'row' }}>
+                                <TextField
+                                    fullWidth
+                                    error={Boolean(fieldsValue.bloodType.errorMsg)}
+                                    helperText={fieldsValue.bloodType.errorMsg}
+                                    label='Blood Type'
+                                    value={fieldsValue.bloodType.value}
+                                    onChange={handleBloodtypeChange}
+                                    select>
+                                    {
+                                        BLOODTYPES.map((bloodType) => {
+                                            return <MenuItem key={bloodType} value={bloodType} >{bloodType}</MenuItem>
+                                        })
+                                    }
+                                </TextField>
+                                <TextField
+                                    error={Boolean(fieldsValue.requiredBloodUnit.errorMsg)}
+                                    helperText={fieldsValue.requiredBloodUnit.errorMsg}
+                                    fullWidth
+                                    label='Required Blood Unit'
+                                    value={fieldsValue.requiredBloodUnit.value}
+                                    type={'number'}
+                                    onChange={handleBloodUnitChange}
+                                >
+                                </TextField>
+
+                            </Stack>
+
+                            <Autocomplete
+                                multiple
+                                id="tags-standard"
+                                options={CITIES}
+                                // value={fieldsValue.address.value}
+                                onChange={handleAddressChange}
+                                getOptionLabel={(option) => option.name}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        error={Boolean(fieldsValue.address.errorMsg)}
+                                        helperText={fieldsValue.address.errorMsg ? fieldsValue.address.errorMsg : "You can selected more than one near by location to have more avaliable donors"}
+                                        label="Request Locations"
+                                        placeholder='locaion'
+
+                                    ></TextField>
+                                )}
+                            >
+
+                            </Autocomplete>
                             <TextField
-                                fullWidth
-                                error={Boolean(fieldsValue.bloodType.errorMsg)}
-                                helperText={fieldsValue.bloodType.errorMsg}
-                                label='Blood Type'
-                                value={fieldsValue.bloodType.value}
-                                onChange={handleBloodtypeChange}
-                                select>
-                                {
-                                    BLOODTYPES.map((bloodType) => {
-                                        return <MenuItem key={bloodType} value={bloodType} >{bloodType}</MenuItem>
-                                    })
-                                }
-                            </TextField>
-                            <TextField
-                                error={Boolean(fieldsValue.requiredBloodUnit.errorMsg)}
-                                helperText={fieldsValue.requiredBloodUnit.errorMsg}
-                                fullWidth
-                                label='Required Blood Unit'
-                                value={fieldsValue.requiredBloodUnit.value}
-                                type={'number'}
-                                onChange={handleBloodUnitChange}
+                                helperText={'Enter Your Specific Location Name, If It Is Not Avaliable On The Above List'}
+                                label="Specific Location Name ( Optional )"
+                                value={fieldsValue.specificLocationName.value}
+                                onChange={(e) => setFieldsValue(prev => ({ ...prev, specificLocationName: { value: e.target.value, errorMsg: "" } }))}
                             >
                             </TextField>
+                            <TextField
+                                label="Message ( Optional )"
+                                value={fieldsValue.message.value}
+                                onChange={(e) => setFieldsValue(prev => ({ ...prev, message: { value: e.target.value, errorMsg: "" } }))}
+                                multiline
+                                rows={3}
+                            >
+                            </TextField>
+                            <Box display={'flex'} justifyContent={'center'}>
+                                {requestState.newRequest.errorMsg && <Alert severity='error'>{requestState.newRequest.errorMsg}</Alert>}
+                                <Button type="submit" variant='contained'>Create Request</Button>
 
+                            </Box>
                         </Stack>
 
-                        <Autocomplete
-                            multiple
-                            id="tags-standard"
-                            options={CITIES}
-                            // value={fieldsValue.address.value}
-                            onChange={handleAddressChange}
-                            getOptionLabel={(option) => option.name}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    error={Boolean(fieldsValue.address.errorMsg)}
-                                    helperText={fieldsValue.address.errorMsg ? fieldsValue.address.errorMsg : "You can selected more than one near by location to have more avaliable donors"}
-                                    label="Request Locations"
-                                    placeholder='locaion'
-
-                                ></TextField>
-                            )}
-                        >
-
-                        </Autocomplete>
-                        <TextField
-                            helperText={'Enter Your Specific Location Name, If It Is Not Avaliable On The Above List'}
-                            label="Specific Location Name ( Optional )"
-                            value={fieldsValue.specificLocationName.value}
-                            onChange={(e) => setFieldsValue(prev => ({ ...prev, specificLocationName: { value: e.target.value, errorMsg: "" } }))}
-                        >
-                        </TextField>
-                        <TextField
-                            label="Message ( Optional )"
-                            value={fieldsValue.message.value}
-                            onChange={(e) => setFieldsValue(prev => ({ ...prev, message: { value: e.target.value, errorMsg: "" } }))}
-                            multiline
-                            rows={3}
-                        >
-                        </TextField>
-                        <Box display={'flex'} justifyContent={'center'}>
-                            <Button type="submit" variant='contained'>Create Request</Button>
-
-                        </Box>
-                    </Stack>
-
-                </form>
+                    </form>
+                </Box>
             </Box>
         </Layout>
     )

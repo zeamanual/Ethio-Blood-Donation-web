@@ -4,9 +4,10 @@ import React from 'react'
 import { resetFormStatus, signUpUser } from '../state/slices/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/layout'
-import Summary from '../components/summary' 
+import Summary from '../components/summary'
 import { useRouter } from 'next/router'
 import { BLOODTYPES, CITIES } from '../constants'
+import CustomeResponseModal from '../components/customeResponseModal'
 
 function SignUp() {
     let state = useSelector(state => state)
@@ -306,16 +307,13 @@ function SignUp() {
                                 <Box m={1}>
                                     {state.user.signUp.errorMsg && <Alert severity='error' >{state.user.signUp.errorMsg}</Alert>}
 
-                                    <Modal open={Boolean(state.user.signUp.sucessMsg)} onClose={() => { router.push("login") }} >
-                                        <Box sx={{ position: 'absolute', top: '50%', left: "50%", transform: 'translate(-50%, -50%)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Stack sx={{ padding: 5, backgroundColor: 'white', borderRadius: 1 }} direction={'column'} gap={1}>
-                                                <Alert>{state.user.signUp.sucessMsg} </Alert>
-                                                <Box sx={{ display: 'flex', justifyContent: "center" }}>
-                                                    <Button variant='contained' onClick={() => { router.push('login') }} >Log In Now.</Button>
-                                                </Box>
-                                            </Stack>
-                                        </Box>
-                                    </Modal>
+                                    <CustomeResponseModal
+                                        open={Boolean(state.user.signUp.sucessMsg)}
+                                        btnName='Log In Now.'
+                                        msg={state.user.signUp.sucessMsg}
+                                        path='login'
+                                        severity='success'
+                                    ></CustomeResponseModal>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
                                     <Button type='submit' variant='contained'>Sign Up</Button>
