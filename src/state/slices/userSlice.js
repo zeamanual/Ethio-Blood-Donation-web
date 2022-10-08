@@ -7,6 +7,7 @@ let initialState={
     roles:[],
     accessToken:'',
     userId:'',
+    address:'',
     error:'',
     loading:false,
     login:{
@@ -126,6 +127,7 @@ let userSlice = createSlice({
             state.login={
                 errorMsg:''
             }
+            state.address=action.payload.address
             state.loading=false,
             state.userId=action.payload.userId
         })

@@ -32,7 +32,7 @@ let NavBar = function () {
 
   let userNavs = [
     { path: 'request', name: 'My Requests' },
-    { path: state.user.roles.includes('DONOR') ? 'Mydonations' : "Create Donor Profile", name: state.user.roles.includes('DONOR') ? 'My donations' : "Become a Donor" },
+    { path: state.user.roles.includes('DONOR') ? 'myDonations' : "createDonor", name: state.user.roles.includes('DONOR') ? 'My donations' : "Become a Donor" },
     { path: 'profile', name: "Profile" },
     { path: '', name: 'Log Out' },
   ]
