@@ -63,6 +63,7 @@ let donorSlice = createSlice({
         })
         builder.addCase(createDonor.fulfilled,(state,action)=>{
             state.loading=false,
+            state.newDonor.successMsg="Donor Profile Created Sucessfully."
             state.newDonor.errorMsg=''
         })
         builder.addCase(createDonor.rejected,(state,action)=>{
@@ -70,7 +71,6 @@ let donorSlice = createSlice({
             state.newDonor.errorMsg=action.payload
             state.newDonor.successMsg=''
         })
-
     }
 })
 

@@ -57,7 +57,6 @@ function CreateDonor() {
 
             <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
                 {donorState.loading && <LinearProgress></LinearProgress>}
-                {/* {address} */}
                 <Grid container>
                     <Grid item md={6} xs={12}>
                         <Box sx={{
