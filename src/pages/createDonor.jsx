@@ -50,7 +50,7 @@ function CreateDonor() {
             <CustomResponseModal
                 open={Boolean(donorState.newDonor.successMsg)}
                 msg={donorState.newDonor.successMsg}
-                path='/requests'
+                path='/request/all'
                 btnName='Donate Now.'
                 severity={'success'}
             ></CustomResponseModal>
