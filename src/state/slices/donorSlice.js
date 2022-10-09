@@ -34,9 +34,7 @@ export let donate = createAsyncThunk(
   
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
-        for(let i = 0;i<100000;i++){
-            
-        }
+
         try {
             let response = await axios({
                 headers:{
@@ -56,6 +54,9 @@ export let donate = createAsyncThunk(
 )
 
 let initialState = {
+    details:{
+        donationAddress:[],
+    },
     loading: false,
     newDonor: {
         successMsg:'',

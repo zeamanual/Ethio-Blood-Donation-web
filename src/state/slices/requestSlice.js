@@ -7,7 +7,7 @@ export let createRequest = createAsyncThunk(
     async ({ requestData, router }, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
-        console.log("hay create new request triggered",`${baseUrl}/request`,'\n token ',accessToken)
+        console.log("hay create new request triggered", `${baseUrl}/request`, '\n token ', accessToken)
         try {
             let response = await axios({
                 url: `${baseUrl}/request`,
@@ -69,12 +69,34 @@ export let getOneRequest = createAsyncThunk(
                 url: `${baseUrl}/request/${requestId}`,
                 method: "get",
             })
-
-            console.log('get request sucess status', response.data)
             return response.data
         } catch (error) {
             let errorMsg = error.response.data.message
-            console.log('get request error message', errorMsg)
+            return thunkApi.rejectWithValue(errorMsg)
+        }
+    }
+)
+
+export let getDonorMatchingRequests = createAsyncThunk(
+    'donor/getDonorMatchingRequests',
+    async ({pageNumber=1},thunkApi) => {
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
+        try {
+            let response = await axios({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                url: `${baseUrl}/request/match/${pageNumber}`,
+                method: "get",
+            })
+
+            console.log('get matching request sucess status', response.data)
+            return response.data
+        } catch (error) {
+            let errorMsg = error.response.data.message
+            console.log('get matching request error message', errorMsg)
             return thunkApi.rejectWithValue(errorMsg)
         }
     }
@@ -84,7 +106,7 @@ export let deleteRequest = createAsyncThunk(
     'request/delete',
     async ({ requestId, router }, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-        let accessToken =thunkApi.getState().user.accessToken
+        let accessToken = thunkApi.getState().user.accessToken
         try {
             let response = await axios({
                 headers: {
@@ -107,23 +129,26 @@ export let deleteRequest = createAsyncThunk(
 
 
 let initialState = {
-    requests: [],
+    requests: {
+        data: [],
+        errorMsg: ''
+    },
     loading: false,
     newRequest: {
-        successMsg:'',
+        successMsg: '',
         errorMsg: ''
     },
     updateRequest: {
-        successMsg:'',
+        successMsg: '',
         errorMsg: ''
     },
     deleteRequest: {
-        successMsg:'',
+        successMsg: '',
         errorMsg: ''
     },
-    requestDetail:{
-        errorMsg:'',
-        requestData:''
+    requestDetail: {
+        errorMsg: '',
+        requestData: ''
     }
 }
 
@@ -132,17 +157,17 @@ let requestSlice = createSlice({
     initialState,
     reducers: {
         resetRequestFormStatus: (state) => {
-            state.newRequest={
-                errorMsg:'',
-                successMsg:''
+            state.newRequest = {
+                errorMsg: '',
+                successMsg: ''
             }
             state.updateRequest.errorMsg = {
-                errorMsg:'',
-                successMsg:''
+                errorMsg: '',
+                successMsg: ''
             }
             state.deleteRequest.errorMsg = {
-                errorMsg:'',
-                successMsg:''
+                errorMsg: '',
+                successMsg: ''
             }
         }
     },
@@ -156,10 +181,10 @@ let requestSlice = createSlice({
         builder.addCase(createRequest.fulfilled, (state, action) => {
             console.log('in fullfilled in create request')
             state.loading = false
-            state.newRequest.successMsg='Request Created Successfully'
+            state.newRequest.successMsg = 'Request Created Successfully'
         })
         builder.addCase(createRequest.rejected, (state, action) => {
-            console.log('in rejected in create request',action.payload)
+            console.log('in rejected in create request', action.payload)
             state.loading = false
             state.newRequest.errorMsg = action.payload
         })
@@ -170,7 +195,7 @@ let requestSlice = createSlice({
         })
         builder.addCase(updateRequest.fulfilled, (state, action) => {
             state.loading = false
-            state.updateRequest.successMsg='Request Updated Successfully'
+            state.updateRequest.successMsg = 'Request Updated Successfully'
         })
         builder.addCase(updateRequest.rejected, (state, action) => {
             state.loading = false
@@ -181,27 +206,42 @@ let requestSlice = createSlice({
         builder.addCase(deleteRequest.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(deleteRequest.fulfilled, (state,action)=>{
-            state.loading=false
-            state.deleteRequest.successMsg='Request Deleted Successfully'
+        builder.addCase(deleteRequest.fulfilled, (state, action) => {
+            state.loading = false
+            state.deleteRequest.successMsg = 'Request Deleted Successfully'
         })
-        builder.addCase(deleteRequest.rejected,(state,action)=>{
-            state.loading=false
-            state.deleteRequest.errorMsg=action.payload
+        builder.addCase(deleteRequest.rejected, (state, action) => {
+            state.loading = false
+            state.deleteRequest.errorMsg = action.payload
         })
 
         // reducers for getting a single request 
-        builder.addCase(getOneRequest.pending, (state)=>{
+        builder.addCase(getOneRequest.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(getOneRequest.fulfilled, (state, action) => {
+            state.requestDetail.requestData = action.payload
+            state.requestDetail.errorMsg = ''
+            state.loading = false
+        })
+        builder.addCase(getOneRequest.rejected, (state, action) => {
+            state.requestDetail.requestData = ''
+            state.requestDetail.errorMsg = action.payload
+            state.loading = false
+        })
+
+        // reducers for getting donor matching requests
+        builder.addCase(getDonorMatchingRequests.pending,(state)=>{
             state.loading=true
         })
-        builder.addCase(getOneRequest.fulfilled,(state,action)=>{
-            state.requestDetail.requestData=action.payload
-            state.requestDetail.errorMsg=''
+        builder.addCase(getDonorMatchingRequests.fulfilled,(state,action)=>{
+            state.requests.data=action.payload
+            state.requests.errorMsg=''
             state.loading=false
         })
-        builder.addCase(getOneRequest.rejected,(state,action)=>{
-            state.requestDetail.requestData=''
-            state.requestDetail.errorMsg=action.payload
+        builder.addCase(getDonorMatchingRequests.rejected,(state,action)=>{
+            state.requests.data=[]
+            state.requests.errorMsg=action.payload
             state.loading=false
         })
 
@@ -210,7 +250,7 @@ let requestSlice = createSlice({
     }
 })
 
-export let {resetRequestFormStatus} = requestSlice.actions
+export let { resetRequestFormStatus } = requestSlice.actions
 
 let reducer = requestSlice.reducer
 export default reducer

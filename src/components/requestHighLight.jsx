@@ -3,26 +3,20 @@ import { Box, Button, List, ListItem, ListItemAvatar, ListItemButton, ListItemIc
 import { useRouter } from 'next/router'
 import React from 'react'
 
-function ReqestsHighLight() {
+function ReqestsHighLight({requests}) {
     let router = useRouter()
-    let requests = [
-        {__id:'6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() },
-        {__id:'6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() },
-        {__id:'6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() }
 
-    ]
     return (
         <>
-            <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Requests That Match With Your Blood Type and Location</Typography>
             <List >
                 {requests.map(request => {
                     return <>
                         <ListItem >
-                            <ListItemButton onClick={()=>router.push({pathname:'/request',query:{reqId:request.__id}})}>
+                            <ListItemButton onClick={()=>router.push({pathname:'/request',query:{reqId:request._id}})}>
                                 <ListItemAvatar>
                                     <AccountCircleRounded fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
-                                <ListItemText primary={request.userName} secondary={request.date.toString()}>
+                                <ListItemText primary={request.userRef.userName} secondary={request.date.toString()}>
 
                                 </ListItemText>
                                 <Stack direction={'column'} justifyContent='center'>

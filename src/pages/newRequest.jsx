@@ -109,7 +109,7 @@ function NewRequest() {
             let requestData = {
                 address: fieldsValue.address.value,
                 bloodType: fieldsValue.bloodType.value,
-                requiredBloodUnit: fieldsValue.requiredBloodUnit.value,
+                requiredBloodUnit: Number(fieldsValue.requiredBloodUnit.value),
                 // specificLocationName:fieldsValue.specificLocationName.value,
                 message: fieldsValue.message.value
             }
@@ -203,10 +203,9 @@ function NewRequest() {
                                 rows={3}
                             >
                             </TextField>
-                            <Box display={'flex'} justifyContent={'center'}>
-                                {requestState.newRequest.errorMsg && <Alert severity='error'>{requestState.newRequest.errorMsg}</Alert>}
+                            <Box display={'flex'} alignItems='center' flexDirection={'column'} justifyContent={'center'}>
                                 <Button type="submit" variant='contained'>Create Request</Button>
-
+                                {requestState.newRequest.errorMsg && <Alert sx={{margin:2}} severity='error'>{requestState.newRequest.errorMsg}</Alert>}
                             </Box>
                         </Stack>
 
