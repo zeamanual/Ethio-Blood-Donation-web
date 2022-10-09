@@ -2,10 +2,17 @@ import { AccountCircleRounded } from '@mui/icons-material'
 import { Box, Button, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Layout from '../../components/layout'
 import ReqestsHighLight from '../../components/requestHighLight'
 
 function Reqests() {
+  let userState=useSelector(state=>state.user)
+  React.useEffect(()=>{
+    if (!userState.isAuthenticated) {
+      router.push('login')
+    }
+  },[userState.isAuthenticated])
   let router = useRouter()
   return (
     <Layout>

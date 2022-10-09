@@ -32,8 +32,8 @@ export let createRequest = createAsyncThunk(
 export let updateRequest = createAsyncThunk(
     'request/update',
     async ({ requestId, requestData, router }, thunkApi) => {
-        let baseUrl = process.env.process.env.NEXT_PUBLIC_BASE_URL
-        let accessToken = 'asdfsdf'
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
         try {
             let response = await axios({
                 headers: {
@@ -58,8 +58,8 @@ export let updateRequest = createAsyncThunk(
 export let getOneRequest = createAsyncThunk(
     'request/getOne',
     async ({ requestId }, thunkApi) => {
-        let baseUrl = process.env.process.env.NEXT_PUBLIC_BASE_URL
-        let accessToken = 'asdfsdf'
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
         try {
             let response = await axios({
                 headers: {
@@ -73,8 +73,8 @@ export let getOneRequest = createAsyncThunk(
             console.log('get request sucess status', response.data)
             return response.data
         } catch (error) {
-            console.log('get request error message', errorMsg)
             let errorMsg = error.response.data.message
+            console.log('get request error message', errorMsg)
             return thunkApi.rejectWithValue(errorMsg)
         }
     }
@@ -83,7 +83,8 @@ export let getOneRequest = createAsyncThunk(
 export let deleteRequest = createAsyncThunk(
     'request/delete',
     async ({ requestId, router }, thunkApi) => {
-        let baseUrl = process.env.process.env.NEXT_PUBLIC_BASE_URL
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken =thunkApi.getState().user.accessToken
         try {
             let response = await axios({
                 headers: {
@@ -119,6 +120,10 @@ let initialState = {
     deleteRequest: {
         successMsg:'',
         errorMsg: ''
+    },
+    requestDetail:{
+        errorMsg:'',
+        requestData:''
     }
 }
 
@@ -185,6 +190,20 @@ let requestSlice = createSlice({
             state.deleteRequest.errorMsg=action.payload
         })
 
+        // reducers for getting a single request 
+        builder.addCase(getOneRequest.pending, (state)=>{
+            state.loading=true
+        })
+        builder.addCase(getOneRequest.fulfilled,(state,action)=>{
+            state.requestDetail.requestData=action.payload
+            state.requestDetail.errorMsg=''
+            state.loading=false
+        })
+        builder.addCase(getOneRequest.rejected,(state,action)=>{
+            state.requestDetail.requestData=''
+            state.requestDetail.errorMsg=action.payload
+            state.loading=false
+        })
 
 
 

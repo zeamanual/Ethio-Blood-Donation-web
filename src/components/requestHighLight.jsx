@@ -5,11 +5,10 @@ import React from 'react'
 
 function ReqestsHighLight() {
     let router = useRouter()
-    console.log(new Date().toString())
     let requests = [
-        { userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], requestDate: new Date() },
-        { userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], requestDate: new Date() },
-        { userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], requestDate: new Date() }
+        {__id:'6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() },
+        {__id:'6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() },
+        {__id:'6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() }
 
     ]
     return (
@@ -19,11 +18,11 @@ function ReqestsHighLight() {
                 {requests.map(request => {
                     return <>
                         <ListItem >
-                            <ListItemButton>
+                            <ListItemButton onClick={()=>router.push({pathname:'/request',query:{reqId:request.__id}})}>
                                 <ListItemAvatar>
                                     <AccountCircleRounded fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
-                                <ListItemText primary={request.userName} secondary={request.requestDate.toString()}>
+                                <ListItemText primary={request.userName} secondary={request.date.toString()}>
 
                                 </ListItemText>
                                 <Stack direction={'column'} justifyContent='center'>

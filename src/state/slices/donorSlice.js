@@ -27,6 +27,34 @@ export let createDonor = createAsyncThunk(
     }
 )
 
+
+export let donate = createAsyncThunk(
+    'donor/donate',
+   async ({requestId},thunkApi)=>{
+  
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
+        for(let i = 0;i<100000;i++){
+            
+        }
+        try {
+            let response = await axios({
+                headers:{
+                    'Content-Type':'application/json',
+                    'Authorization':`Bearer ${accessToken}`
+                },
+                url:`${baseUrl}/request/${requestId}/donate`,
+                method:"put",
+            })
+            return response.data
+
+        } catch (error) {
+            let errorMsg = error.response.data.message
+            return thunkApi.rejectWithValue(errorMsg)
+        }
+    }
+)
+
 let initialState = {
     loading: false,
     newDonor: {
@@ -38,6 +66,10 @@ let initialState = {
         errorMsg: ''
     },
     myDonations:[],
+    newDonation:{
+        errorMsg:'',
+        successMsg:''
+    }
 }
 
 let donorSlice = createSlice({
@@ -53,6 +85,10 @@ let donorSlice = createSlice({
                 successMsg:'',
                 errorMsg: ''
             }
+        },
+        resetNewDonationStatus:(state)=>{
+            state.newDonation.errorMsg=''
+            state.newDonation.successMsg=''
         }
     },
     extraReducers:(builder)=>{
@@ -71,10 +107,26 @@ let donorSlice = createSlice({
             state.newDonor.errorMsg=action.payload
             state.newDonor.successMsg=''
         })
+
+        // reducers for donating for a request
+
+        builder.addCase(donate.pending,state=>{
+            state.loading=true
+        })
+        builder.addCase(donate.fulfilled,(state,action)=>{
+            state.newDonation.successMsg="Thank You For your willingess To Donate Your Blood. We Have Let The Requester Know About Your Donation, They Will Contact You Soon "
+            state.newDonation.errorMsg=''
+            state.loading=false 
+        })
+        builder.addCase(donate.rejected,(state,action)=>{
+            state.newDonation.successMsg=""
+            state.newDonation.errorMsg=action.payload
+            state.loading=false 
+        })
     }
 })
 
-export let {resetDonorFormStatus} = donorSlice.actions
+export let {resetDonorFormStatus,resetNewDonationStatus} = donorSlice.actions
 
 let reducer = donorSlice.reducer
 export default reducer
