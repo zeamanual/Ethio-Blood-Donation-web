@@ -7,8 +7,8 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems }) {
     let router = useRouter()
 
     return (
-        <>
-            <List >
+        <Box>
+            <List  >
                 {requests.map((request,index) => {
                     return <>
                         <ListItem key={index}>
@@ -32,7 +32,7 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems }) {
                     <Pagination defaultPage={1} onChange={pageChangeHandler} size='large' variant='text' color='primary' count={Math.ceil( totalPageItems/10)}></Pagination>
                 </Box>
             </List>
-        </>
+        </Box>
     )
 }
 

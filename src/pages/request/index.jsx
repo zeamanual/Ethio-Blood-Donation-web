@@ -47,7 +47,7 @@ function RequestDetail() {
           </Box> :
           requestState.requestDetail.errorMsg ? <Alert severity='error'>{requestState.requestDetail.errorMsg}</Alert> :
             requestState.requestDetail.requestData ? <Box>
-              <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"/'s Blood Request Detail"}</Typography>
+              <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"'s Blood Request Detail"}</Typography>
               <Grid container gap={1} >
                 <Grid xs={12} item sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
                   <Typography variant='h5'>User Name : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.userRef.userName}</Typography></Typography>

@@ -77,6 +77,29 @@ export let getOneRequest = createAsyncThunk(
     }
 )
 
+export let getMyRequests = createAsyncThunk(
+    'request/getMyRequests',
+    async(option='',thunkApi)=>{
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
+        try {
+            let response = await axios({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                url: `${baseUrl}/request`,
+                method: "get",
+            })
+           
+            return response.data
+        } catch (error) {
+            let errorMsg = error.response.data.message
+            return thunkApi.rejectWithValue(errorMsg)
+        }
+    }
+)
+
 export let getDonorMatchingRequests = createAsyncThunk(
     'donor/getDonorMatchingRequests',
     async ({ pageNumber, ignorePageNumber }, thunkApi) => {
@@ -111,13 +134,11 @@ export let getDonorMatchingRequests = createAsyncThunk(
                 method: "get",
             })
 
-            console.log('get matching request sucess status', response.data)
             finalResponse.response = response.data
 
             return finalResponse
         } catch (error) {
             let errorMsg = error.response.data.message
-            console.log('get matching request error message', errorMsg)
             return thunkApi.rejectWithValue(errorMsg)
         }
     }
@@ -152,6 +173,7 @@ export let deleteRequest = createAsyncThunk(
 let initialState = {
     requests: {
         data: [],
+        subList:[],
         totalLength: 0,
         errorMsg: ''
     },
@@ -191,6 +213,12 @@ let requestSlice = createSlice({
                 errorMsg: '',
                 successMsg: ''
             }
+        },
+        managePaginationForLocalData:(state,action)=>{
+            let pageNumber = action.payload.pageNumber
+            let startIndex = 10*pageNumber-10
+            let lastIndex=state.requests.data.length>=10*pageNumber?10*pageNumber:state.requests.data.length
+            state.requests.subList=state.requests.data.slice(startIndex,lastIndex)
         }
     },
     extraReducers: (builder) => {
@@ -261,16 +289,37 @@ let requestSlice = createSlice({
         })
         builder.addCase(getDonorMatchingRequests.rejected, (state, action) => {
             state.requests.data = []
+            state.requests.totalLength=0
             state.requests.errorMsg = action.payload
             state.loading = false
         })
 
-
-
+        // reducers for getting user requests
+        builder.addCase(getMyRequests.pending,(state)=>{
+            console.log('get my request in pending state')
+            state.loading=true
+        })
+        builder.addCase(getMyRequests.fulfilled,(state,action)=>{
+            console.log('get my request in fullfilled state')
+            state.requests.data=action.payload
+            let subListSize=action.payload.length>=10?10:action.payload.length
+            state.requests.subList=state.requests.data.slice(0,subListSize)
+            state.requests.totalLength=action.payload.length
+            state.requests.errorMsg=''
+            state.loading=false
+        })
+        builder.addCase(getMyRequests.rejected,(state,action)=>{
+            console.log('get my request in rejected state',action)
+            state.requests.data=[]
+            state.requests.subList=[]
+            state.requests.errorMsg=action.payload
+            state.requests.totalLength=0
+            state.loading=false
+        })
     }
 })
 
-export let { resetRequestFormStatus } = requestSlice.actions
+export let { resetRequestFormStatus,managePaginationForLocalData } = requestSlice.actions
 
 let reducer = requestSlice.reducer
 export default reducer
