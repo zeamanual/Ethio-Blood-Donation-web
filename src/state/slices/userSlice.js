@@ -8,6 +8,7 @@ let initialState={
     accessToken:'',
     userId:'',
     address:'',
+    bloodType:'',
     error:'',
     loading:false,
     login:{
@@ -96,6 +97,7 @@ let userSlice = createSlice({
 
     },
     extraReducers:(builder)=>{
+        // reducers for sign up
         builder.addCase(signUpUser.pending,(state)=>{
             state.loading=true
             console.log("sign up pending")
@@ -117,6 +119,7 @@ let userSlice = createSlice({
             console.log("sign up rejected")
         })
 
+        // reducers for log in
         builder.addCase(logInUser.pending,(state)=>{
             state.loading=true
         })
@@ -128,6 +131,7 @@ let userSlice = createSlice({
                 errorMsg:''
             }
             state.address=action.payload.address
+            state.bloodType=action.payload.bloodType
             state.loading=false,
             state.userId=action.payload.userId
         })

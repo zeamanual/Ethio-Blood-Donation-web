@@ -9,16 +9,17 @@ import { createRequest, resetRequestFormStatus } from '../state/slices/requestSl
 
 function NewRequest() {
     let isAuthenticated = useSelector(state => state.user.isAuthenticated)
+    let userState = useSelector(state=>state.user)
     let router = useRouter()
     let dispatch = useDispatch()
     let requestState = useSelector(state => state.request)
     let [fieldsValue, setFieldsValue] = React.useState({
         bloodType: {
-            value: "",
+            value: userState.bloodType,
             errorMsg: ''
         },
         address: {
-            value: [],
+            value: [userState.address],
             errorMsg: ''
         },
         requiredBloodUnit: {
@@ -148,7 +149,8 @@ function NewRequest() {
                                     label='Blood Type'
                                     value={fieldsValue.bloodType.value}
                                     onChange={handleBloodtypeChange}
-                                    select>
+                                    select
+                                    >
                                     {
                                         BLOODTYPES.map((bloodType) => {
                                             return <MenuItem key={bloodType} value={bloodType} >{bloodType}</MenuItem>
@@ -172,7 +174,8 @@ function NewRequest() {
                                 multiple
                                 id="tags-standard"
                                 options={CITIES}
-                                // value={fieldsValue.address.value}
+                                defaultValue={[{name:userState.address} ]}
+                                isOptionEqualToValue={(option,value)=>{ return option.name==value.name}}
                                 onChange={handleAddressChange}
                                 getOptionLabel={(option) => option.name}
                                 renderInput={(params) => (
