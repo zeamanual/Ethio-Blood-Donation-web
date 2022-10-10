@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { donorRoleAdded } from "./userSlice";
 
 export let createDonor = createAsyncThunk(
     'donor/newDonor',
@@ -18,6 +19,7 @@ export let createDonor = createAsyncThunk(
                 method:"post",
                 data:{'address':addressData}
             })
+            thunkApi.dispatch(donorRoleAdded())
             return response.data
 
         } catch (error) {

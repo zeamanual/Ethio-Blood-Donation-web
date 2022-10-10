@@ -23,6 +23,21 @@ let NavBar = function () {
     setDrawerOpened(!drawerOpened)
   }
 
+  let handleDonateNow = () => {
+    if (state.user.isAuthenticated) {
+      state.user.roles.includes('DONOR') ? router.push('/request/all') : router.push("/createDonor")
+    } else {
+      router.push("/login")
+    }
+  }
+  let handleCreateRequestNow = () => {
+    if (state.user.isAuthenticated) {
+      router.push('/newRequest')
+    } else {
+      router.push("/login")
+    }
+  }
+
   let navItems = [
     { path: '', name: 'HOME' },
     { path: 'statistics', name: 'STATISTICS' },
@@ -66,8 +81,8 @@ let NavBar = function () {
             <Stack gap={2} sx={{ display: { md: 'flex', xs: 'none' }, }} direction={'row'}>
               {state.user.isAuthenticated
                 ? <ButtonGroup>
-                  <Button onClick={() => { router.push(`/request/all`) }} variant='contained'>Donate Now</Button>
-                  <Button onClick={() => { router.push(`/newRequest`) }} variant='contained'>Create Request</Button>
+                  <Button onClick={handleDonateNow} variant='contained'>Donate Now</Button>
+                  <Button onClick={handleCreateRequestNow} variant='contained'>Create Request</Button>
                 </ButtonGroup>
                 : <></>
               }
@@ -124,7 +139,6 @@ let NavBar = function () {
           })}
 
           <Divider></Divider>
-          {/* <ListItem> */}
           {state.user.isAuthenticated
             ? <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 2 }}>
               <Box display={'flex'} justifyContent={'center'} >
@@ -144,8 +158,8 @@ let NavBar = function () {
                 })
               }
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
-                <Button onClick={() => { router.push(`/request/all`) }} variant='contained'>Donate Now</Button>
-                <Button onClick={() => { router.push(`/newRequest`) }} variant='contained'>Create Request</Button>
+                <Button onClick={handleDonateNow} variant='contained'>Donate Now</Button>
+                <Button onClick={handleCreateRequestNow} variant='contained'>Create Request</Button>
               </Box>
 
             </Box>
@@ -154,8 +168,6 @@ let NavBar = function () {
               <Button onClick={() => { router.push(`/signup`) }} variant='contained'>Sign Up</Button>
             </Box>
           }
-
-          {/* </ListItem> */}
         </List>
       </Drawer>
     </>

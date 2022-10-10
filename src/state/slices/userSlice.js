@@ -93,6 +93,11 @@ let userSlice = createSlice({
             state.accessToken='',
             state.roles=[],
             state.userId=''
+        },
+        donorRoleAdded:(state)=>{
+            if(!state.roles.includes("DONOR")){
+                state.roles.push("DONOR")
+            }
         }
 
     },
@@ -145,7 +150,7 @@ let userSlice = createSlice({
 
 })
 
-export let {resetFormStatus,logOut}  = userSlice.actions
+export let {resetFormStatus,logOut,donorRoleAdded}  = userSlice.actions
 
 let reducer = userSlice.reducer
 export default  reducer
