@@ -15,17 +15,17 @@ function Reqests() {
   let router = useRouter()
   let requestState = useSelector(state => state.request)
   let requests = requestState.requests.data
-  // [
-  //   { __id: '6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() },
-  //   { __id: '6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() },
-  //   { __id: '6332c833f16764738d39b972', userName: "Zeamanua Feleke", bloodType: 'A+', address: ['Addis Ababa', 'Dire Dewa'], date: new Date() }
+  let totalRequestsSize = requestState.requests.totalLength
 
-  // ]
+  let pageChangeHandler=(event,value)=>{
+    dispatch(getDonorMatchingRequests({pageNumber:value,ignorePageNumber:false}))
+  }
+
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
       router.push('/login')
     }
-    dispatch(getDonorMatchingRequests({ pageNumber: 1}))
+    dispatch(getDonorMatchingRequests({ pageNumber: 1,ignorePageNumber:true}))
 
   }, [userState.isAuthenticated,])
 
@@ -40,7 +40,7 @@ function Reqests() {
             </Box> :
             <Box >
               <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Requests That Match With Your Blood Type and Location</Typography>
-              <ReqestsHighLight requests={requests} ></ReqestsHighLight>
+              <ReqestsHighLight pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
             </Box>
           }
         </CustomPaperCard>

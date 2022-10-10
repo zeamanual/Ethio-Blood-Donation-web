@@ -79,10 +79,29 @@ export let getOneRequest = createAsyncThunk(
 
 export let getDonorMatchingRequests = createAsyncThunk(
     'donor/getDonorMatchingRequests',
-    async ({pageNumber=1},thunkApi) => {
+    async ({ pageNumber, ignorePageNumber }, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
         try {
+            let finalResponse = {
+                totalItemSize: '',
+                response: ''
+            }
+
+            if (ignorePageNumber) {
+                let response = await axios({
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                    url: `${baseUrl}/request/match/${pageNumber}?ignorePageNumber=${ignorePageNumber}`,
+                    method: "get",
+                })
+
+                finalResponse.totalItemSize = response.data
+
+            }
+
             let response = await axios({
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +112,9 @@ export let getDonorMatchingRequests = createAsyncThunk(
             })
 
             console.log('get matching request sucess status', response.data)
-            return response.data
+            finalResponse.response = response.data
+
+            return finalResponse
         } catch (error) {
             let errorMsg = error.response.data.message
             console.log('get matching request error message', errorMsg)
@@ -131,6 +152,7 @@ export let deleteRequest = createAsyncThunk(
 let initialState = {
     requests: {
         data: [],
+        totalLength: 0,
         errorMsg: ''
     },
     loading: false,
@@ -175,16 +197,13 @@ let requestSlice = createSlice({
 
         // reducers for creating new request
         builder.addCase(createRequest.pending, (state) => {
-            console.log('in pending in create request')
             state.loading = true
         })
         builder.addCase(createRequest.fulfilled, (state, action) => {
-            console.log('in fullfilled in create request')
             state.loading = false
             state.newRequest.successMsg = 'Request Created Successfully'
         })
         builder.addCase(createRequest.rejected, (state, action) => {
-            console.log('in rejected in create request', action.payload)
             state.loading = false
             state.newRequest.errorMsg = action.payload
         })
@@ -231,18 +250,19 @@ let requestSlice = createSlice({
         })
 
         // reducers for getting donor matching requests
-        builder.addCase(getDonorMatchingRequests.pending,(state)=>{
-            state.loading=true
+        builder.addCase(getDonorMatchingRequests.pending, (state) => {
+            state.loading = true
         })
-        builder.addCase(getDonorMatchingRequests.fulfilled,(state,action)=>{
-            state.requests.data=action.payload
-            state.requests.errorMsg=''
-            state.loading=false
+        builder.addCase(getDonorMatchingRequests.fulfilled, (state, action) => {
+            state.requests.data = action.payload.response
+            state.requests.totalLength=action.payload.totalItemSize?action.payload.totalItemSize:state.requests.totalLength
+            state.requests.errorMsg = ''
+            state.loading = false
         })
-        builder.addCase(getDonorMatchingRequests.rejected,(state,action)=>{
-            state.requests.data=[]
-            state.requests.errorMsg=action.payload
-            state.loading=false
+        builder.addCase(getDonorMatchingRequests.rejected, (state, action) => {
+            state.requests.data = []
+            state.requests.errorMsg = action.payload
+            state.loading = false
         })
 
 
