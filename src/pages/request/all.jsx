@@ -21,6 +21,10 @@ function Reqests() {
     dispatch(getDonorMatchingRequests({pageNumber:value,ignorePageNumber:false}))
   }
 
+  let requestClickHandler = (request)=>{
+    router.push({ pathname: '/request', query: { reqId: request._id } })
+  }
+
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
       router.push('/login')
@@ -40,7 +44,7 @@ function Reqests() {
             </Box> :
             <Box >
               <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Requests That Match With Your Blood Type and Location</Typography>
-              <ReqestsHighLight pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
+              <ReqestsHighLight requestClickHandler={requestClickHandler}  pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
             </Box>
           }
         </CustomPaperCard>

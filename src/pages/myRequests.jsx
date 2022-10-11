@@ -21,15 +21,15 @@ function MyRequests() {
     dispatch(managePaginationForLocalData({pageNumber:value}))
   }
 
+  let requestClickHandler = (request)=>{
+    router.push({ pathname: '/request', query: { reqId: request._id } })
+  }
+
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
       router.push('login')
     }
-
     dispatch(getMyRequests())
-    console.log('hay my request is rendered',userState.isAuthenticated)
-   
-
   }, [userState.isAuthenticated])
 
   return (
@@ -43,7 +43,7 @@ function MyRequests() {
             </Box> :
             <Box width='100%'>
               <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Your Requests</Typography>
-              <ReqestsHighLight  pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
+              <ReqestsHighLight requestClickHandler={requestClickHandler} pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
             </Box>
           }
         </CustomPaperCard>

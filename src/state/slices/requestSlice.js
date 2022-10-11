@@ -79,7 +79,7 @@ export let getOneRequest = createAsyncThunk(
 
 export let getMyRequests = createAsyncThunk(
     'request/getMyRequests',
-    async(option='',thunkApi)=>{
+    async (option = '', thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
         try {
@@ -91,7 +91,7 @@ export let getMyRequests = createAsyncThunk(
                 url: `${baseUrl}/request`,
                 method: "get",
             })
-           
+
             return response.data
         } catch (error) {
             let errorMsg = error.response.data.message
@@ -144,6 +144,29 @@ export let getDonorMatchingRequests = createAsyncThunk(
     }
 )
 
+export let getRequestsUserDonatedOn = createAsyncThunk(
+    'request/getRequestsUserDonatedOn',
+    async (option = '', thunkApi) => {
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
+        try {
+            let response = await axios({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                url: `${baseUrl}/request/byDonorId`,
+                method: "get",
+            })
+
+            return response.data
+        } catch (error) {
+            let errorMsg = error.response.data.message
+            return thunkApi.rejectWithValue(errorMsg)
+        }
+    }
+)
+
 export let deleteRequest = createAsyncThunk(
     'request/delete',
     async ({ requestId, router }, thunkApi) => {
@@ -173,7 +196,7 @@ export let deleteRequest = createAsyncThunk(
 let initialState = {
     requests: {
         data: [],
-        subList:[],
+        subList: [],
         totalLength: 0,
         errorMsg: ''
     },
@@ -214,11 +237,11 @@ let requestSlice = createSlice({
                 successMsg: ''
             }
         },
-        managePaginationForLocalData:(state,action)=>{
+        managePaginationForLocalData: (state, action) => {
             let pageNumber = action.payload.pageNumber
-            let startIndex = 10*pageNumber-10
-            let lastIndex=state.requests.data.length>=10*pageNumber?10*pageNumber:state.requests.data.length
-            state.requests.subList=state.requests.data.slice(startIndex,lastIndex)
+            let startIndex = 10 * pageNumber - 10
+            let lastIndex = state.requests.data.length >= 10 * pageNumber ? 10 * pageNumber : state.requests.data.length
+            state.requests.subList = state.requests.data.slice(startIndex, lastIndex)
         }
     },
     extraReducers: (builder) => {
@@ -283,43 +306,60 @@ let requestSlice = createSlice({
         })
         builder.addCase(getDonorMatchingRequests.fulfilled, (state, action) => {
             state.requests.data = action.payload.response
-            state.requests.totalLength=action.payload.totalItemSize?action.payload.totalItemSize:state.requests.totalLength
+            state.requests.totalLength = action.payload.totalItemSize ? action.payload.totalItemSize : state.requests.totalLength
             state.requests.errorMsg = ''
             state.loading = false
         })
         builder.addCase(getDonorMatchingRequests.rejected, (state, action) => {
             state.requests.data = []
-            state.requests.totalLength=0
+            state.requests.totalLength = 0
             state.requests.errorMsg = action.payload
             state.loading = false
         })
 
         // reducers for getting user requests
-        builder.addCase(getMyRequests.pending,(state)=>{
-            console.log('get my request in pending state')
-            state.loading=true
+        builder.addCase(getMyRequests.pending, (state) => {
+            state.loading = true
         })
-        builder.addCase(getMyRequests.fulfilled,(state,action)=>{
-            console.log('get my request in fullfilled state')
-            state.requests.data=action.payload
-            let subListSize=action.payload.length>=10?10:action.payload.length
-            state.requests.subList=state.requests.data.slice(0,subListSize)
-            state.requests.totalLength=action.payload.length
-            state.requests.errorMsg=''
-            state.loading=false
+        builder.addCase(getMyRequests.fulfilled, (state, action) => {
+            state.requests.data = action.payload
+            let subListSize = action.payload.length >= 10 ? 10 : action.payload.length
+            state.requests.subList = state.requests.data.slice(0, subListSize)
+            state.requests.totalLength = action.payload.length
+            state.requests.errorMsg = ''
+            state.loading = false
         })
-        builder.addCase(getMyRequests.rejected,(state,action)=>{
-            console.log('get my request in rejected state',action)
-            state.requests.data=[]
-            state.requests.subList=[]
-            state.requests.errorMsg=action.payload
-            state.requests.totalLength=0
-            state.loading=false
+        builder.addCase(getMyRequests.rejected, (state, action) => {
+            state.requests.data = []
+            state.requests.subList = []
+            state.requests.errorMsg = action.payload
+            state.requests.totalLength = 0
+            state.loading = false
+        })
+
+        // reducers to get requests on which a user have donated
+        builder.addCase(getRequestsUserDonatedOn.pending,state=>{
+            state.loading = true
+        })
+        builder.addCase(getRequestsUserDonatedOn.fulfilled,(state,action)=>{
+            state.requests.data = action.payload
+            let subListSize = action.payload.length >= 10 ? 10 : action.payload.length
+            state.requests.subList = state.requests.data.slice(0, subListSize)
+            state.requests.totalLength = action.payload.length
+            state.requests.errorMsg = ''
+            state.loading = false
+        })
+        builder.addCase(getRequestsUserDonatedOn.rejected,(state,action)=>{
+            state.requests.data = []
+            state.requests.subList = []
+            state.requests.errorMsg = action.payload
+            state.requests.totalLength = 0
+            state.loading = false
         })
     }
 })
 
-export let { resetRequestFormStatus,managePaginationForLocalData } = requestSlice.actions
+export let { resetRequestFormStatus, managePaginationForLocalData } = requestSlice.actions
 
 let reducer = requestSlice.reducer
 export default reducer

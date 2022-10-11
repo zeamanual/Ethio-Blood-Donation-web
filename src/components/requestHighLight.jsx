@@ -3,7 +3,7 @@ import { Box, Button, List, ListItem, ListItemAvatar, ListItemButton, ListItemIc
 import { useRouter } from 'next/router'
 import React from 'react'
 
-function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems }) {
+function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestClickHandler }) {
     let router = useRouter()
 
     return (
@@ -12,7 +12,7 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems }) {
                 {requests.map((request,index) => {
                     return <>
                         <ListItem key={index}>
-                            <ListItemButton onClick={() => router.push({ pathname: '/request', query: { reqId: request._id } })}>
+                            <ListItemButton onClick={() => {requestClickHandler(request)}}>
                                 <ListItemAvatar>
                                     <AccountCircleRounded fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
