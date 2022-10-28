@@ -22,7 +22,7 @@ function MyRequests() {
   }
 
   let requestClickHandler = (request)=>{
-    router.push({ pathname: '/request', query: { reqId: request._id } })
+    router.push({ pathname: '/request/owned', query: { reqId: request._id } })
   }
 
   React.useEffect(() => {

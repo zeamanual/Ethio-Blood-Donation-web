@@ -69,6 +69,7 @@ export let getOneRequest = createAsyncThunk(
                 url: `${baseUrl}/request/${requestId}`,
                 method: "get",
             })
+            console.log('get single request method success ',response.data)
             return response.data
         } catch (error) {
             let errorMsg = error.response.data.message

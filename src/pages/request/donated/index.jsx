@@ -2,12 +2,12 @@ import { Alert, Backdrop, Box, Button, CircularProgress, Grid, Typography } from
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CustomPaperCard from '../../components/customPaperCard'
-import CustomProgressModal from '../../components/customProgressModal'
-import CustomResponseModal from '../../components/customResponseModal'
-import Layout from '../../components/layout'
-import { donate, resetNewDonationStatus } from '../../state/slices/donorSlice'
-import { getOneRequest } from '../../state/slices/requestSlice'
+import CustomPaperCard from '../../../components/customPaperCard'
+import CustomProgressModal from '../../../components/customProgressModal'
+import CustomResponseModal from '../../../components/customResponseModal'
+import Layout from '../../../components/layout'
+import { donate, resetNewDonationStatus } from '../../../state/slices/donorSlice'
+import { getOneRequest } from '../../../state/slices/requestSlice'
 
 function RequestDetail() {
   let router = useRouter()
@@ -17,10 +17,6 @@ function RequestDetail() {
   let dispatch = useDispatch()
   let requestId = router.query.reqId
   let requestDetail = requestState.requestDetail.requestData
-
-  let donateHandler = () => {
-    dispatch(donate({ requestId }))
-  }
 
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
@@ -33,14 +29,6 @@ function RequestDetail() {
   return (
     <Layout>
       <CustomPaperCard>
-        <CustomProgressModal open={donorState.loading} message={'Donation In Progress'} ></CustomProgressModal>
-        <CustomResponseModal
-          btnName={"Go To Home"}
-          msg={donorState.newDonation.successMsg}
-          open={donorState.newDonation.successMsg}
-          severity={'success'}
-          path={'/'}
-        ></CustomResponseModal>
         {requestState.loading ?
           <Box sx={{ height: '50vh', width: '100%', display: 'flex', justifyContent: "center", alignItems: 'center' }}>
             <CircularProgress></CircularProgress>
@@ -71,10 +59,6 @@ function RequestDetail() {
                   <Typography variant='h5'>Message : <Typography color='GrayText' variant='h5' component={'span'}>{requestDetail.message}</Typography></Typography>
                 </Grid>
               </Grid>
-              <Box p={1} display='flex' justifyContent={'center'}>
-                <Button onClick={donateHandler} color='secondary' variant='contained' >Donate Now</Button>
-              </Box>
-              {donorState.newDonation.errorMsg ? <Alert severity='error'>{donorState.newDonation.errorMsg}</Alert> : <></>}
             </Box> : <></>
         }
 
