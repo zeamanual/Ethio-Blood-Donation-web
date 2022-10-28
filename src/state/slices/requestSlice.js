@@ -170,12 +170,13 @@ export let getRequestsUserDonatedOn = createAsyncThunk(
 
 export let deleteRequest = createAsyncThunk(
     'request/delete',
-    async ({ requestId, router }, thunkApi) => {
+    async ({ requestId }, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
         try {
             let response = await axios({
                 headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 },
                 url: `${baseUrl}/request/${requestId}`,
@@ -233,7 +234,7 @@ let requestSlice = createSlice({
                 errorMsg: '',
                 successMsg: ''
             }
-            state.deleteRequest.errorMsg = {
+            state.deleteRequest = {
                 errorMsg: '',
                 successMsg: ''
             }
@@ -282,9 +283,11 @@ let requestSlice = createSlice({
         builder.addCase(deleteRequest.fulfilled, (state, action) => {
             state.loading = false
             state.deleteRequest.successMsg = 'Request Deleted Successfully'
+            state.deleteRequest.errorMsg = ''
         })
         builder.addCase(deleteRequest.rejected, (state, action) => {
             state.loading = false
+            state.deleteRequest.successMsg = ''
             state.deleteRequest.errorMsg = action.payload
         })
 

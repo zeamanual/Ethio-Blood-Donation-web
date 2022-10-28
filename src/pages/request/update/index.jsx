@@ -14,14 +14,16 @@ function UpdateRequest() {
     let queryData = router.query
     let dispatch = useDispatch()
     let requestState = useSelector(state => state.request)
-    let existingRequestAddress = queryData.address.map(address=>{ return {name:address}})
+    console.log('in update',typeof queryData.address)
+    let existingRequestAddress =  typeof queryData.address=='string'?[{name:queryData.address}]: queryData.address.map(address=>{ return {name:address}})
+    console.log("in update request page",queryData,'middle',existingRequestAddress)
     let [fieldsValue, setFieldsValue] = React.useState({
         bloodType: {
             value: queryData.bloodType,
             errorMsg: ''
         },
         address: { 
-            value: [...queryData.address],
+            value:typeof queryData.address=='string'? [queryData.address]:[...queryData.address],
             errorMsg: ''
         },
         requiredBloodUnit: {

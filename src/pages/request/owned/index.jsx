@@ -8,7 +8,7 @@ import CustomProgressModal from '../../../components/customProgressModal'
 import CustomResponseModal from '../../../components/customResponseModal'
 import Layout from '../../../components/layout'
 import { donate, resetNewDonationStatus } from '../../../state/slices/donorSlice'
-import { getOneRequest } from '../../../state/slices/requestSlice'
+import { deleteRequest, getOneRequest, resetRequestFormStatus } from '../../../state/slices/requestSlice'
 
 function RequestDetail() {
   let router = useRouter()
@@ -20,27 +20,27 @@ function RequestDetail() {
   let requestDetail = requestState.requestDetail.requestData
 
   let updateRequestHandler = () => {
-    router.push({ pathname:'/request/update',query:requestDetail})
+    router.push({ pathname: '/request/update', query: requestDetail })
   }
   let deleteRequestHandler = () => {
-
+    dispatch(deleteRequest({ requestId }))
   }
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
       router.push('/login')
     }
-    dispatch(resetNewDonationStatus())
+    dispatch(resetRequestFormStatus())
     dispatch(getOneRequest({ requestId }))
   }, [userState.isAuthenticated])
 
   return (
     <Layout>
       <CustomPaperCard>
-        <CustomProgressModal open={donorState.loading} message={'Donation In Progress'} ></CustomProgressModal>
+        <CustomProgressModal open={requestState.loading} message={'Deleting Request In Progress'} ></CustomProgressModal>
         <CustomResponseModal
           btnName={"Go To Home"}
-          msg={donorState.newDonation.successMsg}
-          open={donorState.newDonation.successMsg}
+          msg={requestState.deleteRequest.successMsg}
+          open={requestState.deleteRequest.successMsg}
           severity={'success'}
           path={'/'}
         ></CustomResponseModal>
@@ -48,63 +48,64 @@ function RequestDetail() {
           <Box sx={{ height: '50vh', width: '100%', display: 'flex', justifyContent: "center", alignItems: 'center' }}>
             <CircularProgress></CircularProgress>
           </Box> :
-          requestState.requestDetail.errorMsg ? <Alert severity='error'>{requestState.requestDetail.errorMsg}</Alert> :
-            requestState.requestDetail.requestData ? <Box>
-              <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"'s Blood Request Detail"}</Typography>
-              <Stack mb={2} alignItems={'end'}>
-                <Stack gap={2} direction={'row'} alignItems='center'>
-                  <Typography variant="h6">STATUS :</Typography>
-                  <Button sx={{ cursor: 'text' }} color={requestDetail.status == 'fulfilled' ? 'success' : 'warning'} variant='contained' disableElevation>{requestDetail.status}</Button>
+          requestState.requestDetail.errorMsg ? <Alert severity='error'>{requestState.requestDetail.errorMsg}</Alert>
+            : requestState.deleteRequest.errorMsg ? <Alert severity='error'>{requestState.deleteRequest.errorMsg}</Alert>
+              : requestState.requestDetail.requestData ? <Box>
+                <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"'s Blood Request Detail"}</Typography>
+                <Stack mb={2} alignItems={'end'}>
+                  <Stack gap={2} direction={'row'} alignItems='center'>
+                    <Typography variant="h6">STATUS :</Typography>
+                    <Button sx={{ cursor: 'text' }} color={requestDetail.status == 'fulfilled' ? 'success' : 'warning'} variant='contained' disableElevation>{requestDetail.status}</Button>
+                  </Stack>
                 </Stack>
-              </Stack>
-              <Grid container gap={1} >
-                <Grid xs={12} item sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                  <Typography variant='h5'>User Name : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.userRef.userName}</Typography></Typography>
-                </Grid>
-                <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
-                  <Typography variant='h5'>Required Bood Type :<Typography color='GrayText' variant='h5' component={'span'}>  {requestDetail.bloodType}</Typography></Typography>
-                </Grid>
-                <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
-                  <Typography variant='h5'>Blood Unit Required : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.requiredBloodUnit}</Typography></Typography>
-                </Grid>
-                <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                  <Box>
+                <Grid container gap={1} >
+                  <Grid xs={12} item sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                    <Typography variant='h5'>User Name : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.userRef.userName}</Typography></Typography>
+                  </Grid>
+                  <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
+                    <Typography variant='h5'>Required Bood Type :<Typography color='GrayText' variant='h5' component={'span'}>  {requestDetail.bloodType}</Typography></Typography>
+                  </Grid>
+                  <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
+                    <Typography variant='h5'>Blood Unit Required : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.requiredBloodUnit}</Typography></Typography>
+                  </Grid>
+                  <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
                     <Box>
-                      <Typography variant='h5'>Found Donors So Far : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.foundDonors.length}</Typography></Typography>
+                      <Box>
+                        <Typography variant='h5'>Found Donors So Far : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.foundDonors.length}</Typography></Typography>
+                      </Box>
+                      <Stack direction={'column'} p={2}>
+                        {
+                          requestDetail.donorsDetail.map((donor, index) => {
+                            return (
+                              <>
+                                <Typography align='center' variant='h6' >Donor {index + 1} Detail</Typography>
+                                <Typography variant='h6'>
+                                  Username:  <Typography color='gray'>{donor.userName}</Typography>
+                                  Phonenumber:<Typography color='gray' ><a href={`tel:${donor.phoneNumber}`}  >+{donor.phoneNumber}</a></Typography>
+                                  Email:<Typography color='gray' ><a href={`mailto:${donor.email}`}  >{donor.email}</a></Typography></Typography>
+                              </>
+                            )
+                          })
+                        }
+                      </Stack>
                     </Box>
-                    <Stack direction={'column'} p={2}>
-                      {
-                        requestDetail.donorsDetail.map((donor, index) => {
-                          return (
-                            <>
-                              <Typography align='center' variant='h6' >Donor {index+1} Detail</Typography>
-                              <Typography variant='h6'>
-                                Username:  <Typography color='gray'>{donor.userName}</Typography>
-                                Phonenumber:<Typography color='gray' ><a href={`tel:${donor.phoneNumber}`}  >+{donor.phoneNumber}</a></Typography>
-                                Email:<Typography color='gray' ><a href={`mailto:${donor.email}`}  >{donor.email}</a></Typography></Typography>
-                            </>
-                          )
-                        })
-                      }
-                    </Stack>
-                  </Box>
+                  </Grid>
+                  <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                    <Typography variant='h5'>Request Created On : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.date.toString()}</Typography></Typography>
+                  </Grid>
+                  <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                    <Typography variant='h5'>Looking For Donors in: : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.address.map(addr => `${addr}, `)}</Typography></Typography>
+                  </Grid>
+                  <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                    <Typography variant='h5'>Message : <Typography color='GrayText' variant='h5' component={'span'}>{requestDetail.message}</Typography></Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                  <Typography variant='h5'>Request Created On : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.date.toString()}</Typography></Typography>
-                </Grid>
-                <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                  <Typography variant='h5'>Looking For Donors in: : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.address.map(addr => `${addr}, `)}</Typography></Typography>
-                </Grid>
-                <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                  <Typography variant='h5'>Message : <Typography color='GrayText' variant='h5' component={'span'}>{requestDetail.message}</Typography></Typography>
-                </Grid>
-              </Grid>
-              <Box p={1} display='flex' justifyContent={'space-around'}>
-                <Button startIcon={<Edit></Edit>} onClick={updateRequestHandler} color='info' variant='contained' >Update</Button>
-                <Button startIcon={<Delete></Delete>} onClick={deleteRequestHandler} color='error' variant='contained' >Delete</Button>
-              </Box>
-              {donorState.newDonation.errorMsg ? <Alert severity='error'>{donorState.newDonation.errorMsg}</Alert> : <></>}
-            </Box> : <></>
+                <Box p={1} display='flex' justifyContent={'space-around'}>
+                  <Button startIcon={<Edit></Edit>} onClick={updateRequestHandler} color='info' variant='contained' >Update</Button>
+                  <Button startIcon={<Delete></Delete>} onClick={deleteRequestHandler} color='error' variant='contained' >Delete</Button>
+                </Box>
+                {donorState.newDonation.errorMsg ? <Alert severity='error'>{donorState.newDonation.errorMsg}</Alert> : <></>}
+              </Box> : <></>
         }
 
       </CustomPaperCard>
