@@ -31,7 +31,7 @@ export let createRequest = createAsyncThunk(
 
 export let updateRequest = createAsyncThunk(
     'request/update',
-    async ({ requestId, requestData, router }, thunkApi) => {
+    async ({ requestId, requestData }, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
         try {
@@ -229,7 +229,7 @@ let requestSlice = createSlice({
                 errorMsg: '',
                 successMsg: ''
             }
-            state.updateRequest.errorMsg = {
+            state.updateRequest = {
                 errorMsg: '',
                 successMsg: ''
             }
@@ -267,10 +267,12 @@ let requestSlice = createSlice({
         builder.addCase(updateRequest.fulfilled, (state, action) => {
             state.loading = false
             state.updateRequest.successMsg = 'Request Updated Successfully'
+            state.updateRequest.errorMsg = ''
         })
         builder.addCase(updateRequest.rejected, (state, action) => {
             state.loading = false
             state.updateRequest.errorMsg = action.payload
+            state.updateRequest.successMsg = ''
         })
 
         // reducers for deleting request

@@ -20,25 +20,11 @@ function RequestDetail() {
   let requestDetail = requestState.requestDetail.requestData
 
   let updateRequestHandler = () => {
-
+    router.push({ pathname:'/request/update',query:requestDetail})
   }
   let deleteRequestHandler = () => {
 
   }
-
-  let sampleDonorData = [
-    {
-      userName: "Zeamanual Feleke",
-      phoneNumber: "251964557813",
-      email: 'zeamanualfeleke@gmail.com'
-    },
-    {
-      userName: "Simon Mekonnen",
-      phoneNumber: "251964557813",
-      email: 'simonmekonen@gmail.com'
-    },
-  ]
-
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
       router.push('/login')
@@ -88,7 +74,7 @@ function RequestDetail() {
                     </Box>
                     <Stack direction={'column'} p={2}>
                       {
-                        sampleDonorData.map((donor, index) => {
+                        requestDetail.donorsDetail.map((donor, index) => {
                           return (
                             <>
                               <Typography align='center' variant='h6' >Donor {index+1} Detail</Typography>
