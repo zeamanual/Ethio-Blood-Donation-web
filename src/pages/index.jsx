@@ -1,11 +1,31 @@
+import style from '../styles/buttonEffect.module.css'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/navBar.jsx'
 import Footer from '../components/footer'
 import { Box, Button, Container, Modal, Snackbar, Typography } from '@mui/material'
 import Layout from '../components/layout'
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 export default function Home() {
 
+  let state= useSelector(state=>state)
+  let router = useRouter()
+
+  let handleDonateNow = () => {
+    if (state.user.isAuthenticated) {
+      state.user.roles.includes('DONOR') ? router.push('/request/all') : router.push("/createDonor")
+    } else {
+      router.push("/login")
+    }
+  }
+  let handleCreateRequestNow = () => {
+    if (state.user.isAuthenticated) {
+      router.push('/newRequest')
+    } else {
+      router.push("/login")
+    }
+  }
 
   return (
     <>
@@ -16,36 +36,72 @@ export default function Home() {
       </Head>
 
       <Layout>
-      <Box mt={0}
-      sx={{
-        height:'100vh',
-        backgroundImage:`url(/hero.jpeg)`,
-        backgroundPosition:'center',
-        backgroundSize:'cover',
-        backgroundRepeat:'no-repeat',
-        display:'flex',
-        backgroundAttachment:'fixed',
-        justifyContent:'center',
-        alignItems:'center'
-      }}
-      >
+        <Box mt={0}
+          sx={{
+            height: '100vh',
+            backgroundImage: `  linear-gradient(to bottom, rgba(255, 0, 0, 0.52), rgba(0, 100, 0, 0.3)),url(/hero.jpeg)`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            backgroundAttachment: 'fixed',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
 
-      <Box
-      sx = {{
-        display:'flex',
-        flexDirection:"column",
-        alignItems:'center',
-        padding:1
-      }}
-      >
-        <Typography align='center' variant='h3' color='white' >
-          Come And Lets Save Lives With Just Our Blood
-        </Typography>
-        <Button sx={{margin:4}} variant= {'contained'}>
-          Donate Now
-        </Button>
-      </Box>
-      </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: "column",
+              alignItems: 'center',
+              padding: 1
+            }}
+          >
+            <Typography align='center' variant='h3' color='white' >
+              Come And Lets Save Lives With Just Our Blood
+            </Typography>
+            {/* <Button sx={{margin:4}} variant= {'contained'}> */}
+
+            <div onClick={handleDonateNow} style={{cursor:'pointer'}} className={style.animatedButton}>
+              <h4>Donate Now</h4>
+            </div>
+            {/* </Button> */}
+          </Box>
+        </Box>
+        <Box mt={0}
+          sx={{
+            height: '100vh',
+            backgroundImage: `  linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.73)),url(/secondHeroImage1.jpg)`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            backgroundAttachment: 'fixed',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: "column",
+              alignItems: 'center',
+              padding: 1
+            }}
+          >
+            <Typography align='center' variant='h3' color='white' >
+              You're In A Need Of Blood Urgently! Just Make A Request And Some One will Be there To Donate For You.
+            </Typography>
+            {/* <Button sx={{margin:4}} variant= {'contained'}> */}
+
+            <div onClick={handleCreateRequestNow} style={{cursor:'pointer'}} className={style.animatedButton}>
+              <h4>Create Request Now</h4>
+            </div>
+            {/* </Button> */}
+          </Box>
+        </Box>
       </Layout>
     </>
   )

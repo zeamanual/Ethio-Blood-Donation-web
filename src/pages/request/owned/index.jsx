@@ -74,7 +74,7 @@ function RequestDetail() {
                         <Typography variant='h5'>Found Donors So Far : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.foundDonors.length}</Typography></Typography>
                       </Box>
                       <Stack direction={'column'} p={2}>
-                        {
+                        { 
                           requestDetail.donorsDetail.map((donor, index) => {
                             return (
                               <>

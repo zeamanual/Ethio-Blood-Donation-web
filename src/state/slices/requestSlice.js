@@ -92,7 +92,7 @@ export let getMyRequests = createAsyncThunk(
                 url: `${baseUrl}/request`,
                 method: "get",
             })
-
+            // console.log(response.data,'user owned request data')
             return response.data
         } catch (error) {
             let errorMsg = error.response.data.message

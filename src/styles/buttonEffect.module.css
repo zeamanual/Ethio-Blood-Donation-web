@@ -1,0 +1,37 @@
+.animatedButton{
+    animation-name: animateButton;
+    animation-duration:3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    border-radius: 2em;
+    padding:0.6em 2em;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+@keyframes animateButton {
+    0% {
+        color:rgb(159, 87, 201);
+        border:10px rgb(226, 181, 34) solid;
+        /* transform: translate(-4em,0); */
+        box-shadow: 0 0 20px rgb(226, 181, 34);
+    }
+    25%{
+        /* transform: translate(2em,0); */
+    }
+    50% {
+        color:yellow;
+        border:10px rgb(127, 226, 34) solid;
+        box-shadow: 0 0 20px  rgb(127, 226, 34);
+        /* transform: translate(3em,0); */
+    }  
+    75%{
+        /* transform: translate(2em,0); */
+    }
+    100%{
+        color:rgb(106, 199, 43);
+        border:10px rgb(28, 240, 176) solid;
+        box-shadow: 0 0 20px rgb(28, 240, 176);
+        /* transform: translate(4em,0); */
+    }
+}
