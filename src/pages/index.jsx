@@ -7,6 +7,7 @@ import { Box, Button, Container, Modal, Paper, Snackbar, Stack, Typography } fro
 import Layout from '../components/layout'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import Gallery from '../components/gallary'
 export default function Home() {
 
   let state = useSelector(state => state)
@@ -177,6 +178,9 @@ export default function Home() {
               </Box>
             </Paper>
           </Stack>
+        </Box>
+        <Box>
+          <Gallery></Gallery>
         </Box>
       </Layout>
     </>
