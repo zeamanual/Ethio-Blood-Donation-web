@@ -3,13 +3,13 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/navBar.jsx'
 import Footer from '../components/footer'
-import { Box, Button, Container, Modal, Snackbar, Typography } from '@mui/material'
+import { Box, Button, Container, Modal, Paper, Snackbar, Stack, Typography } from '@mui/material'
 import Layout from '../components/layout'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 export default function Home() {
 
-  let state= useSelector(state=>state)
+  let state = useSelector(state => state)
   let router = useRouter()
 
   let handleDonateNow = () => {
@@ -63,7 +63,7 @@ export default function Home() {
             </Typography>
             {/* <Button sx={{margin:4}} variant= {'contained'}> */}
 
-            <div onClick={handleDonateNow} style={{cursor:'pointer'}} className={style.animatedButton}>
+            <div onClick={handleDonateNow} style={{ cursor: 'pointer' }} className={style.animatedButton}>
               <h4>Donate Now</h4>
             </div>
             {/* </Button> */}
@@ -96,11 +96,87 @@ export default function Home() {
             </Typography>
             {/* <Button sx={{margin:4}} variant= {'contained'}> */}
 
-            <div onClick={handleCreateRequestNow} style={{cursor:'pointer'}} className={style.animatedButton}>
+            <div onClick={handleCreateRequestNow} style={{ cursor: 'pointer' }} className={style.animatedButton}>
               <h4>Create Request Now</h4>
             </div>
             {/* </Button> */}
           </Box>
+        </Box>
+        <Box padding={'1em 0'}>
+          <Typography variant='h2' align='center'color='gray'>Look How Easy It Is To Use</Typography>
+          <Stack padding={'1em 0'} gap={2} direction={{ xs: 'column', md: 'row' }} justifyContent={'center'} alignItems={'center'} >
+            <Paper sx={{
+              width: '300px',
+              height: '300px',
+              padding: '1em 0.5em',
+            }} elevation={10}>
+                          <Box sx={{
+                backgroundImage: 'url(/register.jpg)',
+                backgroundPosition: 'center',
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                height: '80%'
+              }}>
+
+              </Box>
+              <Box>
+                <Typography variant='h6' align='center' color='gray'>Sign UP/Register</Typography>
+
+              </Box>
+            </Paper>
+            <Paper sx={{
+              width: '300px', height: '300px', padding: '1em 0.5em',
+            }} elevation={10}>
+                          <Box sx={{
+                backgroundImage: 'url(/signIn.jpg)',
+                backgroundPosition: 'center',
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                height: '80%'
+              }}>
+
+              </Box>
+              <Box>
+                <Typography variant='h6' color='gray' align='center'>Sign In</Typography>
+
+              </Box>
+            </Paper>
+            <Paper sx={{
+              width: '300px', height: '300px', padding: '1em 0.5em',
+            }} elevation={10}>
+              <Box sx={{
+                backgroundImage: 'url(/donateOrRequest.jpg)',
+                backgroundPosition: 'center',
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                height: '80%'
+              }}>
+
+              </Box>
+              <Box>
+                <Typography variant='h6' color='gray' align='center'>Donate or Create Your Request</Typography>
+
+              </Box>
+            </Paper>
+            <Paper sx={{
+              width: '300px', height: '300px', padding: '1em 0.5em',
+
+            }} elevation={10}>
+              <Box sx={{
+                backgroundImage: 'url(/check.jpg)',
+                backgroundPosition: 'center',
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                height: '80%'
+              }}>
+
+              </Box>
+              <Box>
+                <Typography variant='h6' color='gray' align='center'>Check The Status Of Your Request Or Donation</Typography>
+
+              </Box>
+            </Paper>
+          </Stack>
         </Box>
       </Layout>
     </>
