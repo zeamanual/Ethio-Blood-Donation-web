@@ -2,6 +2,13 @@ import { Box, ImageList, ImageListItem, Typography } from '@mui/material'
 import React from 'react'
 
 function Gallery() {
+  let [customWindowSize,setWindowSize] = React.useState('md')
+  React.useEffect(()=>{
+    setWindowSize(window.innerWidth > 600 ? 'md' : 'xs')
+    window.addEventListener('resize',()=>{
+      setWindowSize(window.innerWidth>600?'md':'xs')
+    })
+  },[])
   let galleryList = [
     {
       url: '/gallery/gallery1.jpg',
@@ -49,7 +56,7 @@ function Gallery() {
       <Box padding={2}>
         <ImageList 
         // cols={{xs:1,md:2,lg:3}}
-        cols={3} 
+        cols={customWindowSize=='md'?3:1} 
         variant='masonry'
         >
           {

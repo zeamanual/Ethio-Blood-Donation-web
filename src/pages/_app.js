@@ -6,6 +6,8 @@ import { createEmotionCache } from '../utils/createEmotionCache'
 import {theme} from '../utils/theme'
 import {store} from '../state/store/store'
 import {wrapper} from '../state/store/store'
+import styles from '../styles/testimonial.css'
+
 
 let clientSideEmotionCache = createEmotionCache()
 function MyApp({ Component,emotionCache=clientSideEmotionCache, pageProps }) {

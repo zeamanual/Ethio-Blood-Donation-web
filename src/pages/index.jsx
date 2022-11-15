@@ -8,6 +8,7 @@ import Layout from '../components/layout'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Gallery from '../components/gallary'
+import Testimonials from '../components/testimonials'
 export default function Home() {
 
   let state = useSelector(state => state)
@@ -110,6 +111,9 @@ export default function Home() {
               width: '300px',
               height: '300px',
               padding: '1em 0.5em',
+              '&:hover':{
+                boxShadow:'0 0 1px black'
+              }
             }} elevation={10}>
                           <Box sx={{
                 backgroundImage: 'url(/register.jpg)',
@@ -127,6 +131,9 @@ export default function Home() {
             </Paper>
             <Paper sx={{
               width: '300px', height: '300px', padding: '1em 0.5em',
+              '&:hover':{
+                boxShadow:'0 0 1px black'
+              }
             }} elevation={10}>
                           <Box sx={{
                 backgroundImage: 'url(/signIn.jpg)',
@@ -144,6 +151,9 @@ export default function Home() {
             </Paper>
             <Paper sx={{
               width: '300px', height: '300px', padding: '1em 0.5em',
+              '&:hover':{
+                boxShadow:'0 0 1px black'
+              }
             }} elevation={10}>
               <Box sx={{
                 backgroundImage: 'url(/donateOrRequest.jpg)',
@@ -161,6 +171,9 @@ export default function Home() {
             </Paper>
             <Paper sx={{
               width: '300px', height: '300px', padding: '1em 0.5em',
+              '&:hover':{
+                boxShadow:'0 0 1px black'
+              }
 
             }} elevation={10}>
               <Box sx={{
@@ -181,6 +194,9 @@ export default function Home() {
         </Box>
         <Box>
           <Gallery></Gallery>
+        </Box>
+        <Box>
+          <Testimonials></Testimonials>
         </Box>
       </Layout>
     </>
