@@ -94,7 +94,7 @@ export default function Home() {
             }}
           >
             <Typography align='center' variant='h3' color='white' >
-              You're In A Need Of Blood Urgently! Just Make A Request And Some One will Be there To Donate For You.
+              { 'You\'re In A Need Of Blood Urgently! Just Make A Request And Some One will Be there To Donate For You.'}
             </Typography>
             {/* <Button sx={{margin:4}} variant= {'contained'}> */}
 

@@ -60,8 +60,8 @@ function Gallery() {
         variant='masonry'
         >
           {
-            galleryList.map(gallery => {
-              return <ImageListItem sx={{
+            galleryList.map((gallery,index) => {
+              return <ImageListItem key={index} sx={{
                 transition:'all 0.3s linear',
                 '&:hover':{
                   zIndex:'1000',

@@ -55,8 +55,8 @@ function Testimonials() {
                     animation={'slide'}
                 >
                     {
-                        testimonials.map(testimoni => {
-                            return <Box margin={3} display='flex' justifyContent={'center'}>
+                        testimonials.map((testimoni,index) => {
+                            return <Box key={index} margin={3} display='flex' justifyContent={'center'}>
                                 <Box width='80%' display={'flex'} flexDirection={{ xs: 'column', md: 'row' }}
                                     sx={{
                                         padding: '1em 2em',
