@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Gallery from '../components/gallary'
 import Testimonials from '../components/testimonials'
+import ContactUs from '../components/contactUs'
 export default function Home() {
 
   let state = useSelector(state => state)
@@ -197,6 +198,9 @@ export default function Home() {
         </Box>
         <Box>
           <Testimonials></Testimonials>
+        </Box>
+        <Box>
+          <ContactUs></ContactUs>
         </Box>
       </Layout>
     </>
