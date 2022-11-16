@@ -44,11 +44,12 @@ function Testimonials() {
     return (
         <Box>
             <Box sx={{
-                padding: '1em 1em'
+                // padding: '0em 1em',
+                paddingTop:'8em'
             }}>
-                <Typography variant='h2' color='gray' align='center'>Testimonials</Typography>
+                <Typography variant='h2' color='dark' align='center'>Testimonials</Typography>
             </Box>
-            <Box paddingX={{md:3,xs:0}} paddingY={5}>
+            <Box paddingX={{md:3,xs:0}} paddingY={0}>
                 <Carousel
                     height={customWindowSize == 'md' ? 350 : 600}
                     navButtonsAlwaysVisible={true}

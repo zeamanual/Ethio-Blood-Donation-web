@@ -50,8 +50,8 @@ function Gallery() {
   ]
   return (
     <Box>
-      <Box sx={{ padding: '2em 1em' }}>
-        <Typography variant='h3' color='gray' align='center' >Blood Donation Moments Gallery</Typography>
+      <Box sx={{ padding: '2em 1em',paddingTop:'8em' }}>
+        <Typography variant='h2' color='dark' align='center' >Blood Donation Moments Gallery</Typography>
       </Box>
       <Box padding={2}>
         <ImageList 
