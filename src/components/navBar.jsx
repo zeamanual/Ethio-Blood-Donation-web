@@ -41,8 +41,9 @@ let NavBar = function () {
   let navItems = [
     { path: '/#home', name: 'HOME' },
     { path: '/#guide', name: 'GUIDE' },
-    { path: '/#about', name: 'ABOUT' },
     { path: '/#gallery', name: 'GALLERY' },
+    { path: '/#about', name: 'ABOUT' },
+    { path: '/#testimonial', name: 'TESTIMONIAL' },
     { path: '/#contact', name: 'CONTACT' },
   ]
 
@@ -86,7 +87,6 @@ let NavBar = function () {
                       </Box>
                     </Link>
                   )
-                  {/* <a href={`${item.path}`}> <Button size='small' key={index} m={2} sx={{ margin:'0 1em', '&:hover': { backgroundColor: 'primary.main',color:'white' } }}  > <Typography variant='h6'>{item.name}</Typography> </Button></a> */ }
                 })
               }
             </StyledBox>

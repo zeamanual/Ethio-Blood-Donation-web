@@ -42,9 +42,8 @@ function Testimonials() {
 
     ]
     return (
-        <Box>
+        <Box id = 'testimonial'>
             <Box sx={{
-                // padding: '0em 1em',
                 paddingTop:'8em'
             }}>
                 <Typography variant='h2' color='dark' align='center'>Testimonials</Typography>

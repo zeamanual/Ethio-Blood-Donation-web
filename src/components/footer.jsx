@@ -2,9 +2,13 @@ import { Copyright, EmailRounded, GitHub, KeyboardArrowUp, LinkedIn, LocationOn,
 import { Avatar, Box, Button, Grid, Stack, styled, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import logoImg from '../../public/lo.png'
 function Footer() {
+    let router = useRouter()
+    let user = useSelector(state => state.user)
     let navItems = [
         {
             name: 'HOME',
@@ -15,12 +19,16 @@ function Footer() {
             path: '/#guide'
         },
         {
+            name: 'GALLERY',
+            path: '/#gallery'
+        },
+        {
             name: 'ABOUT',
             path: '/#about'
         },
         {
-            name: 'GALLERY',
-            path: '/#gallery'
+            name: 'TESTIMONIAL',
+            path: '/#testimonial'
         },
         {
             name: 'CONTACT',
@@ -34,6 +42,20 @@ function Footer() {
         padding: 20,
         boxShadow: '0 0 1em gray'
     })
+    let handleDonateNow = () => {
+        if (user.isAuthenticated) {
+            user.roles.includes('DONOR') ? router.push('/request/all') : router.push("/createDonor")
+        } else {
+            router.push("/login")
+        }
+    }
+    let handleCreateRequestNow = () => {
+        if (user.isAuthenticated) {
+            router.push('/newRequest')
+        } else {
+            router.push("/login")
+        }
+    }
     return (
         <StyledBox>
             <Grid container>
@@ -95,9 +117,9 @@ function Footer() {
                             <Typography color='primary' variant='h6' align='center' >Zeamanual Feleke</Typography>
                             <Typography sx={{ marginBottom: 3 }} variant='h5' align='center'>Stay Connected</Typography>
                             <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
-                                <a href='https://github.com/zeamanual' target={'_blank'}><GitHub sx={{ color: '#171515', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></GitHub></a>
-                                <a href='https://linkedin.com/in/zeamanual-feleke-541310229' target={'_blank'}><LinkedIn sx={{ color: '#0A66C2', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></LinkedIn></a>
-                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'}><EmailRounded sx={{ transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
+                                <a href='https://github.com/zeamanual' target={'_blank'} rel='noreferrer'><GitHub sx={{ color: '#171515', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></GitHub></a>
+                                <a href='https://linkedin.com/in/zeamanual-feleke-541310229' rel='noreferrer' target={'_blank'}><LinkedIn sx={{ color: '#0A66C2', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></LinkedIn></a>
+                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'} rel='noreferrer'><EmailRounded sx={{ transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
                             </Box>
 
                         </Box>
@@ -116,10 +138,10 @@ function Footer() {
                         }}
                     >
                         <Box display='flex' justifyContent={'center'}>
-                            <Image width={200} height={120}  src={'/FlagofEthiopia.gif'}></Image>
-                        </Box>  
-                        <Button sx={{ width: '100%', margin: '1em ', marginTop: '3em' }} variant='contained'>Donate Now</Button>
-                        <Button sx={{ width: '100%', margin: '0em 1em ' }} variant='contained'>Create A Request</Button>
+                            <Image width={200} height={120} src={'/FlagofEthiopia.gif'}></Image>
+                        </Box>
+                        <Button sx={{ width: '100%', margin: '1em ', marginTop: '3em' }} onClick={handleDonateNow} variant='contained'>Donate Now</Button>
+                        <Button sx={{ width: '100%', margin: '0em 1em ' }} onClick={handleCreateRequestNow} variant='contained'>Create A Request</Button>
                         <Link href={'/#home'}><Button color="secondary" sx={{ position: 'absolute', bottom: '-5em', right: 1 }} variant='contained' startIcon={<KeyboardArrowUp></KeyboardArrowUp>} >Back To Top</Button></Link>
                     </Box>
                 </Grid>
