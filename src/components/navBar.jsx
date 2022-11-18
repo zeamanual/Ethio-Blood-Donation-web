@@ -39,10 +39,11 @@ let NavBar = function () {
   }
 
   let navItems = [
-    { path: '', name: 'HOME' },
-    { path: 'statistics', name: 'STATISTICS' },
-    { path: 'about', name: 'ABOUT' },
-    { path: 'contact', name: 'CONTACT' },
+    { path: '/#home', name: 'HOME' },
+    { path: '/#guide', name: 'GUIDE' },
+    { path: '/#about', name: 'ABOUT' },
+    { path: '/#gallery', name: 'GALLERY' },
+    { path: '/#contact', name: 'CONTACT' },
   ]
 
   let userNavs = [
@@ -63,7 +64,7 @@ let NavBar = function () {
   })
   return (
     <>
-      <AppBar position='sticky' sx={{ backgroundColor: 'black', opacity: 0.7, }}>
+      <AppBar position='sticky' sx={{ backgroundColor: 'white', opacity: 0.9, }}>
         <Toolbar>
           <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
             <Box sx={{ maxWidth: 60 }}>
@@ -73,7 +74,19 @@ let NavBar = function () {
 
               {
                 navItems.map((item, index) => {
-                  return <Button onClick={() => { router.push(`/${item.path}`) }} key={index} m={2} sx={{ color: 'white', '&:hover': { backgroundColor: 'primary.main' } }}  >{item.name}</Button>
+                  return (
+                    <Link key={index} style={{ display: 'block', width: '100%' }} href={item.path}>
+                      <Box display='flex' justifyContent={'center'}>
+                        <Button
+                          size='small'
+                          sx={{ margin: '0 1em', '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
+                        >
+                          <Typography variant='h6'>{item.name}</Typography>
+                        </Button>
+                      </Box>
+                    </Link>
+                  )
+                  {/* <a href={`${item.path}`}> <Button size='small' key={index} m={2} sx={{ margin:'0 1em', '&:hover': { backgroundColor: 'primary.main',color:'white' } }}  > <Typography variant='h6'>{item.name}</Typography> </Button></a> */ }
                 })
               }
             </StyledBox>
@@ -132,7 +145,7 @@ let NavBar = function () {
         <List sx={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5 }} >
           {navItems.map((item, index) => {
             return (
-              <ListItemButton onClick={() => { router.push(`/${item.path}`) }} key={index}>
+              <ListItemButton onClick={() => { router.push(`/${item.path}`); setDrawerOpened(!drawerOpened) }} key={index}>
                 <ListItemText>{item.name}</ListItemText>
               </ListItemButton>
             )

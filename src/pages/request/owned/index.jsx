@@ -36,7 +36,7 @@ function RequestDetail() {
   return (
     <Layout>
       <CustomPaperCard>
-        <CustomProgressModal open={requestState.loading} message={'Deleting Request In Progress'} ></CustomProgressModal>
+        <CustomProgressModal open={requestState.loading} message={'Request In Progress'} ></CustomProgressModal>
         <CustomResponseModal
           btnName={"Go To Home"}
           msg={requestState.deleteRequest.successMsg}

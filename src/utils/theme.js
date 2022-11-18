@@ -14,4 +14,11 @@ export let theme = createTheme({
         //   main: "rgb(95, 211, 237)",
         },
       },
+      // typography: {
+      //   fontFamily: [
+      //     'Alfa Slab One',
+      //      'cursive',
+      //   ].join(','),
+      // }
+    
 })

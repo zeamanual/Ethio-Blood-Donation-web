@@ -39,7 +39,9 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <Box mt={0}
+        <Box
+          id='home'
+          mt={0}
           sx={{
             height: '100vh',
             backgroundImage: `  linear-gradient(to bottom, rgba(255, 0, 0, 0.52), rgba(0, 100, 0, 0.3)),url(/hero.jpeg)`,
@@ -102,7 +104,7 @@ export default function Home() {
             </div>
           </Box>
         </Box>
-        <Box padding={'1em 0'} sx={{ paddingTop: '8em' }}>
+        <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }}>
           <Typography variant='h2' align='center' color='dark'>Look How Easy It Is To Use</Typography>
           <Stack padding={'1em 0'} gap={2} direction={{ xs: 'column', md: 'row' }} justifyContent={'center'} alignItems={'center'} >
             <div onClick={() => { router.push('/signup') }} style={{ cursor: 'pointer' }}>
@@ -151,7 +153,7 @@ export default function Home() {
                 </Box>
               </Paper>
             </div>
-            <div style={{ cursor: 'pointer' }}>
+            <div>
               <Paper sx={{
                 width: '300px', height: '300px', padding: '1em 0.5em',
                 '&:hover': {
@@ -169,9 +171,9 @@ export default function Home() {
                 </Box>
                 <Box>
                   <Typography variant='h6' color='gray' align='center'>
-                    <span onClick={handleDonateNow} ><Typography sx={{'&:hover':{color:'#131854'}}} component={'span'} variant='h6'> Donate </Typography></span>
-                     or
-                    <span onClick={handleCreateRequestNow} ><Typography sx={{'&:hover':{color:'#131854'}}} component={'span'} variant='h6'> Create Your Request</Typography></span>
+                    <span onClick={handleDonateNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Donate </Typography></span>
+                    or
+                    <span onClick={handleCreateRequestNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Create Your Request</Typography></span>
                   </Typography>
                 </Box>
               </Paper>

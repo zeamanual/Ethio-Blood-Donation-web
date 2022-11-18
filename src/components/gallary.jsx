@@ -49,7 +49,7 @@ function Gallery() {
     },
   ]
   return (
-    <Box>
+    <Box id = 'gallery'>
       <Box sx={{ padding: '2em 1em',paddingTop:'8em' }}>
         <Typography variant='h2' color='dark' align='center' >Blood Donation Moments Gallery</Typography>
       </Box>

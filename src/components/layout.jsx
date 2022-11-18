@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import Head from 'next/head'
 import React from 'react'
 import Footer from './footer'
 import NavBar from './navBar'

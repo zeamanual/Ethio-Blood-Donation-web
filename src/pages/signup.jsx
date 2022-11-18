@@ -164,8 +164,6 @@ function SignUp() {
             console.log('form not submitted', fieldsValue)
 
         }
-        // console.log(fieldsValue)
-
     }
     let [fieldsValue, setFieldsValue] = React.useState({
         userName: { value: '', hasError: false, msg: '', changeHandler: handleNameChange },
