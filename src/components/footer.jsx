@@ -84,7 +84,6 @@ function Footer() {
                             flexDirection: 'column',
                             justifyContent: 'start',
                             gap: 3,
-                            // padding: 2
                         }}
                     >
                         <Box>
@@ -93,14 +92,13 @@ function Footer() {
                                 <Avatar alt='Developer Image' sx={{ width: 90, height: 90 }} src={'/user/crooped.png'}></Avatar>
 
                             </Box>
-                            <Typography color='primary' variant='h6' align='start' >Zeamanual Feleke</Typography>
-                            <Box display={'flex'} justifyContent='flex-start' alignItems='center'>
-                                <EmailRounded></EmailRounded> <Typography sx={{ padding: '0 1em' }} variant='h6' fontFamily={''} align='center' color='primary'>zeamanualfeleke@gmail.com</Typography>
+                            <Typography color='primary' variant='h6' align='center' >Zeamanual Feleke</Typography>
+                            <Typography sx={{ marginBottom: 3 }} variant='h5' align='center'>Stay Connected</Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
+                                <a href='https://github.com/zeamanual' target={'_blank'}><GitHub sx={{ color: '#171515', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></GitHub></a>
+                                <a href='https://linkedin.com/in/zeamanual-feleke-541310229' target={'_blank'}><LinkedIn sx={{ color: '#0A66C2', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></LinkedIn></a>
+                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'}><EmailRounded sx={{ transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
                             </Box>
-                            <Box display={'flex'} justifyContent='flex-start' alignItems='center'>
-                                <LocationOn></LocationOn> <Typography sx={{ padding: '0 1em' }} variant='h6' color='primary' align='center' >Addis Ababa, Ethiopia</Typography>
-                            </Box>
-
 
                         </Box>
                     </Box>
@@ -117,13 +115,9 @@ function Footer() {
                             position: 'relative'
                         }}
                     >
-                        <Typography sx={{ marginBottom: 3 }} variant='h5' align='center'>Stay Connected</Typography>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: 3 }}>
-                           <a href='https://github.com/zeamanual' target={'_blank'}><GitHub sx={{color:'#171515',transition:'transform 0.3s linear','&:hover':{transform:'scale(2)'}}}></GitHub></a>
-                           <a href='https://linkedin.com/in/zeamanual-feleke-541310229' target={'_blank'}><LinkedIn sx={{color:'#0A66C2',transition:'transform 0.3s linear','&:hover':{transform:'scale(2)'}}}></LinkedIn></a>
-                           <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'}><EmailRounded sx={{transition:'transform 0.3s linear','&:hover':{transform:'scale(2)'}}}></EmailRounded></a>
-                           {/* <a href='https://github.com/zeamanual' target={'_blank'}><Twitter sx={{color:'#1DA1F2'}} ></Twitter></a> */}
-                        </Box>
+                        <Box display='flex' justifyContent={'center'}>
+                            <Image width={200} height={120}  src={'/FlagofEthiopia.gif'}></Image>
+                        </Box>  
                         <Button sx={{ width: '100%', margin: '1em ', marginTop: '3em' }} variant='contained'>Donate Now</Button>
                         <Button sx={{ width: '100%', margin: '0em 1em ' }} variant='contained'>Create A Request</Button>
                         <Link href={'/#home'}><Button color="secondary" sx={{ position: 'absolute', bottom: '-5em', right: 1 }} variant='contained' startIcon={<KeyboardArrowUp></KeyboardArrowUp>} >Back To Top</Button></Link>
@@ -135,7 +129,6 @@ function Footer() {
                 <Box display='flex' >
                     <Typography sx={{ margin: '0 0.8em' }} color='primary' fontFamily={'Alfa Slab One'}>{'Habesha Blood Donation '}</Typography>
                     <Typography>All Rights Reserved
-                        {/* <Copyright sx={{padding:0,margin:0}} ></Copyright>  */}
                     </Typography>
 
                 </Box>
