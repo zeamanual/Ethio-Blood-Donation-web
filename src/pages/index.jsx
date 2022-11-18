@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import Gallery from '../components/gallary'
 import Testimonials from '../components/testimonials'
 import ContactUs from '../components/contactUs'
+import About from '../components/about'
 export default function Home() {
 
   let state = useSelector(state => state)
@@ -206,6 +207,7 @@ export default function Home() {
         <Box>
           <Gallery></Gallery>
         </Box>
+        <About></About>
         <Box>
           <Testimonials></Testimonials>
         </Box>

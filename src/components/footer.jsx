@@ -93,12 +93,12 @@ function Footer() {
                                 <Avatar alt='Developer Image' sx={{ width: 90, height: 90 }} src={'/user/crooped.png'}></Avatar>
 
                             </Box>
-                            <Typography color='white' variant='h6' align='start' >Zeamanual Feleke</Typography>
+                            <Typography color='primary' variant='h6' align='start' >Zeamanual Feleke</Typography>
                             <Box display={'flex'} justifyContent='flex-start' alignItems='center'>
-                                <EmailRounded></EmailRounded> <Typography sx={{ padding: '0 1em' }} variant='h6' align='center' color='white'>zeamanualfeleke@gmail.com</Typography>
+                                <EmailRounded></EmailRounded> <Typography sx={{ padding: '0 1em' }} variant='h6' fontFamily={''} align='center' color='primary'>zeamanualfeleke@gmail.com</Typography>
                             </Box>
                             <Box display={'flex'} justifyContent='flex-start' alignItems='center'>
-                                <LocationOn></LocationOn> <Typography sx={{ padding: '0 1em' }} variant='h6' color='white' align='center' >Addis Ababa, Ethiopia</Typography>
+                                <LocationOn></LocationOn> <Typography sx={{ padding: '0 1em' }} variant='h6' color='primary' align='center' >Addis Ababa, Ethiopia</Typography>
                             </Box>
 
 
@@ -119,10 +119,10 @@ function Footer() {
                     >
                         <Typography sx={{ marginBottom: 3 }} variant='h5' align='center'>Stay Connected</Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%', marginBottom: 3 }}>
-                            <GitHub></GitHub>
-                            <LinkedIn></LinkedIn>
-                            <EmailRounded></EmailRounded>
-                            <Twitter></Twitter>
+                           <a href='https://github.com/zeamanual' target={'_blank'}><GitHub sx={{color:'#171515',transition:'transform 0.3s linear','&:hover':{transform:'scale(2)'}}}></GitHub></a>
+                           <a href='https://linkedin.com/in/zeamanual-feleke-541310229' target={'_blank'}><LinkedIn sx={{color:'#0A66C2',transition:'transform 0.3s linear','&:hover':{transform:'scale(2)'}}}></LinkedIn></a>
+                           <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'}><EmailRounded sx={{transition:'transform 0.3s linear','&:hover':{transform:'scale(2)'}}}></EmailRounded></a>
+                           {/* <a href='https://github.com/zeamanual' target={'_blank'}><Twitter sx={{color:'#1DA1F2'}} ></Twitter></a> */}
                         </Box>
                         <Button sx={{ width: '100%', margin: '1em ', marginTop: '3em' }} variant='contained'>Donate Now</Button>
                         <Button sx={{ width: '100%', margin: '0em 1em ' }} variant='contained'>Create A Request</Button>
