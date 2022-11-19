@@ -126,6 +126,10 @@ let userSlice = createSlice({
             if (!state.roles.includes("DONOR")) {
                 state.roles.push("DONOR")
             }
+        },
+        resetUpdateUserFormStatus:(state)=>{
+            state.updateUser.errorMsg=''
+            state.updateUser.successMsg=''
         }
 
     },
@@ -181,7 +185,7 @@ let userSlice = createSlice({
         })
         builder.addCase(updateUser.fulfilled,(state,action)=>{
             state.loading=false
-            state.updateUser.successMsg='Profile Update Successfully'
+            state.updateUser.successMsg='Profile Updated Successfully'
             state.updateUser.errorMsg=''
         })
         builder.addCase(updateUser.rejected,(state,action)=>{
@@ -193,7 +197,7 @@ let userSlice = createSlice({
 
 })
 
-export let { resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
+export let { resetUpdateUserFormStatus,resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
 
 let reducer = userSlice.reducer
 export default reducer
