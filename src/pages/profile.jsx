@@ -14,11 +14,15 @@ import UpdateDonationAddress from '../components/updateDonationAddress'
 function Profile() {
     let state = useSelector(state => state)
     let router = useRouter()
+    let userRoles = useSelector(state => state.user.roles)
 
     let dispatch = useDispatch()
     React.useEffect(() => {
+        if(!state.user.isAuthenticated){
+            router.push('/login')
+        }
         dispatch(resetFormStatus())
-    }, [])
+    }, [state.user.isAuthenticated])
     let [selectedTab, setSelectedTab] = React.useState('1')
     let tabChangeHandler = (event, newValue) => {
         setSelectedTab(newValue)
@@ -40,7 +44,18 @@ function Profile() {
 
                     {
                         selectedTab === '1' ? <UpdateProfile></UpdateProfile> :
-                            selectedTab === '2' ? <UpdateDonationAddress></UpdateDonationAddress> : <></>
+                            selectedTab === '2' ? userRoles.includes('DONOR') ?
+                                <UpdateDonationAddress></UpdateDonationAddress> :
+                                <Box padding={3}>
+                                    {/* <Typography color='primary' align='center' variant='h6'>{"You Haven't Created Your Donor Profile Yet"}</Typography> */}
+                                    <Box display={'flex'} justifyContent='center'>
+                                        <Alert severity='info'>{"You Haven't Created Your Donor Profile Yet, Create Now Down Below"}</Alert>
+                                    </Box>
+                                    <Box marginTop={3} display='flex' justifyContent={'center'}>
+                                        <Button onClick={()=>{router.push('/createDonor')}} variant='contained'>Create Now</Button>
+                                    </Box>
+                                </Box> :
+                                <></>
                     }
                 </Box>
             </Box>

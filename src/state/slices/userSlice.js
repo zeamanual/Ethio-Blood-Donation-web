@@ -21,6 +21,13 @@ let initialState = {
     updateUser: {
         errorMsg: '',
         successMsg: ''
+    },
+    currentUserData:{
+        loading:false,
+        data:'',
+        errorMsg:'',
+        successMsg:''
+
     }
 }
 
@@ -40,15 +47,35 @@ export let logInUser = createAsyncThunk(
                     password
                 }
             })
-
-            console.log('log in sucessful', response.data)
             router.push("/")
             return response.data
 
         } catch (error) {
             let errorMsg = error.response.data.message
-            console.log("log in failed: ", errorMsg)
             return thunkApi.rejectWithValue(errorMsg)
+        }
+    }
+)
+
+export let getCurrentUserData = createAsyncThunk(
+    'user/getCurrentUserData',
+    async (userId='', thunkApi) => {
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
+        try {
+            let response = await axios({
+                url: `${baseUrl}/user`,
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+            })
+            return response.data
+
+        } catch (error) {
+            let errorMessage = error.response.data.message
+            return thunkApi.rejectWithValue(errorMessage)
         }
     }
 )
@@ -66,12 +93,10 @@ export let signUpUser = createAsyncThunk(
                 },
                 data: signUpData
             })
-            console.log('sign up sucessful', response.data)
             return response.data
 
         } catch (error) {
             let errorMessage = error.response.data.message
-            console.log('sign up not sucessful', errorMessage)
             return thunkApi.rejectWithValue(errorMessage)
         }
     }
@@ -81,21 +106,21 @@ export let updateUser = createAsyncThunk(
     'user/updateProfile',
     async (userProfileData, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
         try {
             let response = await axios({
                 url: `${baseUrl}/user`,
-                method: 'post',
+                method: 'put',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 data: userProfileData
             })
-            console.log('profile update sucessful', response.data)
             return response.data
 
         } catch (error) {
             let errorMessage = error.response.data.message
-            console.log('prefile update not sucessful', errorMessage)
             return thunkApi.rejectWithValue(errorMessage)
         }
     }
@@ -127,9 +152,9 @@ let userSlice = createSlice({
                 state.roles.push("DONOR")
             }
         },
-        resetUpdateUserFormStatus:(state)=>{
-            state.updateUser.errorMsg=''
-            state.updateUser.successMsg=''
+        resetUpdateUserFormStatus: (state) => {
+            state.updateUser.errorMsg = ''
+            state.updateUser.successMsg = ''
         }
 
     },
@@ -137,7 +162,6 @@ let userSlice = createSlice({
         // reducers for sign up
         builder.addCase(signUpUser.pending, (state) => {
             state.loading = true
-            console.log("sign up pending")
         })
         builder.addCase(signUpUser.fulfilled, (state, action) => {
             state.loading = false
@@ -145,7 +169,6 @@ let userSlice = createSlice({
                 errorMsg: '',
                 sucessMsg: "Accounted Created Successfly"
             }
-            console.log("sign up fulfilled")
         })
         builder.addCase(signUpUser.rejected, (state, action) => {
             state.loading = false
@@ -153,7 +176,6 @@ let userSlice = createSlice({
                 errorMsg: action.payload,
                 sucessMsg: ""
             }
-            console.log("sign up rejected")
         })
 
         // reducers for log in
@@ -179,25 +201,45 @@ let userSlice = createSlice({
             }
         })
 
+        // reducers for geting current user data
+        builder.addCase(getCurrentUserData.pending,(state)=>{
+            state.currentUserData.loading=true
+        })
+        builder.addCase(getCurrentUserData.fulfilled,(state,action)=>{
+            state.currentUserData.loading=false
+            state.currentUserData.data=action.payload
+            state.currentUserData.errorMsg=''
+            state.currentUserData.successMsg='User Data Fetched Successfuly'
+        })
+        builder.addCase(getCurrentUserData.rejected,(state,action)=>{
+            state.currentUserData.loading=false
+            state.currentUserData.data=''
+            state.currentUserData.errorMsg=action.payload
+            state.currentUserData.successMsg=''
+        })
+
         // reducers for profile update
-        builder.addCase(updateUser.pending,(state)=>{
-            state.loading=true
+        builder.addCase(updateUser.pending, (state) => {
+            state.loading = true
         })
-        builder.addCase(updateUser.fulfilled,(state,action)=>{
-            state.loading=false
-            state.updateUser.successMsg='Profile Updated Successfully'
-            state.updateUser.errorMsg=''
+        builder.addCase(updateUser.fulfilled, (state, action) => {
+            state.loading = false
+            state.updateUser.successMsg = 'Profile Updated Successfully'
+            state.updateUser.errorMsg = ''
+            state.currentUserData.data=action.payload
+            state.address=action.payload.address
+            state.bloodType=action.payload.bloodType
         })
-        builder.addCase(updateUser.rejected,(state,action)=>{
-            state.loading=false
-            state.updateUser.successMsg=''
-            state.updateUser.errorMsg=action.payload
+        builder.addCase(updateUser.rejected, (state, action) => {
+            state.loading = false
+            state.updateUser.successMsg = ''
+            state.updateUser.errorMsg = action.payload
         })
     }
 
 })
 
-export let { resetUpdateUserFormStatus,resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
+export let { resetUpdateUserFormStatus, resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
 
 let reducer = userSlice.reducer
 export default reducer
