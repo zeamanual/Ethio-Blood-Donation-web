@@ -43,7 +43,7 @@ function MyRequests() {
                         </Box> :
                         <Box width='100%'>
                             <Box>
-                                <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Request That You Have Donated For</Typography>
+                                <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Requests That You Have Donated For</Typography>
                                 <Stack alignItems={'end'} >
                                     <Button variant='contained' color='secondary' >Total Donations So Far : {requestState.requests.data.length}</Button>
                                 </Stack>
