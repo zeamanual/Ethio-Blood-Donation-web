@@ -45,7 +45,30 @@ export let updateDonorAddress = createAsyncThunk(
                 method: "put",
                 data: { 'address': addressData, active: true }
             })
-            thunkApi.dispatch(donorRoleAdded())
+            return response.data
+
+        } catch (error) {
+            let errorMsg = error.response.data.message
+            return thunkApi.rejectWithValue(errorMsg)
+        }
+    }
+)
+
+export let cancelDonation = createAsyncThunk(
+    'donor/cancelDonation',
+    async (reqId, thunkApi) => {
+        let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        let accessToken = thunkApi.getState().user.accessToken
+
+        try {
+            let response = await axios({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                url: `${baseUrl}/request/removeDonor/${reqId}`,
+                method: "put",
+            })
             return response.data
 
         } catch (error) {
@@ -57,7 +80,7 @@ export let updateDonorAddress = createAsyncThunk(
 
 export let getCurrentDonorData = createAsyncThunk(
     'donor/getCurrentDonorData',
-    async (donorId='',thunkApi) => {
+    async (donorId = '', thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
 
@@ -122,11 +145,15 @@ let initialState = {
         errorMsg: '',
         successMsg: ''
     },
-    currentDonorData:{
-        loading:false,
-        data:'',
+    cancelDonation:{
         errorMsg:'',
         successMsg:''
+    },
+    currentDonorData: {
+        loading: false,
+        data: '',
+        errorMsg: '',
+        successMsg: ''
     }
 }
 
@@ -143,12 +170,16 @@ let donorSlice = createSlice({
                 successMsg: '',
                 errorMsg: ''
             }
-            state.currentDonorData={
-                data:'',
-                errorMsg:'',
-                successMsg:'',
-                loading:false
+            state.currentDonorData = {
+                data: '',
+                errorMsg: '',
+                successMsg: '',
+                loading: false
             }
+        },
+        resetCancelDonationStatus:(state)=>{
+            state.cancelDonation.errorMsg=''
+            state.cancelDonation.successMsg=''
         },
         resetNewDonationStatus: (state) => {
             state.newDonation.errorMsg = ''
@@ -173,24 +204,23 @@ let donorSlice = createSlice({
         })
 
         // reducers for getting current donor data
-        builder.addCase(getCurrentDonorData.pending,(state)=>{
-            state.currentDonorData.loading=true
+        builder.addCase(getCurrentDonorData.pending, (state) => {
+            state.currentDonorData.loading = true
         })
-        builder.addCase(getCurrentDonorData.fulfilled,(state,action)=>{
-            state.currentDonorData.loading=false
-            state.currentDonorData.data=action.payload
-            state.currentDonorData.errorMsg=''
-            state.currentDonorData.successMsg='Donor Information Fetched Successfuly'
-       })
-        builder.addCase(getCurrentDonorData.rejected,(state,action)=>{
-            state.currentDonorData.loading=false
-            state.currentDonorData.data=''
-            state.currentDonorData.errorMsg=action.payload
-            state.currentDonorData.successMsg=''
+        builder.addCase(getCurrentDonorData.fulfilled, (state, action) => {
+            state.currentDonorData.loading = false
+            state.currentDonorData.data = action.payload
+            state.currentDonorData.errorMsg = ''
+            state.currentDonorData.successMsg = 'Donor Information Fetched Successfuly'
+        })
+        builder.addCase(getCurrentDonorData.rejected, (state, action) => {
+            state.currentDonorData.loading = false
+            state.currentDonorData.data = ''
+            state.currentDonorData.errorMsg = action.payload
+            state.currentDonorData.successMsg = ''
         })
 
         // reducers for donating for a request
-
         builder.addCase(donate.pending, state => {
             state.loading = true
         })
@@ -205,6 +235,22 @@ let donorSlice = createSlice({
             state.loading = false
         })
 
+
+        // reducers for canceling donation
+        builder.addCase(cancelDonation.pending,(state)=>{
+            state.loading=true
+        })
+        builder.addCase(cancelDonation.fulfilled,(state,action)=>{
+            state.loading=false
+            state.cancelDonation.errorMsg=''
+            state.cancelDonation.successMsg='Donaction Canceled Successfuly'
+        })
+        builder.addCase(cancelDonation.rejected,(state,action)=>{
+            state.loading=false
+            state.cancelDonation.successMsg=''
+            state.cancelDonation.errorMsg=action.payload
+        })
+
         // reducers for updating donor address
         builder.addCase(updateDonorAddress.pending, (state) => {
             state.loading = true
@@ -213,7 +259,7 @@ let donorSlice = createSlice({
             state.loading = false
             state.updateDonorInfo.errorMsg = ''
             state.updateDonorInfo.successMsg = 'Donor Information Updated Successfuly'
-            state.currentDonorData.data=action.payload
+            state.currentDonorData.data = action.payload
         })
         builder.addCase(updateDonorAddress.rejected, (state, action) => {
             state.loading = false
@@ -223,7 +269,7 @@ let donorSlice = createSlice({
     }
 })
 
-export let { resetDonorFormStatus, resetNewDonationStatus } = donorSlice.actions
+export let { resetCancelDonationStatus,resetDonorFormStatus, resetNewDonationStatus } = donorSlice.actions
 
 let reducer = donorSlice.reducer
 export default reducer
