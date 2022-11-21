@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { loading } from "./statusSlice";
 
+
 let initialState = {
     isAuthenticated: false,
     roles: [],
@@ -22,11 +23,11 @@ let initialState = {
         errorMsg: '',
         successMsg: ''
     },
-    currentUserData:{
-        loading:false,
-        data:'',
-        errorMsg:'',
-        successMsg:''
+    currentUserData: {
+        loading: false,
+        data: '',
+        errorMsg: '',
+        successMsg: ''
 
     }
 }
@@ -59,7 +60,7 @@ export let logInUser = createAsyncThunk(
 
 export let getCurrentUserData = createAsyncThunk(
     'user/getCurrentUserData',
-    async (userId='', thunkApi) => {
+    async (userId = '', thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
         try {
@@ -141,11 +142,24 @@ let userSlice = createSlice({
                 errorMsg: ''
             }
         },
+        updateUserAuthStatus: (state) => {
+            if (localStorage.getItem('authData') && !state.isAuthenticated) {
+                let storedAuthData = JSON.parse(localStorage.getItem('authData'))
+
+                state.isAuthenticated = true
+                state.accessToken = storedAuthData.token
+                state.address = storedAuthData.address
+                state.bloodType = storedAuthData.bloodType
+                state.userId = storedAuthData.userId
+                state.roles = storedAuthData.roles
+            }
+        },
         logOut: (state) => {
-            state.isAuthenticated = false,
-                state.accessToken = '',
-                state.roles = [],
-                state.userId = ''
+            state.isAuthenticated = false
+            state.accessToken = ''
+            state.roles = []
+            state.userId = ''
+            localStorage.removeItem('authData')
         },
         donorRoleAdded: (state) => {
             if (!state.roles.includes("DONOR")) {
@@ -183,16 +197,17 @@ let userSlice = createSlice({
             state.loading = true
         })
         builder.addCase(logInUser.fulfilled, (state, action) => {
-            state.accessToken = action.payload.token,
-                state.isAuthenticated = true,
-                state.roles = action.payload.roles,
-                state.login = {
-                    errorMsg: ''
-                }
+            state.accessToken = action.payload.token
+            state.isAuthenticated = true
+            state.roles = action.payload.roles
+            state.login = {
+                errorMsg: ''
+            }
             state.address = action.payload.address
             state.bloodType = action.payload.bloodType
-            state.loading = false,
-                state.userId = action.payload.userId
+            state.loading = false
+            state.userId = action.payload.userId
+            localStorage.setItem('authData', JSON.stringify(action.payload))
         })
         builder.addCase(logInUser.rejected, (state, action) => {
             state.loading = false
@@ -202,20 +217,20 @@ let userSlice = createSlice({
         })
 
         // reducers for geting current user data
-        builder.addCase(getCurrentUserData.pending,(state)=>{
-            state.currentUserData.loading=true
+        builder.addCase(getCurrentUserData.pending, (state) => {
+            state.currentUserData.loading = true
         })
-        builder.addCase(getCurrentUserData.fulfilled,(state,action)=>{
-            state.currentUserData.loading=false
-            state.currentUserData.data=action.payload
-            state.currentUserData.errorMsg=''
-            state.currentUserData.successMsg='User Data Fetched Successfuly'
+        builder.addCase(getCurrentUserData.fulfilled, (state, action) => {
+            state.currentUserData.loading = false
+            state.currentUserData.data = action.payload
+            state.currentUserData.errorMsg = ''
+            state.currentUserData.successMsg = 'User Data Fetched Successfuly'
         })
-        builder.addCase(getCurrentUserData.rejected,(state,action)=>{
-            state.currentUserData.loading=false
-            state.currentUserData.data=''
-            state.currentUserData.errorMsg=action.payload
-            state.currentUserData.successMsg=''
+        builder.addCase(getCurrentUserData.rejected, (state, action) => {
+            state.currentUserData.loading = false
+            state.currentUserData.data = ''
+            state.currentUserData.errorMsg = action.payload
+            state.currentUserData.successMsg = ''
         })
 
         // reducers for profile update
@@ -226,9 +241,9 @@ let userSlice = createSlice({
             state.loading = false
             state.updateUser.successMsg = 'Profile Updated Successfully'
             state.updateUser.errorMsg = ''
-            state.currentUserData.data=action.payload
-            state.address=action.payload.address
-            state.bloodType=action.payload.bloodType
+            state.currentUserData.data = action.payload
+            state.address = action.payload.address
+            state.bloodType = action.payload.bloodType
         })
         builder.addCase(updateUser.rejected, (state, action) => {
             state.loading = false
@@ -239,7 +254,7 @@ let userSlice = createSlice({
 
 })
 
-export let { resetUpdateUserFormStatus, resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
+export let { updateUserAuthStatus,resetUpdateUserFormStatus, resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
 
 let reducer = userSlice.reducer
 export default reducer

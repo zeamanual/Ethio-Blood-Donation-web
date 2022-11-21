@@ -15,6 +15,9 @@ function Login() {
     let [errorDetails,setErrorDetails]= React.useState({userName:{hasError:false,msg:''},password:{hasError:false,msg:''},isFormValid:false})
     let [showPassword,setShowPassword]= React.useState(false)
     React.useEffect(()=>{
+        if(state.user.isAuthenticated){
+            router.push('/')
+        }
         dispatch(resetFormStatus())
     },[])
     let formSubmitHandler = (e)=>{
