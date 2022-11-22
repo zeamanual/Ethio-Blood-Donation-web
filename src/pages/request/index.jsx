@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomPaperCard from '../../components/customPaperCard'
 import CustomProgressModal from '../../components/customProgressModal'
 import CustomResponseModal from '../../components/customResponseModal'
+import CustomResponseModalNoRoute from '../../components/customResponseModalNoRoute'
 import Layout from '../../components/layout'
 import { donate, resetNewDonationStatus } from '../../state/slices/donorSlice'
 import { getOneRequest } from '../../state/slices/requestSlice'
@@ -21,6 +22,9 @@ function RequestDetail() {
   let donateHandler = () => {
     dispatch(donate({ requestId }))
   }
+  let handleModalClose = ()=>{
+    dispatch(resetNewDonationStatus())
+  }
 
   React.useEffect(() => {
     if (!userState.isAuthenticated) {
@@ -32,6 +36,15 @@ function RequestDetail() {
 
   return (
     <Layout>
+      <CustomResponseModalNoRoute
+        btnName={'Back'}
+        msg={donorState.newDonation.errorMsg}
+        severity={'error'}
+        open={Boolean(donorState.newDonation.errorMsg)}
+        onCloseCallBack={handleModalClose}
+
+      >
+      </CustomResponseModalNoRoute>
       <CustomPaperCard>
         <CustomProgressModal open={donorState.loading} message={'Donation In Progress'} ></CustomProgressModal>
         <CustomResponseModal
@@ -74,7 +87,6 @@ function RequestDetail() {
               <Box p={1} display='flex' justifyContent={'center'}>
                 <Button onClick={donateHandler} color='secondary' variant='contained' >Donate Now</Button>
               </Box>
-              {donorState.newDonation.errorMsg ? <Alert severity='error'>{donorState.newDonation.errorMsg}</Alert> : <></>}
             </Box> : <></>
         }
 

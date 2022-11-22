@@ -178,7 +178,7 @@ function SignUp() {
         bloodType: { value: '', hasError: false, msg: '', changeHandler: handleBloodtypeChange },
         password: { value: '', hasError: false, msg: '', changeHandler: handlePasswordChange },
     })
-    // console.log("current status",fieldsValue)
+
     return (
         <Layout>
             <Box my={5} mx={{ md: 8, xs: 2 }} sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '2px 2px 5px gray' }}>
@@ -264,60 +264,19 @@ function SignUp() {
                                     }
                                     return inputField
                                 })}
-
-                                {/* <TextField   error={fieldsValue.userName.hasError} helperText={fieldsValue.userName.msg} value ={fieldsValue.userName.value} onChange={handleNameChange} label='Username' variant='outlined' margin='dense' ></TextField>
-                    <TextField error={fieldsValue.email.hasError} helperText={fieldsValue.email.msg} value ={fieldsValue.email.value} onChange={handleEmailChange} label='Email' variant='outlined' margin='dense' ></TextField>
-                    <TextField error={fieldsValue.phoneNumber.hasError} helperText={fieldsValue.phoneNumber.msg} value ={fieldsValue.phoneNumber.value} onChange={handlePhoneNumberChange} label='Phone Number' variant='outlined' margin='dense' ></TextField>
-                    <TextField error={fieldsValue.address.hasError} helperText={fieldsValue.address.msg}  value ={fieldsValue.address.value} onChange={handleAddressChange} label='Address' variant='outlined' margin='dense' select >
-                        {cities.map(city=>{
-                            return  <MenuItem key={city.name} value={city.name} >{city.name}</MenuItem>
-                        })
-                        }
-                    </TextField>
-                    <TextField error={fieldsValue.age.hasError} helperText={fieldsValue.age.msg} value ={fieldsValue.age.value} onChange={handleAgeChange} type={'number'} label='Age' variant='outlined' margin='dense' ></TextField>
-                    <TextField  error={fieldsValue.gender.hasError} helperText={fieldsValue.gender.msg} value ={fieldsValue.gender.value} onChange={handleGenderChange} label='Gender' select  variant='outlined' margin='dense' >
-                        <MenuItem value='Male'>
-                            Male
-                        </MenuItem>
-                        <MenuItem value='Female'>
-                            Female
-                        </MenuItem>
-                    </TextField>
-                    <TextField  error={fieldsValue.bloodType.hasError} helperText={fieldsValue.bloodType.msg} value ={fieldsValue.bloodType.value} onChange={handleBloodtypeChange} label='Blood Type' select variant='outlined' margin='dense' >
-                        {
-                            bloodTypes.map(bloodType=>{
-                                return <MenuItem key={bloodType} value={bloodType}>{bloodType}</MenuItem>
-                            })
-                        }
-                    </TextField>
-                    <TextField
-                    error={fieldsValue.password.hasError} 
-                    helperText={fieldsValue.password.msg}
-                    type={showPassword ? 'text':'password'}
-                    value ={fieldsValue.password.value} onChange={handlePasswordChange} label='password' variant='outlined' margin='dense'
-                    InputProps={{
-                        endAdornment:(
-                            <InputAdornment position='end'>
-                                <IconButton onClick={showPasswordHandler}>
-                                    {showPassword ? <VisibilityOff></VisibilityOff> :<Visibility></Visibility>}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                    ></TextField> */}
                                 <Box m={1}>
                                     {state.user.signUp.errorMsg && <Alert severity='error' >{state.user.signUp.errorMsg}</Alert>}
 
                                     <CustomResponseModal
                                         open={Boolean(state.user.signUp.sucessMsg)}
-                                        btnName='Log In Now.'
+                                        btnName='Log In Now'
                                         msg={state.user.signUp.sucessMsg}
                                         path='login'
                                         severity='success'
                                     ></CustomResponseModal>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                                    <Button type='submit' variant='contained'>Sign Up</Button>
+                                    <Button disabled={state.user.loading} type='submit' variant='contained'>Sign Up</Button>
                                 </Box>
                             </Stack>
                         </form>

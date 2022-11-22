@@ -38,9 +38,11 @@ function RequestDetail() {
     <Layout>
       <CustomPaperCard>
         {requestState.loading ?
-          <Box sx={{ height: '50vh', width: '100%', display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-            <CircularProgress></CircularProgress>
-          </Box> :
+          <CustomProgressModal
+            message={'Loading Request Data'}
+            open={requestState.loading}
+          >
+          </CustomProgressModal> :
           requestState.requestDetail.errorMsg ? <Alert severity='error'>{requestState.requestDetail.errorMsg}</Alert> :
             donorState.loading ? <CustomProgressModal
               message={'Canceling Donation'}
@@ -55,43 +57,43 @@ function RequestDetail() {
                 btnName={'Back'}
               >
               </CustomResponseModal> :
-              donorState.cancelDonation.errorMsg?<CustomResponseModalNoRoute
-                msg={donorState.cancelDonation.errorMsg}
-                open={Boolean(donorState.cancelDonation.errorMsg)}
-                severity={'error'}
-                onCloseCallBack={modalCloseHandler}
-                btnName={'Back'}
-              >
-              </CustomResponseModalNoRoute> :
-                requestState.requestDetail.requestData ? <Box>
-                  <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"'s Blood Request Detail"}</Typography>
-                  <Grid container gap={1} >
-                    <Grid xs={12} item sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                      <Typography variant='h5'>User Name : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.userRef.userName}</Typography></Typography>
+                donorState.cancelDonation.errorMsg ? <CustomResponseModalNoRoute
+                  msg={donorState.cancelDonation.errorMsg}
+                  open={Boolean(donorState.cancelDonation.errorMsg)}
+                  severity={'error'}
+                  onCloseCallBack={modalCloseHandler}
+                  btnName={'Back'}
+                >
+                </CustomResponseModalNoRoute> :
+                  requestState.requestDetail.requestData ? <Box>
+                    <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"'s Blood Request Detail"}</Typography>
+                    <Grid container gap={1} >
+                      <Grid xs={12} item sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                        <Typography variant='h5'>User Name : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.userRef.userName}</Typography></Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
+                        <Typography variant='h5'>Required Bood Type :<Typography color='GrayText' variant='h5' component={'span'}>  {requestDetail.bloodType}</Typography></Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
+                        <Typography variant='h5'>Blood Unit Required : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.requiredBloodUnit}</Typography></Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                        <Typography variant='h5'>Found Donors So Far : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.foundDonors.length}</Typography></Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                        <Typography variant='h5'>Request Created On : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.date.toString()}</Typography></Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                        <Typography variant='h5'>Looking For Donors in: : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.address.map(addr => `${addr}, `)}</Typography></Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
+                        <Typography variant='h5'>Message : <Typography color='GrayText' variant='h5' component={'span'}>{requestDetail.message}</Typography></Typography>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
-                      <Typography variant='h5'>Required Bood Type :<Typography color='GrayText' variant='h5' component={'span'}>  {requestDetail.bloodType}</Typography></Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }} >
-                      <Typography variant='h5'>Blood Unit Required : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.requiredBloodUnit}</Typography></Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                      <Typography variant='h5'>Found Donors So Far : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.foundDonors.length}</Typography></Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                      <Typography variant='h5'>Request Created On : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.date.toString()}</Typography></Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                      <Typography variant='h5'>Looking For Donors in: : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.address.map(addr => `${addr}, `)}</Typography></Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                      <Typography variant='h5'>Message : <Typography color='GrayText' variant='h5' component={'span'}>{requestDetail.message}</Typography></Typography>
-                    </Grid>
-                  </Grid>
-                  <Box display='flex' justifyContent={'center'} padding={2}>
-                    <Button onClick={cancelDonationHandler} variant='contained' color='error'>Cancel Donation</Button>
-                  </Box>
-                </Box> : <></>
+                    <Box display='flex' justifyContent={'center'} padding={2}>
+                      <Button onClick={cancelDonationHandler} variant='contained' color='error'>Cancel Donation</Button>
+                    </Box>
+                  </Box> : <></>
         }
 
       </CustomPaperCard>

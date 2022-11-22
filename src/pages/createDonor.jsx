@@ -98,7 +98,7 @@ function CreateDonor() {
                                 </Autocomplete>
                                 <Box display={'flex'} justifyContent='center' alignItems={'center'} flexDirection={'column'}  padding={2}>
                                     {donorState.newDonor.errorMsg?<Alert sx={{margin:2}} severity='error'>{donorState.newDonor.errorMsg}</Alert>:<></>}
-                                    <Button type='submit'  variant="contained"  >Save Donation Adress</Button>
+                                    <Button disabled={donorState.loading} type='submit'  variant="contained"  >Save Donation Adress</Button>
                                 </Box>
                             </form>
 

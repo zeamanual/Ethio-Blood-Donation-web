@@ -2,6 +2,7 @@ import { Alert, Autocomplete, Box, Button, Grid, LinearProgress, MenuItem, Modal
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import CustomProgressModal from '../../../components/customProgressModal'
 import CustomResponseModal from '../../../components/customResponseModal'
 import Layout from '../../../components/layout'
 import { BLOODTYPES, CITIES } from '../../../constants'
@@ -9,19 +10,19 @@ import { createRequest, resetRequestFormStatus, updateRequest } from '../../../s
 
 function UpdateRequest() {
     let isAuthenticated = useSelector(state => state.user.isAuthenticated)
-    let userState = useSelector(state=>state.user)
+    let userState = useSelector(state => state.user)
     let router = useRouter()
     let queryData = router.query
     let dispatch = useDispatch()
     let requestState = useSelector(state => state.request)
-    let existingRequestAddress =  typeof queryData.address=='string'?[{name:queryData.address}]:typeof queryData.address=='object'? queryData.address.map(address=>{ return {name:address}}):[]
+    let existingRequestAddress = typeof queryData.address == 'string' ? [{ name: queryData.address }] : typeof queryData.address == 'object' ? queryData.address.map(address => { return { name: address } }) : []
     let [fieldsValue, setFieldsValue] = React.useState({
         bloodType: {
             value: queryData.bloodType,
             errorMsg: ''
         },
-        address: { 
-            value:typeof queryData.address=='string'? [queryData.address]:typeof queryData.address=='object'?[...queryData.address]:[],
+        address: {
+            value: typeof queryData.address == 'string' ? [queryData.address] : typeof queryData.address == 'object' ? [...queryData.address] : [],
             errorMsg: ''
         },
         requiredBloodUnit: {
@@ -117,10 +118,7 @@ function UpdateRequest() {
                 message: fieldsValue.message.value
             }
 
-            dispatch(updateRequest({requestId:queryData._id, requestData, router }))
-            console.log('request form submitted', fieldsValue, '/n', requestData)
-        } else {
-            console.log('request form not submiited')
+            dispatch(updateRequest({ requestId: queryData._id, requestData, router }))
         }
     }
     return (
@@ -130,12 +128,13 @@ function UpdateRequest() {
                 open={Boolean(requestState.updateRequest.successMsg)}
                 msg={requestState.updateRequest.successMsg}
                 path='/'
-                btnName='Back To Home.'
+                btnName='Back To Home'
                 severity={'success'}
             ></CustomResponseModal>
 
             <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
-                {requestState.loading && <LinearProgress></LinearProgress>}
+                <CustomProgressModal message={'Updating Request'} open={requestState.loading} >
+                </CustomProgressModal>
                 <Box sx={{ padding: 4 }}>
 
                     <form onSubmit={formSubmitHandler}>
@@ -152,7 +151,7 @@ function UpdateRequest() {
                                     value={fieldsValue.bloodType.value}
                                     onChange={handleBloodtypeChange}
                                     select
-                                    >
+                                >
                                     {
                                         BLOODTYPES.map((bloodType) => {
                                             return <MenuItem key={bloodType} value={bloodType} >{bloodType}</MenuItem>
@@ -177,7 +176,7 @@ function UpdateRequest() {
                                 id="tags-standard"
                                 options={CITIES}
                                 defaultValue={existingRequestAddress}
-                                isOptionEqualToValue={(option,value)=>{ return option.name==value.name}}
+                                isOptionEqualToValue={(option, value) => { return option.name == value.name }}
                                 onChange={handleAddressChange}
                                 getOptionLabel={(option) => option.name}
                                 renderInput={(params) => (
@@ -210,7 +209,7 @@ function UpdateRequest() {
                             </TextField>
                             <Box display={'flex'} alignItems='center' flexDirection={'column'} justifyContent={'center'}>
                                 <Button type="submit" variant='contained'>Update Request</Button>
-                                {requestState.updateRequest.errorMsg && <Alert sx={{margin:2}} severity='error'>{requestState.updateRequest.errorMsg}</Alert>}
+                                {requestState.updateRequest.errorMsg && <Alert sx={{ margin: 2 }} severity='error'>{requestState.updateRequest.errorMsg}</Alert>}
                             </Box>
                         </Stack>
 

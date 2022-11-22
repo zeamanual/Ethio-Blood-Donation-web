@@ -127,7 +127,7 @@ function Login() {
                           
                             </Box>
                             <Box  display={'flex'} justifyContent={'center'}>
-                                <Button disabled={errorDetails.isFormValid?false:true} type='submit' variant='contained'>Log in</Button>
+                                <Button disabled={!errorDetails.isFormValid || state.user.loading ?true:false} type='submit' variant='contained'>Log in</Button>
                             </Box>
                             <Box>
                            <Typography align='center'>

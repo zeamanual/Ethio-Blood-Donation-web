@@ -7,6 +7,7 @@ import {theme} from '../utils/theme'
 import {store} from '../state/store/store'
 import {wrapper} from '../state/store/store'
 import styles from '../styles/testimonial.css'
+import Head from 'next/head'
 
 
 let clientSideEmotionCache = createEmotionCache()
@@ -15,6 +16,9 @@ function MyApp({ Component,emotionCache=clientSideEmotionCache, pageProps }) {
     <Provider store={store}>
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
+      <Head>
+      <title>Habesha Donate</title>
+      </Head>
         <Component {...pageProps} /> 
       </ThemeProvider>     
     </CacheProvider>
