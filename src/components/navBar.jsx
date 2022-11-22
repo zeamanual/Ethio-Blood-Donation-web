@@ -69,7 +69,7 @@ let NavBar = function () {
         <Toolbar>
           <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
             <Box sx={{ maxWidth: 60 }}>
-              <Image height={70} width={100} src={logoImg} alt='logo picture' />
+              <Image height={70} width={100} src={'/logo.png'} alt='logo picture' />
             </Box>
             <StyledBox sx={{ display: { md: 'flex', xs: 'none' }, }}>
 

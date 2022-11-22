@@ -8,6 +8,7 @@ import CustomProgressModal from '../../components/customProgressModal'
 import Layout from '../../components/layout'
 import ReqestsHighLight from '../../components/requestHighLight'
 import { getDonorMatchingRequests } from '../../state/slices/requestSlice'
+import { updateUserAuthStatus } from '../../state/slices/userSlice'
 
 function Reqests() {
   let userState = useSelector(state => state.user)
@@ -26,6 +27,7 @@ function Reqests() {
   }
 
   React.useEffect(() => {
+    dispatch(updateUserAuthStatus())
     if (!userState.isAuthenticated) {
       router.push('/login')
     }

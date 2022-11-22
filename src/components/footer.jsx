@@ -71,7 +71,7 @@ function Footer() {
                             padding: 2
                         }}
                     >
-                        <Image height={60} width={100} src={logoImg} alt='logo picture' />
+                        <Image height={60} width={100} src={'/logo.png'} alt='logo picture' />
                         <Button sx={{ width: '100%', fontFamily: 'Alfa Slab One' }} variant='text'>Habesha Blood Donation</Button>
                     </Box>
                 </Grid>
