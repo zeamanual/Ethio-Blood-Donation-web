@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomPaperCard from '../../../components/customPaperCard'
 import CustomProgressModal from '../../../components/customProgressModal'
 import CustomResponseModal from '../../../components/customResponseModal'
+import CustomResponseModalNoRoute from '../../../components/customResponseModalNoRoute'
 import Layout from '../../../components/layout'
 import { donate, resetNewDonationStatus } from '../../../state/slices/donorSlice'
 import { deleteRequest, getOneRequest, resetRequestFormStatus } from '../../../state/slices/requestSlice'
@@ -18,6 +19,10 @@ function RequestDetail() {
   let dispatch = useDispatch()
   let requestId = router.query.reqId
   let requestDetail = requestState.requestDetail.requestData
+
+  let handleModalClose = () => {
+    dispatch(resetRequestFormStatus())
+  }
 
   let updateRequestHandler = () => {
     router.push({ pathname: '/request/update', query: requestDetail })
@@ -40,18 +45,30 @@ function RequestDetail() {
         <CustomResponseModal
           btnName={"Go To Home"}
           msg={requestState.deleteRequest.successMsg}
-          open={requestState.deleteRequest.successMsg}
+          open={Boolean(requestState.deleteRequest.successMsg)}
           severity={'success'}
           path={'/'}
         ></CustomResponseModal>
-        {requestState.loading ?
-          <Box sx={{ height: '50vh', width: '100%', display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-            <CircularProgress></CircularProgress>
-          </Box> :
-          requestState.requestDetail.errorMsg ? <Alert severity='error'>{requestState.requestDetail.errorMsg}</Alert>
-            : requestState.deleteRequest.errorMsg ? <Alert severity='error'>{requestState.deleteRequest.errorMsg}</Alert>
+          {requestState.requestDetail.errorMsg ? <CustomResponseModalNoRoute
+            btnName={'Back'}
+            msg={requestState.requestDetail.errorMsg}
+            severity={'error'}
+            open={Boolean(requestState.requestDetail.errorMsg)}
+            onCloseCallBack={handleModalClose}
+
+          >
+          </CustomResponseModalNoRoute>
+            : requestState.deleteRequest.errorMsg ? <CustomResponseModalNoRoute
+              btnName={'Back'}
+              msg={requestState.deleteRequest.errorMsg}
+              severity={'error'}
+              open={Boolean(requestState.deleteRequest.errorMsg)}
+              onCloseCallBack={handleModalClose}
+
+            >
+            </CustomResponseModalNoRoute>
               : requestState.requestDetail.requestData ? <Box>
-                <Typography align='center' sx={{ margin: 3 }} variant='h4' > {requestDetail.userRef.gender == 'FEMALE' ? 'Miss' : "Mister"} {requestDetail.userRef.userName}{"'s Blood Request Detail"}</Typography>
+                <Typography align='center' sx={{ margin: 3 }} variant='h4' >{"Your Blood Request Detail"}</Typography>
                 <Stack mb={2} alignItems={'end'}>
                   <Stack gap={2} direction={'row'} alignItems='center'>
                     <Typography variant="h6">STATUS :</Typography>
@@ -74,7 +91,7 @@ function RequestDetail() {
                         <Typography variant='h5'>Found Donors So Far : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.foundDonors.length}</Typography></Typography>
                       </Box>
                       <Stack direction={'column'} p={2}>
-                        { 
+                        {
                           requestDetail.donorsDetail.map((donor, index) => {
                             return (
                               <>
@@ -104,7 +121,6 @@ function RequestDetail() {
                   <Button startIcon={<Edit></Edit>} onClick={updateRequestHandler} color='info' variant='contained' >Update</Button>
                   <Button startIcon={<Delete></Delete>} onClick={deleteRequestHandler} color='error' variant='contained' >Delete</Button>
                 </Box>
-                {donorState.newDonation.errorMsg ? <Alert severity='error'>{donorState.newDonation.errorMsg}</Alert> : <></>}
               </Box> : <></>
         }
 

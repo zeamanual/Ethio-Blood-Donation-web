@@ -39,9 +39,7 @@ function Profile() {
                         <Tab label='Donation Address Update' value='2'></Tab>
                     </Tabs>
                 </Box>
-                <Box >
-                    {state.user.loading && <LinearProgress></LinearProgress>}
-
+                <Box>
                     {
                         selectedTab === '1' ? <UpdateProfile></UpdateProfile> :
                             selectedTab === '2' ? userRoles.includes('DONOR') ?

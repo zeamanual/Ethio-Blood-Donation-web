@@ -24,7 +24,7 @@ function About() {
                                 <Typography><FormatQuoteRounded></FormatQuoteRounded></Typography>
                                 <Typography align='justify' variant='h6' sx={{ fontStyle: 'italic' }} >{"The World Health Organization (WHO) suggests that if  1 percent of a country's population donate blood, national blood demand will be satisfied. But why are we still in shortage? Who wants to be in that 1 percent and save lives?"}
                                 </Typography>
-                                <Typography align='end'><FormatQuoteRounded></FormatQuoteRounded></Typography>
+                                <Typography align='right'><FormatQuoteRounded></FormatQuoteRounded></Typography>
 
                             </Box>
 

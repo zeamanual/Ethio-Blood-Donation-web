@@ -10,23 +10,23 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestCli
         <Box>
             <List  >
                 {requests.map((request,index) => {
-                    return <>
+                    return (
                         <ListItem key={index}>
                             <ListItemButton onClick={() => {requestClickHandler(request)}}>
                                 <ListItemAvatar>
                                     <AccountCircleRounded fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
-                                <ListItemText primary={request.userRef.userName} secondary={request.date.toString()}>
-
+                                <ListItemText sx={{}} primary={request.userRef.userName} secondary={request.date.toString()}>
+                                    
                                 </ListItemText>
-                                <Stack direction={'column'} justifyContent='center'>
+                                <Stack sx={{padding:'0em'}} direction={'column'} justifyContent='center'>
                                     <Typography align='right' variant='h6'>{request.bloodType}</Typography>
-                                    <Typography variant='subtitle1' color='gray'> {request.address.map(address => ` ${address},`)}</Typography>
+                                    <Typography sx={{display:{xs:'none',sm:'block'}}} variant='subtitle1' color='gray'> {request.address.map(address => ` ${address},`)}</Typography>
 
                                 </Stack>
                             </ListItemButton>
                         </ListItem>
-                    </>
+                    )
                 })}
                 <Box display={'flex'} justifyContent='center'>
                     <Pagination defaultPage={1} onChange={pageChangeHandler} size='large' variant='text' color='primary' count={Math.ceil( totalPageItems/10)}></Pagination>

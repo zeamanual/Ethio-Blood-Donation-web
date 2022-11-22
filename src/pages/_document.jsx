@@ -9,7 +9,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {this.props.emotionStyleTags}
-          <title>Habesha Donate</title>
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
@@ -17,7 +16,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#da532c"></meta>
           <meta name="theme-color" content="#ffffff"></meta>
           <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'></link>
           <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet"></link>
         </Head>
         <body>

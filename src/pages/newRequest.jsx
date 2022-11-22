@@ -2,6 +2,7 @@ import { Alert, Autocomplete, Box, Button, Grid, LinearProgress, MenuItem, Modal
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import CustomProgressModal from '../components/customProgressModal'
 import CustomResponseModal from '../components/customResponseModal'
 import Layout from '../components/layout'
 import { BLOODTYPES, CITIES } from '../constants'
@@ -9,7 +10,7 @@ import { createRequest, resetRequestFormStatus } from '../state/slices/requestSl
 
 function NewRequest() {
     let isAuthenticated = useSelector(state => state.user.isAuthenticated)
-    let userState = useSelector(state=>state.user)
+    let userState = useSelector(state => state.user)
     let router = useRouter()
     let dispatch = useDispatch()
     let requestState = useSelector(state => state.request)
@@ -128,12 +129,16 @@ function NewRequest() {
                 open={Boolean(requestState.newRequest.successMsg)}
                 msg={requestState.newRequest.successMsg}
                 path='/'
-                btnName='Back To Home.'
+                btnName='Back To Home'
                 severity={'success'}
             ></CustomResponseModal>
 
             <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
-                {requestState.loading && <LinearProgress></LinearProgress>}
+                <CustomProgressModal
+                    message={'Creating New Request'}
+                    open={requestState.loading}
+                >
+                </CustomProgressModal>
                 <Box sx={{ padding: 4 }}>
 
                     <form onSubmit={formSubmitHandler}>
@@ -150,7 +155,7 @@ function NewRequest() {
                                     value={fieldsValue.bloodType.value}
                                     onChange={handleBloodtypeChange}
                                     select
-                                    >
+                                >
                                     {
                                         BLOODTYPES.map((bloodType) => {
                                             return <MenuItem key={bloodType} value={bloodType} >{bloodType}</MenuItem>
@@ -174,8 +179,8 @@ function NewRequest() {
                                 multiple
                                 id="tags-standard"
                                 options={CITIES}
-                                defaultValue={[{name:userState.address} ]}
-                                isOptionEqualToValue={(option,value)=>{ return option.name==value.name}}
+                                defaultValue={[{ name: userState.address }]}
+                                isOptionEqualToValue={(option, value) => { return option.name == value.name }}
                                 onChange={handleAddressChange}
                                 getOptionLabel={(option) => option.name}
                                 renderInput={(params) => (
@@ -208,7 +213,7 @@ function NewRequest() {
                             </TextField>
                             <Box display={'flex'} alignItems='center' flexDirection={'column'} justifyContent={'center'}>
                                 <Button type="submit" variant='contained'>Create Request</Button>
-                                {requestState.newRequest.errorMsg && <Alert sx={{margin:2}} severity='error'>{requestState.newRequest.errorMsg}</Alert>}
+                                {requestState.newRequest.errorMsg && <Alert sx={{ margin: 2 }} severity='error'>{requestState.newRequest.errorMsg}</Alert>}
                             </Box>
                         </Stack>
 

@@ -48,10 +48,10 @@ let NavBar = function () {
   ]
 
   let userNavs = [
-    { path: '/myRequests', name: 'My Requests' },
-    { path: state.user.roles.includes('DONOR') ? '/myDonations' : "/createDonor", name: state.user.roles.includes('DONOR') ? 'My donations' : "Become a Donor" },
-    { path: '/profile', name: "Profile" },
-    { path: '', name: 'Log Out' },
+    { path: '/myRequests', name: 'MY REQUESTS' },
+    { path: state.user.roles.includes('DONOR') ? '/myDonations' : "/createDonor", name: state.user.roles.includes('DONOR') ? 'MY DONATIONS' : "BECOME A DONOR" },
+    { path: '/profile', name: "PROFILE" },
+    { path: '', name: 'LOG OUT' },
   ]
 
 
@@ -80,9 +80,9 @@ let NavBar = function () {
                       <Box display='flex' justifyContent={'center'}>
                         <Button
                           size='small'
-                          sx={{ margin: '0 1em', '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
+                          sx={{ margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
                         >
-                          <Typography variant='h6'>{item.name}</Typography>
+                          <Typography sx={{ fontSize: { md: '1.3em', lg: '1.55em' } }} variant='h6'>{item.name}</Typography>
                         </Button>
                       </Box>
                     </Link>
@@ -109,7 +109,7 @@ let NavBar = function () {
                     return (
                       <MenuItem key={index} onClick={() => {
                         setAnchorEl(null); router.push(nav.path)
-                        if (nav.name == 'Log Out') { dispatch(logOut()) }
+                        if (nav.name == 'LOG OUT') { dispatch(logOut()) }
                       }} >
                         {nav.name}
                       </MenuItem>
@@ -142,46 +142,48 @@ let NavBar = function () {
         anchor={'left'}
         onClose={() => { setDrawerOpened(!drawerOpened) }}
       >
-        <List sx={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5 }} >
-          {navItems.map((item, index) => {
-            return (
-              <ListItemButton onClick={() => { router.push(`/${item.path}`); setDrawerOpened(!drawerOpened) }} key={index}>
-                <ListItemText>{item.name}</ListItemText>
-              </ListItemButton>
-            )
-          })}
+        <Box sx={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5 }}>
+          <List>
+            {navItems.map((item, index) => {
+              return (
+                <ListItemButton onClick={() => { router.push(`/${item.path}`); setDrawerOpened(!drawerOpened) }} key={index}>
+                  <ListItemText>{item.name}</ListItemText>
+                </ListItemButton>
+              )
+            })}
 
-          <Divider></Divider>
-          {state.user.isAuthenticated
-            ? <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 2 }}>
-              <Box display={'flex'} justifyContent={'center'} >
-                <Avatar ></Avatar>
-              </Box>
-              {
-                userNavs.map((nav, index) => {
-                  return (
-                    <ListItemButton key={index} onClick={() => {
-                      setAnchorEl(null);
-                      if (nav.name == 'Log Out') { dispatch(logOut()) }
-                      router.push(nav.path)
-                    }} >
-                      <ListItemText>{nav.name}</ListItemText>
-                    </ListItemButton>
-                  )
-                })
-              }
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
-                <Button onClick={handleDonateNow} variant='contained'>Donate Now</Button>
-                <Button onClick={handleCreateRequestNow} variant='contained'>Create Request</Button>
-              </Box>
+            <Divider></Divider>
+            {state.user.isAuthenticated
+              ? <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
+                <Box display={'flex'} justifyContent={'center'} >
+                  <Avatar ></Avatar>
+                </Box>
+                {
+                  userNavs.map((nav, index) => {
+                    return (
+                      <ListItemButton key={index} onClick={() => {
+                        setAnchorEl(null);
+                        if (nav.name == 'LOG OUT') { dispatch(logOut()) }
+                        router.push(nav.path)
+                      }} >
+                        <ListItemText>{nav.name}</ListItemText>
+                      </ListItemButton>
+                    )
+                  })
+                }
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
+                  <Button onClick={handleDonateNow} variant='contained'>Donate Now</Button>
+                  <Button onClick={handleCreateRequestNow} variant='contained'>Create Request</Button>
+                </Box>
 
-            </Box>
-            : <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
-              <Button onClick={() => { router.push(`/login`) }} variant='contained'>Log In</Button>
-              <Button onClick={() => { router.push(`/signup`) }} variant='contained'>Sign Up</Button>
-            </Box>
-          }
-        </List>
+              </Box>
+              : <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
+                <Button onClick={() => { router.push(`/login`) }} variant='contained'>Log In</Button>
+                <Button onClick={() => { router.push(`/signup`) }} variant='contained'>Sign Up</Button>
+              </Box>
+            }
+          </List>
+        </Box>
       </Drawer>
     </>
   )
