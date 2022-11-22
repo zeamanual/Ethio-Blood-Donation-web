@@ -154,16 +154,12 @@ function ContactUs() {
             }
         }
         if (isValid) {
-            console.log('contactu us form submitted')
             sendContactForm({
                 name: contactUsData.name.value,
                 email: contactUsData.email.value,
                 subject: contactUsData.subject.value,
                 message: contactUsData.message.value
             })
-
-        } else {
-            console.log('contact us form not submitted becuase some attributed are not valid')
         }
 
     }
@@ -183,15 +179,24 @@ function ContactUs() {
         }
     }
 
+    let formSubmitSuccessHandler = () => {
+        setContactFormSubmitState({ ...contactFormSubmitState, successMsg: '', error: '' })
+        setContactUsData(preValue => { Object.keys(preValue).forEach(key => { preValue[`${key}`].value = '' }); return preValue })
+
+    }
+    let formSubmitErrorHandler = () => {
+        setContactFormSubmitState({ ...contactFormSubmitState, successMsg: '', error: '' })
+    }
+
     return (
         <div id='contact'>
             <Box padding={3} paddingX={{ xs: 3, md: 22 }} >
                 <CustomProgressModal message={'Sending Your Message...'} open={Boolean(contactFormSubmitState.loading)}  ></CustomProgressModal>
-                <div onClick={() => { setContactFormSubmitState({ ...contactFormSubmitState, successMsg: '', error: '' }); window.location.reload() }}>
-                    <CustomResponseModal open={Boolean(contactFormSubmitState.successMsg)} btnName={'Back'} path={''} severity={'success'} msg={contactFormSubmitState.successMsg} ></CustomResponseModal>
+                <div onClick={formSubmitSuccessHandler}>
+                    <CustomResponseModal open={Boolean(contactFormSubmitState.successMsg)} btnName={'Back'} path={'/#contact'} severity={'success'} msg={contactFormSubmitState.successMsg} ></CustomResponseModal>
                 </div>
-                <div onClick={() => { setContactFormSubmitState({ ...contactFormSubmitState, successMsg: '', error: '' }); }}>
-                    <CustomResponseModal open={Boolean(contactFormSubmitState.error)} btnName={'Back'} path={''} severity={'error'} msg={contactFormSubmitState.error} ></CustomResponseModal>
+                <div onClick={formSubmitErrorHandler}>
+                    <CustomResponseModal open={Boolean(contactFormSubmitState.error)} btnName={'Back'} path={'/#contact'} severity={'error'} msg={contactFormSubmitState.error} ></CustomResponseModal>
                 </div>
                 <Typography sx={{ paddingTop: '1em' }} variant='h2' align='center' color='dark' >Get In Touch</Typography>
                 <Typography sx={{ padding: '1em 0' }} variant='h6' align='center' color='gray' >Have A Question To Ask Or Wanna Give Feedback, Feel Free To Contact Me</Typography>
@@ -206,10 +211,10 @@ function ContactUs() {
                             width: '100%',
                         }}>
                             <Stack direction='column' padding={2} paddingX={{ xs: 2, md: 6 }} rowGap={2}>
-                                <TextField type='text' error={contactUsData.name.hasError} onChange={nameChangeHandler} helperText={contactUsData.name.errorMsg} defaultValue={contactUsData.name.value} variant='standard' label='Name'></TextField>
-                                <TextField type='email' error={contactUsData.email.hasError} onChange={emailChangeHandler} helperText={contactUsData.email.errorMsg} defaultValue={contactUsData.email.value} variant='standard' label='Email'></TextField>
-                                <TextField ype='text' error={contactUsData.subject.hasError} onChange={subjectChangeHandler} helperText={contactUsData.subject.errorMsg} defaultValue={contactUsData.subject.value} variant='standard' label='Subject'></TextField>
-                                <TextField ype='text' error={contactUsData.message.hasError} onChange={messageChangeHandler} helperText={contactUsData.message.errorMsg} defaultValue={contactUsData.message.value} variant='standard' label='Message' multiline rows={2}></TextField>
+                                <TextField type='text' error={contactUsData.name.hasError} onChange={nameChangeHandler} helperText={contactUsData.name.errorMsg} value={contactUsData.name.value} variant='standard' label='Name'></TextField>
+                                <TextField type='email' error={contactUsData.email.hasError} onChange={emailChangeHandler} helperText={contactUsData.email.errorMsg} value={contactUsData.email.value} variant='standard' label='Email'></TextField>
+                                <TextField ype='text' error={contactUsData.subject.hasError} onChange={subjectChangeHandler} helperText={contactUsData.subject.errorMsg} value={contactUsData.subject.value} variant='standard' label='Subject'></TextField>
+                                <TextField ype='text' error={contactUsData.message.hasError} onChange={messageChangeHandler} helperText={contactUsData.message.errorMsg} value={contactUsData.message.value} variant='standard' label='Message' multiline rows={2}></TextField>
                                 <Box>
                                     <Button onClick={submitHandler} variant='contained'>Submit</Button>
                                 </Box>
