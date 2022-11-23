@@ -11,7 +11,7 @@ function Gallery() {
   },[])
   let galleryList = [
     {
-      url: '/gallery/gallery1.jpg',
+      url: '/gallery/gallery9.jpg',
       title: 'Donation'
     },
     {
@@ -31,20 +31,20 @@ function Gallery() {
       title: 'Donation'
     },
     {
-      url: '/gallery/gallery1.jpg',
+      url: '/gallery/gallery10.jpg',
       title: 'Donation'
     },
     {
-      url: '/gallery/gallery1.jpg',
+      url: '/gallery/gallery8.jpg',
       title: 'Donation'
     },
 
     {
-      url: '/gallery/gallery6.jpg',
+      url: '/gallery/gallery7.jpg',
       title: 'Donation'
     },
     {
-      url: '/gallery/gallery1.jpg',
+      url: '/gallery/gallery6.jpg',
       title: 'Donation'
     },
   ]
