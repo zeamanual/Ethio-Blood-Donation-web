@@ -85,7 +85,7 @@ function RequestDetail() {
                 </Grid>
               </Grid>
               <Box p={1} display='flex' justifyContent={'center'}>
-                <Button onClick={donateHandler} color='secondary' variant='contained' >Donate Now</Button>
+                <Button onClick={donateHandler} color='primary' variant='contained' >Donate Now</Button>
               </Box>
             </Box> : <></>
         }
