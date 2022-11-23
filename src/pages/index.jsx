@@ -123,7 +123,7 @@ export default function Home() {
 
                     </Box>
                     <Box>
-                      <Typography variant='h6' align='center' color='gray'>Sign UP/Register</Typography>
+                      <Typography variant='h6' align='center' color='gray'>Sign Up/Register</Typography>
 
                     </Box>
                   </Paper>

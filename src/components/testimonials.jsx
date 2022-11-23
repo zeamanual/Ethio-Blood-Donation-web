@@ -42,27 +42,27 @@ function Testimonials() {
 
     ]
     return (
-        <Box id = 'testimonial'>
+        <Box id='testimonial'>
             <Box sx={{
-                paddingTop:'8em'
+                paddingTop: '8em'
             }}>
                 <Typography variant='h2' color='dark' align='center'>Testimonials</Typography>
             </Box>
-            <Box paddingX={{md:3,xs:0}} paddingY={0}>
+            <Box paddingX={{ md: 3, xs: 0 }} paddingY={0}>
                 <Carousel
                     height={customWindowSize == 'md' ? 350 : 600}
                     navButtonsAlwaysVisible={true}
                     animation={'slide'}
                 >
                     {
-                        testimonials.map((testimoni,index) => {
+                        testimonials.map((testimoni, index) => {
                             return <Box key={index} margin={3} display='flex' justifyContent={'center'}>
                                 <Box width='80%' display={'flex'} flexDirection={{ xs: 'column', md: 'row' }}
                                     sx={{
                                         padding: '1em 2em',
                                         borderRadius: '1em',
                                         boxShadow: '0 0 0.5em gray',
-                                        minHeight:'300px'
+                                        minHeight: '300px'
                                     }}
                                 >
                                     <Box sx={{ width: { md: '30%', xs: '100%' } }} display='flex' justifyContent={'center'} alignItems='center'>

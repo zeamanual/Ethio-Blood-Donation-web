@@ -10,6 +10,7 @@ import CustomResponseModalNoRoute from '../../../components/customResponseModalN
 import Layout from '../../../components/layout'
 import { donate, resetNewDonationStatus } from '../../../state/slices/donorSlice'
 import { deleteRequest, getOneRequest, resetRequestFormStatus } from '../../../state/slices/requestSlice'
+import moment from 'moment'
 
 function RequestDetail() {
   let router = useRouter()
@@ -108,7 +109,7 @@ function RequestDetail() {
                     </Box>
                   </Grid>
                   <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
-                    <Typography variant='h5'>Request Created On : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.date.toString()}</Typography></Typography>
+                    <Typography variant='h5'>Request Created On : <Typography color='GrayText' variant='h5' component={'span'}> {moment(requestDetail.date.toString()).format('MMMM d, YYYY')}</Typography></Typography>
                   </Grid>
                   <Grid item xs={12} sx={{ borderRadius: 2, border: "2px solid gray ", padding: 1 }}>
                     <Typography variant='h5'>Looking For Donors in: : <Typography color='GrayText' variant='h5' component={'span'}> {requestDetail.address.map(addr => `${addr}, `)}</Typography></Typography>

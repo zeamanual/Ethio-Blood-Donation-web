@@ -2,6 +2,7 @@ import { AccountCircleRounded } from '@mui/icons-material'
 import { Box, Button, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Pagination, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
+import moment from 'moment'
 
 function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestClickHandler }) {
     let router = useRouter()
@@ -16,13 +17,12 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestCli
                                 <ListItemAvatar>
                                     <AccountCircleRounded fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
-                                <ListItemText sx={{}} primary={request.userRef.userName} secondary={request.date.toString()}>
+                                <ListItemText sx={{}} primary={request.userRef.userName} secondary={moment(request.date.toString()).fromNow()}>
                                     
                                 </ListItemText>
                                 <Stack sx={{padding:'0em'}} direction={'column'} justifyContent='center'>
                                     <Typography align='right' variant='h6'>{request.bloodType}</Typography>
                                     <Typography sx={{display:{xs:'none',sm:'block'}}} variant='subtitle1' color='gray'> {request.address.map(address => ` ${address},`)}</Typography>
-
                                 </Stack>
                             </ListItemButton>
                         </ListItem>
