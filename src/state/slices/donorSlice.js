@@ -23,8 +23,8 @@ export let createDonor = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -48,8 +48,8 @@ export let updateDonorAddress = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -72,8 +72,8 @@ export let cancelDonation = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -96,8 +96,8 @@ export let getCurrentDonorData = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -121,8 +121,8 @@ export let donate = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )

@@ -52,8 +52,12 @@ export let logInUser = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            // console.log('log in rejected error message in axios',error)
+            // console.log('hay dude')
+            // console.log('log in rejected error message in axios',error.message,errorMsg)
+            
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -75,8 +79,8 @@ export let getCurrentUserData = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMessage = error.response.data.message
-            return thunkApi.rejectWithValue(errorMessage)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -97,8 +101,8 @@ export let signUpUser = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMessage = error.response.data.message
-            return thunkApi.rejectWithValue(errorMessage)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -121,8 +125,8 @@ export let updateUser = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            let errorMessage = error.response.data.message
-            return thunkApi.rejectWithValue(errorMessage)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -210,6 +214,7 @@ let userSlice = createSlice({
             localStorage.setItem('authData', JSON.stringify(action.payload))
         })
         builder.addCase(logInUser.rejected, (state, action) => {
+            // console.log('log in rejected error message',action)
             state.loading = false
             state.login = {
                 errorMsg: action.payload,

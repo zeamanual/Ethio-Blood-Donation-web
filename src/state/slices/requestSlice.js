@@ -23,8 +23,8 @@ export let createRequest = createAsyncThunk(
             return response.data
         } catch (error) {
             console.log('new request error message', errorMsg)
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -49,8 +49,8 @@ export let updateRequest = createAsyncThunk(
             return response.data
         } catch (error) {
             console.log('update request error message', errorMsg)
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -72,8 +72,8 @@ export let getOneRequest = createAsyncThunk(
             console.log('get single request method success ',response.data)
             return response.data
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -92,11 +92,13 @@ export let getMyRequests = createAsyncThunk(
                 url: `${baseUrl}/request`,
                 method: "get",
             })
-            // console.log(response.data,'user owned request data')
             return response.data
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            if(error.response.data?.statusCode==404){
+                return []
+            }
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -139,8 +141,11 @@ export let getDonorMatchingRequests = createAsyncThunk(
 
             return finalResponse
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            if(error.response.data?.statusCode==404){
+                return []
+            }
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -162,8 +167,11 @@ export let getRequestsUserDonatedOn = createAsyncThunk(
 
             return response.data
         } catch (error) {
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            if(error.response.data?.statusCode==404){
+                return []
+            }
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -187,8 +195,8 @@ export let deleteRequest = createAsyncThunk(
             return response.data
         } catch (error) {
             console.log('delete request error message', errorMsg)
-            let errorMsg = error.response.data.message
-            return thunkApi.rejectWithValue(errorMsg)
+            let errorMsg = error.response.data?.message
+            return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
     }
 )
@@ -238,6 +246,12 @@ let requestSlice = createSlice({
                 errorMsg: '',
                 successMsg: ''
             }
+        },
+        resetRquestsListStatus:(state)=>{
+            state.requests.data=[]
+            state.requests.errorMsg=''
+            state.requests.subList=[]
+            state.requests.totalLength=0
         },
         managePaginationForLocalData: (state, action) => {
             let pageNumber = action.payload.pageNumber
@@ -365,7 +379,7 @@ let requestSlice = createSlice({
     }
 })
 
-export let { resetRequestFormStatus, managePaginationForLocalData } = requestSlice.actions
+export let { resetRquestsListStatus,resetRequestFormStatus, managePaginationForLocalData } = requestSlice.actions
 
 let reducer = requestSlice.reducer
 export default reducer

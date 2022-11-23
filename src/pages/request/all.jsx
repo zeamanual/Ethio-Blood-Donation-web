@@ -5,9 +5,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomPaperCard from '../../components/customPaperCard'
 import CustomProgressModal from '../../components/customProgressModal'
+import CustomResponseModalNoRoute from '../../components/customResponseModalNoRoute'
 import Layout from '../../components/layout'
 import ReqestsHighLight from '../../components/requestHighLight'
-import { getDonorMatchingRequests } from '../../state/slices/requestSlice'
+import { getDonorMatchingRequests, resetRquestsListStatus } from '../../state/slices/requestSlice'
 import { updateUserAuthStatus } from '../../state/slices/userSlice'
 
 function Reqests() {
@@ -18,11 +19,12 @@ function Reqests() {
   let requests = requestState.requests.data
   let totalRequestsSize = requestState.requests.totalLength
 
-  let pageChangeHandler=(event,value)=>{
-    dispatch(getDonorMatchingRequests({pageNumber:value,ignorePageNumber:false}))
+  let pageChangeHandler = (event, value) => {
+    dispatch(getDonorMatchingRequests({ pageNumber: value, ignorePageNumber: false }))
+    dispatch(resetRquestsListStatus())
   }
 
-  let requestClickHandler = (request)=>{
+  let requestClickHandler = (request) => {
     router.push({ pathname: '/request', query: { reqId: request._id } })
   }
 
@@ -31,9 +33,13 @@ function Reqests() {
     if (!userState.isAuthenticated) {
       router.push('/login')
     }
-    dispatch(getDonorMatchingRequests({ pageNumber: 1,ignorePageNumber:true}))
+    dispatch(getDonorMatchingRequests({ pageNumber: 1, ignorePageNumber: true }))
 
   }, [userState.isAuthenticated,])
+
+  let modalCloseHadler = () => {
+    dispatch(resetRquestsListStatus())
+  }
 
   return (
     <>
@@ -41,12 +47,16 @@ function Reqests() {
       <Layout>
         <CustomPaperCard>
           {requests.length < 1 ?
-            <Box>
-              <Alert severity='info'>No Requests Found With Your BloodType And Location Now. Thanks For Visiting</Alert>
-            </Box> :
+            requestState.requests.errorMsg ?
+              <Box>
+                <Alert severity='error'>{requestState.requests.errorMsg}</Alert>
+              </Box> :
+              <Box>
+                <Alert severity='info'>No Requests Found With Your BloodType And Location Now. Thanks For Visiting</Alert>
+              </Box> :
             <Box >
               <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Requests That Match With Your Blood Type and Location</Typography>
-              <ReqestsHighLight requestClickHandler={requestClickHandler}  pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
+              <ReqestsHighLight requestClickHandler={requestClickHandler} pageChangeHandler={pageChangeHandler} totalPageItems={totalRequestsSize} requests={requests} ></ReqestsHighLight>
             </Box>
           }
         </CustomPaperCard>

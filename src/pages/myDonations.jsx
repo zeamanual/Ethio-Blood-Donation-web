@@ -4,9 +4,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomPaperCard from '../components/customPaperCard'
 import CustomProgressModal from '../components/customProgressModal'
+import CustomResponseModalNoRoute from '../components/customResponseModalNoRoute'
 import Layout from '../components/layout'
 import ReqestsHighLight from '../components/requestHighLight'
-import { getDonorMatchingRequests, getMyRequests, getRequestsUserDonatedOn, managePaginationForLocalData } from '../state/slices/requestSlice'
+import { getDonorMatchingRequests, getMyRequests, getRequestsUserDonatedOn, managePaginationForLocalData, resetRquestsListStatus } from '../state/slices/requestSlice'
 
 function MyRequests() {
     let router = useRouter()
@@ -21,16 +22,22 @@ function MyRequests() {
         dispatch(managePaginationForLocalData({ pageNumber: value }))
     }
 
-    let requestClickHandler = (request)=>{
+    let requestClickHandler = (request) => {
         router.push({ pathname: '/request/donated', query: { reqId: request._id } })
-      }
+    }
 
     React.useEffect(() => {
         if (!userState.isAuthenticated) {
             router.push('login')
-        } 
+        }
+        dispatch(resetRquestsListStatus())
         dispatch(getRequestsUserDonatedOn())
     }, [userState.isAuthenticated])
+
+
+    let modalCloseHadler = () => {
+        dispatch(resetRquestsListStatus())
+    }
 
     return (
         <>
@@ -38,9 +45,13 @@ function MyRequests() {
             <Layout>
                 <CustomPaperCard>
                     {requests.length < 1 ?
-                        <Box>
-                            <Alert severity='info'>{"Looks Like You Haven't Donated Before"}</Alert>
-                        </Box> :
+                        requestState.requests.errorMsg ?
+                            <Box>
+                                <Alert severity='error'>{requestState.requests.errorMsg}</Alert>
+                            </Box> :
+                            <Box>
+                                <Alert severity='info'>{"Looks Like You Haven't Donated Before"}</Alert>
+                            </Box> :
                         <Box width='100%'>
                             <Box>
                                 <Typography sx={{ padding: 3 }} variant="h4" color='gray' align='center'>Requests That You Have Donated For</Typography>

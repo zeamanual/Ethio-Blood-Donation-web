@@ -4,6 +4,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomProgressModal from '../components/customProgressModal'
 import CustomResponseModal from '../components/customResponseModal'
+import CustomResponseModalNoRoute from '../components/customResponseModalNoRoute'
 import Layout from '../components/layout'
 import { BLOODTYPES, CITIES } from '../constants'
 import { createRequest, resetRequestFormStatus } from '../state/slices/requestSlice'
@@ -122,6 +123,10 @@ function NewRequest() {
             console.log('request form not submiited')
         }
     }
+
+    let modalCloseHadler = ()=>{
+        dispatch(resetRequestFormStatus())
+    }
     return (
         <Layout>
             {/* create request sucess modal */}
@@ -132,6 +137,13 @@ function NewRequest() {
                 btnName='Back To Home'
                 severity={'success'}
             ></CustomResponseModal>
+            <CustomResponseModalNoRoute
+                open={Boolean(requestState.newRequest.errorMsg)}
+                msg={requestState.newRequest.errorMsg}
+                btnName='Back'
+                severity={'error'}
+                onCloseCallBack={modalCloseHadler}
+            ></CustomResponseModalNoRoute>
 
             <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
                 <CustomProgressModal
@@ -213,7 +225,6 @@ function NewRequest() {
                             </TextField>
                             <Box display={'flex'} alignItems='center' flexDirection={'column'} justifyContent={'center'}>
                                 <Button type="submit" variant='contained'>Create Request</Button>
-                                {requestState.newRequest.errorMsg && <Alert sx={{ margin: 2 }} severity='error'>{requestState.newRequest.errorMsg}</Alert>}
                             </Box>
                         </Stack>
 

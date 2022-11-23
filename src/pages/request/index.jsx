@@ -50,7 +50,7 @@ function RequestDetail() {
         <CustomResponseModal
           btnName={"Go To Home"}
           msg={donorState.newDonation.successMsg}
-          open={donorState.newDonation.successMsg}
+          open={Boolean(donorState.newDonation.successMsg)}
           severity={'success'}
           path={'/'}
         ></CustomResponseModal>
