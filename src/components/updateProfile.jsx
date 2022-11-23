@@ -243,9 +243,10 @@ function UpdateProfile() {
                         >
                             <Box sx={{
                                 height: '100%', width: '100%',
-                                backgroundImage: `url(/bgImg1.jpg)`,
+                                backgroundImage: `url(/profilePageSideImageR.png)`,
                                 backgroundPosition: 'center',
-                                backgroundSize: 'cover',
+                                backgroundSize: 'contain',
+                                backgroundColor:'rgba(100,145,200,0.2)',
                                 backgroundRepeat: 'no-repeat',
                                 borderRadius: 0
                             }}>

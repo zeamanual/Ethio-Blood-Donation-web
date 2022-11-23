@@ -12,32 +12,32 @@ function Testimonials() {
     }, [])
     let testimonials = [
         {
-            writer: 'Bruik Mesfin',
+            writer: 'Hana Solomon',
             date: '12 Apr 2022',
-            profession: 'Student',
-            url: '/user/user1.jpg',
-            message: 'I \'m Glad That Such A Platform Is Developed. I have a Great Hope That This Kind of Platforms Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and I Expect More Features In Future Updates'
+            profession: 'Nurse',
+            url: '/user/user3.jpeg',
+            message: 'I \'m Glad That Such A Platform Is Being Developed. I have a Great Hope That This platform Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and Expect More Features In Future Updates'
         },
         {
             writer: 'Dawit Tesfa',
             date: '02 Jun 2022',
             profession: 'Economist',
             url: '/user/user2.jpg',
-            message: 'I \'m Glad That Such A Platform Is Developed. I have a Great Hope That This Kind of Platforms Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and I Expect More Features In Future Updates'
+            message: 'I \'m Glad That Such A Platform Is Being Developed. I have a Great Hope That This platform Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and Expect More Features In Future Updates'
         },
         {
             writer: 'Bruik Mesfin',
             date: '12 Apr 2022',
-            profession: 'Doctor',
-            url: '/user/user1.jpg',
-            message: 'I \'m Glad That Such A Platform Is Developed. I have a Great Hope That This Kind of Platforms Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and I Expect More Features In Future Updates'
+            profession: 'Chef',
+            url: '/user/user5.jpeg',
+            message: 'I \'m Glad That Such A Platform Is Being Developed. I have a Great Hope That This platform Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and Expect More Features In Future Updates'
         },
         {
-            writer: 'Dawit Tesfa',
+            writer: 'Bereket Nebyu',
             date: '02 Jun 2022',
             profession: 'Driver',
-            url: '/user/user2.jpg',
-            message: 'I \'m Glad That Such A Platform Is Developed. I have a Great Hope That This Kind of Platforms Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and I Expect More Features In Future Updates'
+            url: '/user/user4.jpeg',
+            message: 'I \'m Glad That Such A Platform Is Being Developed. I have a Great Hope That This platform Will Reduce So Many Uncessary Efforts. I Realy Appriciate Your Effort and Expect More Features In Future Updates'
         },
 
     ]
