@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/navBar.jsx'
 import Footer from '../components/footer'
-import { Box, Button, Container, Modal, Paper, Snackbar, Stack, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, Modal, Paper, Snackbar, Stack, Typography } from '@mui/material'
 import Layout from '../components/layout'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
@@ -101,102 +101,119 @@ export default function Home() {
         </Box>
         <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }}>
           <Typography variant='h2' align='center' color='dark'>Look How Easy It Is To Use</Typography>
-          <Stack padding={'1em 0'} gap={2} direction={{ xs: 'column', md: 'row' }} justifyContent={'center'} alignItems={'center'} >
-            <div onClick={() => { router.push('/signup') }} style={{ cursor: 'pointer' }}>
-              <Paper sx={{
-                width: '300px',
-                height: '300px',
-                padding: '1em 0.5em',
-                '&:hover': {
-                  boxShadow: '0 0 1px black'
-                }
-              }} elevation={10}>
-                <Box sx={{
-                  backgroundImage: 'url(/register.jpg)',
-                  backgroundPosition: 'center',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  height: '80%'
-                }}>
+          <Box display={'flex'} justifyContent='center' >
+            <Grid container display='flex' justifyContent='center' >
+              <Grid item md={3} xs={10}>
+                <div onClick={() => { router.push('/signup') }} style={{ cursor: 'pointer' }}>
+                  <Paper sx={{
+                    height: '300px',
+                    padding: '1em 0.5em',
+                    margin: '1em',
+                    '&:hover': {
+                      boxShadow: '0 0 1px black'
+                    }
+                  }} elevation={10}>
+                    <Box sx={{
+                      backgroundImage: 'url(/register.jpg)',
+                      backgroundPosition: 'center',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      height: '80%'
+                    }}>
 
-                </Box>
-                <Box>
-                  <Typography variant='h6' align='center' color='gray'>Sign UP/Register</Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant='h6' align='center' color='gray'>Sign UP/Register</Typography>
 
-                </Box>
-              </Paper>
-            </div>
-            <div onClick={() => { router.push('/login') }} style={{ cursor: 'pointer' }}>
-              <Paper sx={{
-                width: '300px', height: '300px', padding: '1em 0.5em',
-                '&:hover': {
-                  boxShadow: '0 0 1px black'
-                }
-              }} elevation={10}>
-                <Box sx={{
-                  backgroundImage: 'url(/signIn.jpg)',
-                  backgroundPosition: 'center',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  height: '80%'
-                }}>
+                    </Box>
+                  </Paper>
+                </div>
+              </Grid>
+              <Grid item md={3} xs={10}>
+                <div onClick={() => { router.push('/login') }} style={{ cursor: 'pointer' }}>
+                  <Paper sx={{
+                    height: '300px',
+                    padding: '1em 0.5em',
+                    margin: '1em',
+                    '&:hover': {
+                      boxShadow: '0 0 1px black'
+                    }
+                  }} elevation={10}>
+                    <Box sx={{
+                      backgroundImage: 'url(/signIn.jpg)',
+                      backgroundPosition: 'center',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      height: '80%'
+                    }}>
 
-                </Box>
-                <Box>
-                  <Typography variant='h6' color='gray' align='center'>Sign In</Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant='h6' color='gray' align='center'>Sign In</Typography>
+                    </Box>
+                  </Paper>
+                </div>
+              </Grid>
 
-                </Box>
-              </Paper>
-            </div>
-            <div>
-              <Paper sx={{
-                width: '300px', height: '300px', padding: '1em 0.5em',
-                '&:hover': {
-                  boxShadow: '0 0 1px black'
-                }
-              }} elevation={10}>
-                <Box sx={{
-                  backgroundImage: 'url(/donateOrRequest.jpg)',
-                  backgroundPosition: 'center',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  height: '80%'
-                }}>
+              <Grid item md={3} xs={10}>
+                <div>
+                  <Paper sx={{
+                    height: '300px',
+                    padding: '1em 0.5em',
+                    margin: '1em',
+                    '&:hover': {
+                      boxShadow: '0 0 1px black'
+                    }
+                  }} elevation={10}>
+                    <Box sx={{
+                      backgroundImage: 'url(/donateOrRequest.jpg)',
+                      backgroundPosition: 'center',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      height: '80%'
+                    }}>
 
-                </Box>
-                <Box>
-                  <Typography variant='h6' color='gray' align='center'>
-                    <span onClick={handleDonateNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Donate </Typography></span>
-                    or
-                    <span onClick={handleCreateRequestNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Create Your Request</Typography></span>
-                  </Typography>
-                </Box>
-              </Paper>
-            </div>
-            <div onClick={() => { router.push('/myRequests') }} style={{ cursor: 'pointer' }}>
-              <Paper sx={{
-                width: '300px', height: '300px', padding: '1em 0.5em',
-                '&:hover': {
-                  boxShadow: '0 0 1px black'
-                }
+                    </Box>
+                    <Box>
+                      <Typography variant='h6' color='gray' align='center'>
+                        <span onClick={handleDonateNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Donate </Typography></span>
+                        or
+                        <span onClick={handleCreateRequestNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Create Your Request</Typography></span>
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </div>
+              </Grid>
 
-              }} elevation={10}>
-                <Box sx={{
-                  backgroundImage: 'url(/check.jpg)',
-                  backgroundPosition: 'center',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  height: '80%'
-                }}>
+              <Grid item md={3} xs={10}>
+                <div onClick={() => { router.push('/myRequests') }} style={{ cursor: 'pointer' }}>
+                  <Paper sx={{
+                    height: '300px',
+                    padding: '1em 0.5em',
+                    margin: '1em',
+                    '&:hover': {
+                      boxShadow: '0 0 1px black'
+                    }
 
-                </Box>
-                <Box>
-                  <Typography variant='h6' color='gray' align='center'>Check The Status Of Your Request And Donation</Typography>
+                  }} elevation={10}>
+                    <Box sx={{
+                      backgroundImage: 'url(/check.jpg)',
+                      backgroundPosition: 'center',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      height: '80%'
+                    }}>
 
-                </Box>
-              </Paper>
-            </div>
-          </Stack>
+                    </Box>
+                    <Box>
+                      <Typography variant='h6' color='gray' align='center'>Check The Status</Typography>
+
+                    </Box>
+                  </Paper>
+                </div>
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
         <Box>
           <Gallery></Gallery>
