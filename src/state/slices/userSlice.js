@@ -169,6 +169,9 @@ let userSlice = createSlice({
             if (!state.roles.includes("DONOR")) {
                 state.roles.push("DONOR")
             }
+            let storedAuthData = JSON.parse(localStorage.getItem('authData'))
+            storedAuthData.roles = state.roles
+            localStorage.setItem('authData',JSON.stringify(storedAuthData))
         },
         resetUpdateUserFormStatus: (state) => {
             state.updateUser.errorMsg = ''

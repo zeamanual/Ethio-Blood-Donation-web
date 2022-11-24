@@ -9,7 +9,7 @@ import CustomResponseModal from '../../../components/customResponseModal'
 import CustomResponseModalNoRoute from '../../../components/customResponseModalNoRoute'
 import Layout from '../../../components/layout'
 import { donate, resetNewDonationStatus } from '../../../state/slices/donorSlice'
-import { deleteRequest, getOneRequest, resetRequestFormStatus } from '../../../state/slices/requestSlice'
+import { deleteRequest, getOneRequest, resetRequestDetail, resetRequestFormStatus } from '../../../state/slices/requestSlice'
 import moment from 'moment'
 
 function RequestDetail() {
@@ -35,6 +35,7 @@ function RequestDetail() {
     if (!userState.isAuthenticated) {
       router.push('/login')
     }
+    dispatch(resetRequestDetail())
     dispatch(resetRequestFormStatus())
     dispatch(getOneRequest({ requestId }))
   }, [userState.isAuthenticated])
@@ -93,6 +94,7 @@ function RequestDetail() {
                       </Box>
                       <Stack direction={'column'} p={2}>
                         {
+                          requestDetail.donorsDetail?
                           requestDetail.donorsDetail.map((donor, index) => {
                             return (
                               <>
@@ -103,7 +105,7 @@ function RequestDetail() {
                                   Email:<Typography color='gray' ><a href={`mailto:${donor.email}`}  >{donor.email}</a></Typography></Typography>
                               </>
                             )
-                          })
+                          }):<></>
                         }
                       </Stack>
                     </Box>
