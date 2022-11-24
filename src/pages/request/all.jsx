@@ -33,6 +33,7 @@ function Reqests() {
     if (!userState.isAuthenticated) {
       router.push('/login')
     }
+    dispatch(resetRquestsListStatus())
     dispatch(getDonorMatchingRequests({ pageNumber: 1, ignorePageNumber: true }))
 
   }, [userState.isAuthenticated,])

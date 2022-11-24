@@ -8,7 +8,7 @@ import CustomResponseModal from '../../../components/customResponseModal'
 import CustomResponseModalNoRoute from '../../../components/customResponseModalNoRoute'
 import Layout from '../../../components/layout'
 import { cancelDonation, donate, removeCancelDonationStatus, resetCancelDonationStatus, resetNewDonationStatus } from '../../../state/slices/donorSlice'
-import { getOneRequest } from '../../../state/slices/requestSlice'
+import { getOneRequest, resetRequestDetail } from '../../../state/slices/requestSlice'
 import moment from 'moment'
 
 function RequestDetail() {
@@ -31,6 +31,7 @@ function RequestDetail() {
     if (!userState.isAuthenticated) {
       router.push('/login')
     }
+    dispatch(resetRequestDetail())
     dispatch(resetCancelDonationStatus())
     dispatch(getOneRequest({ requestId }))
   }, [userState.isAuthenticated])

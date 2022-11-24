@@ -258,6 +258,10 @@ let requestSlice = createSlice({
             let startIndex = 10 * pageNumber - 10
             let lastIndex = state.requests.data.length >= 10 * pageNumber ? 10 * pageNumber : state.requests.data.length
             state.requests.subList = state.requests.data.slice(startIndex, lastIndex)
+        },
+        resetRequestDetail:(state)=>{
+            state.requestDetail.errorMsg=''
+            state.requestDetail.requestData=''
         }
     },
     extraReducers: (builder) => {
@@ -325,8 +329,6 @@ let requestSlice = createSlice({
             state.loading = true
         })
         builder.addCase(getDonorMatchingRequests.fulfilled, (state, action) => {
-            console.log('requests result ',action.payload)
-            // state.requests='hay dump'
             state.requests.data = action.payload.response
             state.requests.totalLength = action.payload.totalItemSize ? action.payload.totalItemSize : state.requests.totalLength
             state.requests.errorMsg = ''
@@ -381,7 +383,7 @@ let requestSlice = createSlice({
     }
 })
 
-export let { resetRquestsListStatus,resetRequestFormStatus, managePaginationForLocalData } = requestSlice.actions
+export let { resetRequestDetail,resetRquestsListStatus,resetRequestFormStatus, managePaginationForLocalData } = requestSlice.actions
 
 let reducer = requestSlice.reducer
 export default reducer

@@ -8,7 +8,7 @@ import CustomResponseModal from '../../components/customResponseModal'
 import CustomResponseModalNoRoute from '../../components/customResponseModalNoRoute'
 import Layout from '../../components/layout'
 import { donate, getCurrentDonorData, resetNewDonationStatus } from '../../state/slices/donorSlice'
-import { getOneRequest } from '../../state/slices/requestSlice'
+import { getOneRequest, resetRequestDetail } from '../../state/slices/requestSlice'
 import moment from 'moment'
 
 function RequestDetail() {
@@ -32,6 +32,7 @@ function RequestDetail() {
       router.push('/login')
     }
     dispatch(resetNewDonationStatus())
+    dispatch(resetRequestDetail())
     dispatch(getCurrentDonorData())
     dispatch(getOneRequest({ requestId }))
   }, [userState.isAuthenticated])
@@ -87,11 +88,14 @@ function RequestDetail() {
                 </Grid>
               </Grid>
               <Box p={1} display='flex' justifyContent={'center'}>
-                {donorState.currentDonorData?.data?.isElligibleToDonate ?
+                {donorState.currentDonorData.data?
+                  donorState.currentDonorData.data.isElligibleToDonate?
                   <Button onClick={donateHandler} color='primary' variant='contained' >Donate Now</Button> :
                   <Box padding={{md:2,xs:0}} display='flex' flexDirection={'column'} alignItems='center'>
                     <Alert severity='warning'>{"Thanks For Visting, But, You Are In Recovery And You Can't Donate Now. Recovery Time is The Time Before 3 Months After Your Last Donation"}</Alert>
                     <Button variant='outlined' sx={{ margin: '1em 0' }} >{`You Can Start Donating Starting From ${moment(donorState.currentDonorData.data.lastDonationDate.toString()).add(75, 'days').format('MMMM d, YYYY')}`}</Button>
+                  </Box>:<Box display={'flex'} justifyContent='center'>
+                    <Alert>{'Donor Eligibility Status Checking...'}</Alert>
                   </Box>
                 }
               </Box>
