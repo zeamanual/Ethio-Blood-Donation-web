@@ -60,20 +60,22 @@ function Footer() {
         <StyledBox>
             <Grid container>
                 <Grid item xs={12} md={3}>
-                    <Box
-                        sx={{
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            gap: 3,
-                            padding: 2
-                        }}
-                    >
-                        <Image height={60} width={100} src={'/logo.png'} alt='logo picture' />
-                        <Button sx={{ width: '100%', fontFamily: 'Alfa Slab One' }} variant='text'>Habesha Blood Donation</Button>
-                    </Box>
+                    <div onClick={()=>{router.push("/")}} style={{cursor:'pointer'}} >
+                        <Box
+                            sx={{
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                gap: 3,
+                                padding: 2
+                            }}
+                        >
+                            <Image height={60} width={100} src={'/logo.png'} alt='logo picture' />
+                            <Button sx={{ width: '100%', fontFamily: 'Alfa Slab One' }} variant='text'>Habesha Blood Donation</Button>
+                        </Box>
+                    </div>
                 </Grid>
                 <Grid sx={{ marginBottom: 4 }} xs={12} md={3} item>
                     <Typography variant='h5' align='center' sx={{ marginBottom: 1 }}>Quick Links</Typography>
