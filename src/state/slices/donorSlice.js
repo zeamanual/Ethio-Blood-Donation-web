@@ -171,7 +171,7 @@ let donorSlice = createSlice({
                 errorMsg: ''
             }
             state.currentDonorData = {
-                data: '',
+                data:state.currentDonorData.data,
                 errorMsg: '',
                 successMsg: '',
                 loading: false
@@ -185,6 +185,11 @@ let donorSlice = createSlice({
             state.newDonation.errorMsg = ''
             state.newDonation.successMsg = ''
         },
+        resetCurrentDonorStatus:(state)=>{
+            state.currentDonorData.errorMsg=''
+            state.currentDonorData.successMsg=''
+            state.currentDonorData.loading=false
+        }
     },
     extraReducers: (builder) => {
 
@@ -269,7 +274,7 @@ let donorSlice = createSlice({
     }
 })
 
-export let { resetCancelDonationStatus,resetDonorFormStatus, resetNewDonationStatus } = donorSlice.actions
+export let { resetCurrentDonorStatus,resetCancelDonationStatus,resetDonorFormStatus, resetNewDonationStatus } = donorSlice.actions
 
 let reducer = donorSlice.reducer
 export default reducer

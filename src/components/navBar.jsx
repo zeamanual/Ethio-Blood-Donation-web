@@ -68,9 +68,11 @@ let NavBar = function () {
       <AppBar position='sticky' sx={{ backgroundColor: 'white', opacity: 0.9, }}>
         <Toolbar>
           <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
-            <Box sx={{ maxWidth: 60 }}>
-              <Image height={70} width={100} src={'/logo.png'} alt='logo picture' />
-            </Box>
+            <div onClick={()=>{router.push("/")}} style={{cursor:'pointer'}}>
+              <Box sx={{ maxWidth: 60 }}>
+                <Image height={70} width={100} src={'/logo.png'} alt='logo picture' />
+              </Box>
+            </div>
             <StyledBox sx={{ display: { md: 'flex', xs: 'none' }, }}>
 
               {

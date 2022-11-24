@@ -55,7 +55,6 @@ function UpdateDonationAddress() {
         if (!isAuthenticated) {
             router.push('login')
         }
-        dispatch(resetDonorFormStatus())
         if (!donorState.currentDonorData.data) dispatch(getCurrentDonorData())
     }, [isAuthenticated, userRoles])
 
