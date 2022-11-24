@@ -1,8 +1,8 @@
 import React from 'react'
-import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography, Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider, IconButton, Modal, Avatar, MenuList, Menu, MenuItem } from '@mui/material'
+import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography, Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider, IconButton, Modal, Avatar, MenuList, Menu, MenuItem, ListItemIcon } from '@mui/material'
 import logoImg from '../../public/lo.png'
 import Image from 'next/image'
-import { MenuSharp, Settings } from '@mui/icons-material'
+import { Bloodtype, Chat, Collections, HelpCenter, Home, Info, Login, Logout, MenuSharp, Person, Phone, Settings, VolunteerActivism } from '@mui/icons-material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,12 +47,30 @@ let NavBar = function () {
     { path: '/#contact', name: 'CONTACT' },
   ]
 
+  let navItemsIcon = {
+    HOME:<Home></Home>,
+    GUIDE:<HelpCenter></HelpCenter>,
+    GALLERY:<Collections></Collections>,
+    ABOUT:<Info></Info>,
+    TESTIMONIAL:<Chat></Chat>,
+    CONTACT:<Phone></Phone>
+  }
+
   let userNavs = [
     { path: '/myRequests', name: 'MY REQUESTS' },
     { path: state.user.roles.includes('DONOR') ? '/myDonations' : "/createDonor", name: state.user.roles.includes('DONOR') ? 'MY DONATIONS' : "BECOME A DONOR" },
     { path: '/profile', name: "PROFILE" },
     { path: '', name: 'LOG OUT' },
   ]
+
+  let userNavsIcon = {
+    'MY REQUESTS':<Bloodtype></Bloodtype>,
+    'PROFILE':<Person></Person>,
+    'LOG OUT':<Logout></Logout>,
+    'MY DONATIONS':<VolunteerActivism></VolunteerActivism>,
+    'BECOME A DONOR':<VolunteerActivism></VolunteerActivism>,
+    
+  }
 
 
   let StyledBox = styled(Box)({
@@ -68,7 +86,7 @@ let NavBar = function () {
       <AppBar position='sticky' sx={{ backgroundColor: 'white', opacity: 0.9, }}>
         <Toolbar>
           <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
-            <div onClick={()=>{router.push("/")}} style={{cursor:'pointer'}}>
+            <div onClick={() => { router.push("/") }} style={{ cursor: 'pointer' }}>
               <Box sx={{ maxWidth: 60 }}>
                 <Image height={70} width={100} src={'/logo.png'} alt='logo picture' />
               </Box>
@@ -144,21 +162,27 @@ let NavBar = function () {
         anchor={'left'}
         onClose={() => { setDrawerOpened(!drawerOpened) }}
       >
-        <Box sx={{ paddingTop: 10, paddingLeft: 5, paddingRight: 5 }}>
+        <Box sx={{ paddingTop: 10, paddingLeft: 3, paddingRight: 3 }}>
           <List>
             {navItems.map((item, index) => {
               return (
-                <ListItemButton onClick={() => { router.push(`/${item.path}`); setDrawerOpened(!drawerOpened) }} key={index}>
-                  <ListItemText>{item.name}</ListItemText>
-                </ListItemButton>
+                <ListItem key={index} disablePadding>
+                  <ListItemButton onClick={() => { router.push(`/${item.path}`); setDrawerOpened(!drawerOpened) }}>
+                    <ListItemIcon  sx={{color:'primary.main'}} >
+                      {navItemsIcon[`${item.name}`]}
+                    </ListItemIcon>
+                    <ListItemText sx={{color:'primary.main'}} primary={item.name} ></ListItemText>
+                  </ListItemButton>
+                </ListItem>
               )
             })}
 
             <Divider></Divider>
             {state.user.isAuthenticated
               ? <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
-                <Box display={'flex'} justifyContent={'center'} >
+                <Box display={'flex'} pb={2}  justifyContent={'center'} alignItems='center' >
                   <Avatar ></Avatar>
+                  <Typography sx={{padding:1}}>{state.user.userName}</Typography>
                 </Box>
                 {
                   userNavs.map((nav, index) => {
@@ -168,7 +192,10 @@ let NavBar = function () {
                         if (nav.name == 'LOG OUT') { dispatch(logOut()) }
                         router.push(nav.path)
                       }} >
-                        <ListItemText>{nav.name}</ListItemText>
+                      <ListItemIcon sx={{color:'primary.main'}} >
+                        {userNavsIcon[`${nav.name}`]}
+                      </ListItemIcon>
+                        <ListItemText sx={{color:'primary.main'}} >{nav.name}</ListItemText>
                       </ListItemButton>
                     )
                   })
