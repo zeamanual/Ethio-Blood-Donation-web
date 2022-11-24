@@ -173,6 +173,14 @@ let userSlice = createSlice({
         resetUpdateUserFormStatus: (state) => {
             state.updateUser.errorMsg = ''
             state.updateUser.successMsg = ''
+        },
+        resetCurrentUserDataStatus:(state)=>{
+            state.currentUserData={
+                loading: false,
+                data: '',
+                errorMsg: '',
+                successMsg: ''
+            }
         }
 
     },
@@ -185,7 +193,7 @@ let userSlice = createSlice({
             state.loading = false
             state.signUp = {
                 errorMsg: '',
-                sucessMsg: "Accounted Created Successfly"
+                sucessMsg: "Account Created Successfly"
             }
         })
         builder.addCase(signUpUser.rejected, (state, action) => {
@@ -259,7 +267,7 @@ let userSlice = createSlice({
 
 })
 
-export let { updateUserAuthStatus,resetUpdateUserFormStatus, resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
+export let { resetCurrentUserDataStatus,updateUserAuthStatus,resetUpdateUserFormStatus, resetFormStatus, logOut, donorRoleAdded } = userSlice.actions
 
 let reducer = userSlice.reducer
 export default reducer

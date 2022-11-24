@@ -143,7 +143,7 @@ export let getDonorMatchingRequests = createAsyncThunk(
         } catch (error) {
             let errorMsg = error.response.data?.message
             if(error.response.data?.statusCode==404){
-                return []
+                return {response:[]}
             }
             return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
@@ -325,6 +325,8 @@ let requestSlice = createSlice({
             state.loading = true
         })
         builder.addCase(getDonorMatchingRequests.fulfilled, (state, action) => {
+            console.log('requests result ',action.payload)
+            // state.requests='hay dump'
             state.requests.data = action.payload.response
             state.requests.totalLength = action.payload.totalItemSize ? action.payload.totalItemSize : state.requests.totalLength
             state.requests.errorMsg = ''

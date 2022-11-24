@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/layout'
 import { VerifiedUser, Visibility, VisibilityOff } from '@mui/icons-material'
 import { Alert, Box, Button, Fade, Grid, IconButton, InputAdornment, LinearProgress, MenuItem, Modal, Snackbar, Stack, TextField, Typography } from '@mui/material'
-import { getCurrentUserData, resetFormStatus, resetUpdateUserFormStatus, signUpUser, updateUser } from '../state/slices/userSlice'
+import { getCurrentUserData, resetCurrentUserDataStatus, resetFormStatus, resetUpdateUserFormStatus, signUpUser, updateUser } from '../state/slices/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Summary from '../components/summary'
 import { useRouter } from 'next/router'
@@ -33,6 +33,7 @@ function UpdateProfile() {
 
     let handleModalClose = () => {
         dispatch(resetUpdateUserFormStatus())
+        dispatch(resetCurrentUserDataStatus())
     }
 
     let showPasswordHandler = () => {
