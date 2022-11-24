@@ -8,6 +8,7 @@ let initialState = {
     roles: [],
     accessToken: '',
     userId: '',
+    userName:'',
     address: '',
     bloodType: '',
     error: '',
@@ -155,6 +156,7 @@ let userSlice = createSlice({
                 state.address = storedAuthData.address
                 state.bloodType = storedAuthData.bloodType
                 state.userId = storedAuthData.userId
+                state.userName=storedAuthData.userName
                 state.roles = storedAuthData.roles
             }
         },
@@ -222,6 +224,7 @@ let userSlice = createSlice({
             state.bloodType = action.payload.bloodType
             state.loading = false
             state.userId = action.payload.userId
+            state.userName=action.payload.userName
             localStorage.setItem('authData', JSON.stringify(action.payload))
         })
         builder.addCase(logInUser.rejected, (state, action) => {
@@ -260,6 +263,19 @@ let userSlice = createSlice({
             state.currentUserData.data = action.payload
             state.address = action.payload.address
             state.bloodType = action.payload.bloodType
+            state.userName=action.payload.userName
+
+            let authData = {
+                userId:state.userId,
+                userName:state.userName,
+                accessToken:state.accessToken,
+                address:state.address,
+                bloodType:state.bloodType,
+                isAuthenticated:state.isAuthenticated,
+                roles:state.roles
+            }
+            localStorage.setItem('authData', JSON.stringify(authData))
+
         })
         builder.addCase(updateUser.rejected, (state, action) => {
             state.loading = false
