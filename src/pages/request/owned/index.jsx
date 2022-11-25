@@ -101,7 +101,7 @@ function RequestDetail() {
                                 <Typography align='center' variant='h6' >Donor {index + 1} Detail</Typography>
                                 <Typography variant='h6'>
                                   Username:  <Typography color='gray'>{donor.userName}</Typography>
-                                  Phonenumber:<Typography color='gray' ><a href={`tel:${donor.phoneNumber}`}  >+{donor.phoneNumber}</a></Typography>
+                                  Phonenumber:<Typography color='gray' ><a href={`tel:+251${donor.phoneNumber}`}  >+251{donor.phoneNumber}</a></Typography>
                                   Email:<Typography color='gray' ><a href={`mailto:${donor.email}`}  >{donor.email}</a></Typography></Typography>
                               </>
                             )
