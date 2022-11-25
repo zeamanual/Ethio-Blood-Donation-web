@@ -46,12 +46,18 @@ function SignUp() {
         }
     }
     let handlePhoneNumberChange = (e) => {
-        if (e.target.value.length < 10) {
+        if (e.target.value.length < 9) {
             setFieldsValue(previousValue => ({
                 ...previousValue,
                 phoneNumber: { ...fieldsValue.phoneNumber, hasError: true, msg: "Phone number too short", value: e.target.value }
             }))
-        } else {
+        } else if (e.target.value.length > 9) {
+            setFieldsValue(previousValue => ({
+                ...previousValue,
+                phoneNumber: { ...fieldsValue.phoneNumber, hasError: true, msg: "Phone number too long", value: e.target.value }
+            }))
+        }
+        else {
             setFieldsValue(previousValue => ({
                 ...previousValue,
                 phoneNumber: { ...fieldsValue.phoneNumber, hasError: false, msg: "", value: e.target.value }
@@ -256,6 +262,14 @@ function SignUp() {
                                                     ),
                                                 }}
                                             ></TextField>
+                                        )
+                                    } else if (fieldName == 'phoneNumber') {
+                                        inputField = (
+                                            <TextField
+                                                InputProps={{
+                                                    startAdornment: <InputAdornment position="start">+251</InputAdornment>,
+                                                }}
+                                                key={fieldName} size={size} type={'number'} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' ></TextField>
                                         )
                                     } else {
                                         inputField = (
