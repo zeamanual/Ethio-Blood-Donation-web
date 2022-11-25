@@ -19,7 +19,7 @@ function MyRequests() {
 
 
   let pageChangeHandler = (event, value) => {
-    dispatch(resetRquestsListStatus())
+    // dispatch(resetRquestsListStatus())
     dispatch(managePaginationForLocalData({ pageNumber: value }))
   }
 

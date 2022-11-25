@@ -20,8 +20,8 @@ function Reqests() {
   let totalRequestsSize = requestState.requests.totalLength
 
   let pageChangeHandler = (event, value) => {
-    dispatch(getDonorMatchingRequests({ pageNumber: value, ignorePageNumber: false }))
     dispatch(resetRquestsListStatus())
+    dispatch(getDonorMatchingRequests({ pageNumber: value, ignorePageNumber: false }))
   }
 
   let requestClickHandler = (request) => {
