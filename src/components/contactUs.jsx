@@ -168,8 +168,8 @@ function ContactUs() {
         try {
             setContactFormSubmitState(previousData => { return { ...previousData, loading: true } })
             let response = await axios({
-                url: 'https://formsubmit.co/fb607aa391ea2fbf1609aeacd50edf4d',
-                headers: {},
+                url: 'https://formsubmit.co/6f5656d0ac46017f8a89eef547ff33cf',
+                headers: {}, 
                 method: 'post',
                 data: { ...contactusDataToBeSent, _captcha: "false" }
             })
