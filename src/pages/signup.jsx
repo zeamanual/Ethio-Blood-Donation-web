@@ -79,14 +79,14 @@ function SignUp() {
                 email: { ...fieldsValue.email, hasError: true, msg: 'Enter a valid email', value: e.target.value }
             }))
         }
-        // console.log(e.target.value,'email')
+        
     }
     let handleAddressChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             address: { ...fieldsValue.address, hasError: false, msg: '', value: e.target.value }
         }))
-        // console.log(e.target.value,'address')
+        
     }
     let handleAgeChange = (e) => {
         let age = parseInt(e.target.value)
@@ -101,21 +101,21 @@ function SignUp() {
                 age: { ...fieldsValue.age, hasError: false, msg: '', value: e.target.value }
             }))
         }
-        // console.log(e.target.value,'age')
+        
     }
     let handleGenderChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             gender: { ...fieldsValue.gender, hasError: false, msg: '', value: e.target.value }
         }))
-        // console.log(e.target.value,'gender')
+        
     }
     let handleBloodtypeChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             bloodType: { ...fieldsValue.bloodType, hasError: false, msg: '', value: e.target.value }
         }))
-        // console.log(e.target.value,'blood')
+        
     }
     let handlePasswordChange = (e) => {
         if (e.target.value.length < 8) {
@@ -129,7 +129,7 @@ function SignUp() {
                 password: { ...fieldsValue.password, hasError: false, msg: '', value: e.target.value }
             }))
         }
-        // console.log(e.target.value,'pass')
+        
     }
     let submitHandler = (e) => {
         e.preventDefault();
@@ -167,10 +167,10 @@ function SignUp() {
                 password: fieldsValue.password.value
             }
             dispatch(signUpUser(signUpData))
-            console.log('form submitted', fieldsValue)
+            
 
         } else {
-            console.log('form not submitted', fieldsValue)
+            
 
         }
     }

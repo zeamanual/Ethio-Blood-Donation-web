@@ -7,7 +7,7 @@ export let createRequest = createAsyncThunk(
     async ({ requestData, router }, thunkApi) => {
         let baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         let accessToken = thunkApi.getState().user.accessToken
-        console.log("hay create new request triggered", `${baseUrl}/request`, '\n token ', accessToken)
+        
         try {
             let response = await axios({
                 url: `${baseUrl}/request`,
@@ -19,10 +19,10 @@ export let createRequest = createAsyncThunk(
                 data: requestData
             })
 
-            console.log('new request sucess status', response.data)
+            
             return response.data
         } catch (error) {
-            console.log('new request error message', errorMsg)
+            
             let errorMsg = error.response.data?.message
             return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
@@ -45,10 +45,10 @@ export let updateRequest = createAsyncThunk(
                 data: requestData
             })
 
-            console.log('update request sucess status', response.data)
+            
             return response.data
         } catch (error) {
-            console.log('update request error message', errorMsg)
+            
             let errorMsg = error.response.data?.message
             return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }
@@ -69,7 +69,7 @@ export let getOneRequest = createAsyncThunk(
                 url: `${baseUrl}/request/${requestId}`,
                 method: "get",
             })
-            console.log('get single request method success ',response.data)
+            
             return response.data
         } catch (error) {
             let errorMsg = error.response.data?.message
@@ -193,10 +193,10 @@ export let deleteRequest = createAsyncThunk(
                 method: "delete",
             })
 
-            console.log('delete request sucess status', response.data)
+            
             return response.data
         } catch (error) {
-            console.log('delete request error message', errorMsg)
+            
             let errorMsg = error.response.data?.message
             return thunkApi.rejectWithValue(errorMsg?errorMsg:error.message)
         }

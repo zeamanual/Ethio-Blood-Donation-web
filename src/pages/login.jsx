@@ -24,9 +24,9 @@ function Login() {
         e.preventDefault();
         if((!errorDetails.userName.hasError  && loginDetails.userName)  && (!errorDetails.password.hasError && loginDetails.password )){
             dispatch(logInUser({username:loginDetails.userName,password:loginDetails.password,router}))
-            console.log("no error")
+            
         }else{
-            console.log("form not submitted")
+            
         }
         
     }

@@ -118,9 +118,9 @@ function NewRequest() {
             }
 
             dispatch(createRequest({ requestData, router }))
-            console.log('request form submitted', fieldsValue, '/n', requestData)
+            
         } else {
-            console.log('request form not submiited')
+            
         }
     }
 
