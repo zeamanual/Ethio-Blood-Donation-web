@@ -138,8 +138,9 @@ export let getDonorMatchingRequests = createAsyncThunk(
             })
             let currentUserId = thunkApi.getState().user.userId
             response.data = response.data.filter(req=>req.userRef._id!==currentUserId)
+            let requestCountReducedBy = finalResponse.totalItemSize-response.data.length
+            finalResponse.totalItemSize=finalResponse.totalItemSize-requestCountReducedBy
             finalResponse.response = response.data
-
             return finalResponse
         } catch (error) {
             let errorMsg = error.response.data?.message
