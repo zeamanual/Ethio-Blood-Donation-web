@@ -100,9 +100,9 @@ let NavBar = function () {
                       <Box display='flex' justifyContent={'center'}>
                         <Button
                           size='small'
-                          sx={{ margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
+                          sx={{ padding:0,margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
                         >
-                          <Typography sx={{ fontSize: { md: '1.3em', lg: '1.55em' } }} variant='h6'>{item.name}</Typography>
+                          <Typography sx={{padding:'0.19em 0.5em', fontSize: { md: '1.3em', lg: '1.55em' },'&:hover': { color: 'white' } }} color='primary' variant='h6'>{item.name}</Typography>
                         </Button>
                       </Box>
                     </Link>

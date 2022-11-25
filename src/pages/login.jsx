@@ -130,7 +130,7 @@ function Login() {
                                 <Button disabled={!errorDetails.isFormValid || state.user.loading ?true:false} type='submit' variant='contained'>Log in</Button>
                             </Box>
                             <Box>
-                           <Typography align='center'>
+                           <Typography align='center' color='black'>
                            Dont have Habesha Donate account yet? <Box component={'span'} color='primary' ><Link underline='hover' href="/signup" >Sign Up</Link></Box> 
                            </Typography> 
                             </Box>

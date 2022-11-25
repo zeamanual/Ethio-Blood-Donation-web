@@ -15,9 +15,9 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestCli
                         <ListItem key={index}>
                             <ListItemButton onClick={() => {requestClickHandler(request)}}>
                                 <ListItemAvatar>
-                                    <AccountCircleRounded fontSize='large'></AccountCircleRounded>
+                                    <AccountCircleRounded sx={{color:'black'}} fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
-                                <ListItemText sx={{}} primary={request.userRef.userName} secondary={moment(request.date.toString()).fromNow()}>
+                                <ListItemText sx={{color:'black'}} primary={request.userRef.userName} secondary={moment(request.date.toString()).fromNow()}>
                                     
                                 </ListItemText>
                                 <Stack sx={{padding:'0em'}} direction={'column'} justifyContent='center'>

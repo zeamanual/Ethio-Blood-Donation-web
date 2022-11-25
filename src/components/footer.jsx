@@ -121,7 +121,7 @@ function Footer() {
                             <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
                                 <a href='https://github.com/zeamanual' target={'_blank'} rel='noreferrer'><GitHub sx={{ color: '#171515', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></GitHub></a>
                                 <a href='https://linkedin.com/in/zeamanual-feleke-541310229' rel='noreferrer' target={'_blank'}><LinkedIn sx={{ color: '#0A66C2', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></LinkedIn></a>
-                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'} rel='noreferrer'><EmailRounded sx={{ transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
+                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'} rel='noreferrer'><EmailRounded sx={{ transition: 'transform 0.3s linear',color:'black', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
                             </Box>
 
                         </Box>

@@ -176,9 +176,9 @@ export default function Home() {
                     </Box>
                     <Box>
                       <Typography variant='h6' color='gray' align='center'>
-                        <span onClick={handleDonateNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Donate </Typography></span>
+                        <span onClick={handleDonateNow} ><Typography color='gray' sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Donate </Typography></span>
                         or
-                        <span onClick={handleCreateRequestNow} ><Typography sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Create Your Request</Typography></span>
+                        <span onClick={handleCreateRequestNow} ><Typography color='gray' sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Create Your Request</Typography></span>
                       </Typography>
                     </Box>
                   </Paper>
