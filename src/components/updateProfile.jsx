@@ -82,14 +82,14 @@ function UpdateProfile() {
                 email: { ...fieldsValue.email, hasError: true, msg: 'Enter a valid email', value: e.target.value }
             }))
         }
-        // console.log(e.target.value,'email')
+        
     }
     let handleAddressChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             address: { ...fieldsValue.address, hasError: false, msg: '', value: e.target.value }
         }))
-        // console.log(e.target.value,'address')
+        
     }
     let handleAgeChange = (e) => {
         let age = parseInt(e.target.value)
@@ -104,21 +104,21 @@ function UpdateProfile() {
                 age: { ...fieldsValue.age, hasError: false, msg: '', value: e.target.value }
             }))
         }
-        // console.log(e.target.value,'age')
+        
     }
     let handleGenderChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             gender: { ...fieldsValue.gender, hasError: false, msg: '', value: e.target.value }
         }))
-        // console.log(e.target.value,'gender')
+        
     }
     let handleBloodtypeChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             bloodType: { ...fieldsValue.bloodType, hasError: false, msg: '', value: e.target.value }
         }))
-        // console.log(e.target.value,'blood')
+        
     }
     let handlePasswordChange = (e) => {
         if (e.target.value.length === 0 || e.target.value.length >= 8) {
