@@ -136,7 +136,8 @@ export let getDonorMatchingRequests = createAsyncThunk(
                 url: `${baseUrl}/request/match/${pageNumber}`,
                 method: "get",
             })
-
+            let currentUserId = thunkApi.getState().user.userId
+            response.data = response.data.filter(req=>req.userRef._id!==currentUserId)
             finalResponse.response = response.data
 
             return finalResponse
