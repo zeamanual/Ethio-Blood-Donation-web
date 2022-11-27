@@ -22,7 +22,7 @@ function UpdateProfile() {
     let [fetchedDataUsed, setFetchedDataUsed] = React.useState(false)
 
     React.useEffect(() => {
-        if(!userState.isAuthenticated){
+        if (!userState.isAuthenticated) {
             router.push('/login')
         }
         dispatch(resetUpdateUserFormStatus())
@@ -55,12 +55,18 @@ function UpdateProfile() {
         }
     }
     let handlePhoneNumberChange = (e) => {
-        if (e.target.value.length < 10) {
+        if (e.target.value.length < 9) {
             setFieldsValue(previousValue => ({
                 ...previousValue,
                 phoneNumber: { ...fieldsValue.phoneNumber, hasError: true, msg: "Phone number too short", value: e.target.value }
             }))
-        } else {
+        } else if (e.target.value.length > 9) {
+            setFieldsValue(previousValue => ({
+                ...previousValue,
+                phoneNumber: { ...fieldsValue.phoneNumber, hasError: true, msg: "Phone number too long", value: e.target.value }
+            }))
+        }
+        else {
             setFieldsValue(previousValue => ({
                 ...previousValue,
                 phoneNumber: { ...fieldsValue.phoneNumber, hasError: false, msg: "", value: e.target.value }
@@ -82,14 +88,14 @@ function UpdateProfile() {
                 email: { ...fieldsValue.email, hasError: true, msg: 'Enter a valid email', value: e.target.value }
             }))
         }
-        
+
     }
     let handleAddressChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             address: { ...fieldsValue.address, hasError: false, msg: '', value: e.target.value }
         }))
-        
+
     }
     let handleAgeChange = (e) => {
         let age = parseInt(e.target.value)
@@ -104,21 +110,21 @@ function UpdateProfile() {
                 age: { ...fieldsValue.age, hasError: false, msg: '', value: e.target.value }
             }))
         }
-        
+
     }
     let handleGenderChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             gender: { ...fieldsValue.gender, hasError: false, msg: '', value: e.target.value }
         }))
-        
+
     }
     let handleBloodtypeChange = (e) => {
         setFieldsValue(previousValue => ({
             ...previousValue,
             bloodType: { ...fieldsValue.bloodType, hasError: false, msg: '', value: e.target.value }
         }))
-        
+
     }
     let handlePasswordChange = (e) => {
         if (e.target.value.length === 0 || e.target.value.length >= 8) {
@@ -247,7 +253,7 @@ function UpdateProfile() {
                                 backgroundImage: `url(/profilePageSideImageR.png)`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'contain',
-                                backgroundColor:'rgba(100,145,200,0.2)',
+                                backgroundColor: 'rgba(100,145,200,0.2)',
                                 backgroundRepeat: 'no-repeat',
                                 borderRadius: 0
                             }}>
@@ -319,6 +325,14 @@ function UpdateProfile() {
                                                     ></TextField>
                                                     <Alert sx={{ marginTop: '1em' }} severity='info'>{"Leave The New Password Field Empty, If You Don't Want to Change Your Password"}</Alert>
                                                 </Box>
+                                            )
+                                        } else if (fieldName == 'phoneNumber') {
+                                            inputField = (
+                                                <TextField
+                                                    InputProps={{
+                                                        startAdornment: <InputAdornment position="start">+251</InputAdornment>,
+                                                    }}
+                                                    key={fieldName} size={size} type={'number'} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' ></TextField>
                                             )
                                         } else {
                                             inputField = (
