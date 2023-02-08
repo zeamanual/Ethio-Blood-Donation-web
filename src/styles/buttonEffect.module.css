@@ -11,7 +11,7 @@
 
 @keyframes animateButton {
     0% {
-        color:rgb(159, 87, 201);
+        color:rgb(176, 201, 87);
         border:10px rgb(226, 181, 34) solid;
         /* transform: translate(-4em,0); */
         box-shadow: 0 0 20px rgb(226, 181, 34);
@@ -29,9 +29,9 @@
         /* transform: translate(2em,0); */
     }
     100%{
-        color:rgb(106, 199, 43);
+        color:rgb(255, 255, 255);
         border:10px rgb(28, 240, 176) solid;
-        box-shadow: 0 0 20px rgb(28, 240, 176);
+        box-shadow: 0 0 20px rgb(240, 148, 28);
         /* transform: translate(4em,0); */
     }
 }

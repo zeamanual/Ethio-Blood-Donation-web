@@ -58,6 +58,7 @@ function Gallery() {
         // cols={{xs:1,md:2,lg:3}}
         cols={customWindowSize=='md'?3:1} 
         variant='masonry'
+        sx={{overflow:'hidden'}}
         >
           {
             galleryList.map((gallery,index) => {
@@ -66,7 +67,7 @@ function Gallery() {
                 '&:hover':{
                   zIndex:'1000',
                   boxShadow:'0 0 1em black',
-                  transform:'scale(1.2) rotatez(5deg)',
+                  transform:'scale(1.1)',
                 }
               }} >
                 <img src={gallery.url}></img>
