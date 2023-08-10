@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography, Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider, IconButton, Modal, Avatar, MenuList, Menu, MenuItem, ListItemIcon } from '@mui/material'
+import { AppBar, Button, ButtonGroup, Stack, styled, Toolbar, Typography, Box, Drawer, List, ListItem, ListItemButton, ListItemText, Divider, IconButton, Modal, Avatar, MenuList, Menu, MenuItem, ListItemIcon, useScrollTrigger, Slide } from '@mui/material'
 import logoImg from '../../public/lo.png'
 import Image from 'next/image'
 import { Bloodtype, Chat, Collections, HelpCenter, Home, Info, Login, Logout, MenuSharp, Person, Phone, Settings, VolunteerActivism } from '@mui/icons-material'
@@ -8,6 +8,18 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { logOut } from '../state/slices/userSlice'
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+  });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
 let NavBar = function () {
   let state = useSelector(state => state)
   let router = useRouter()
@@ -48,12 +60,12 @@ let NavBar = function () {
   ]
 
   let navItemsIcon = {
-    HOME:<Home></Home>,
-    GUIDE:<HelpCenter></HelpCenter>,
-    GALLERY:<Collections></Collections>,
-    ABOUT:<Info></Info>,
-    TESTIMONIAL:<Chat></Chat>,
-    CONTACT:<Phone></Phone>
+    HOME: <Home></Home>,
+    GUIDE: <HelpCenter></HelpCenter>,
+    GALLERY: <Collections></Collections>,
+    ABOUT: <Info></Info>,
+    TESTIMONIAL: <Chat></Chat>,
+    CONTACT: <Phone></Phone>
   }
 
   let userNavs = [
@@ -64,12 +76,12 @@ let NavBar = function () {
   ]
 
   let userNavsIcon = {
-    'MY REQUESTS':<Bloodtype></Bloodtype>,
-    'PROFILE':<Person></Person>,
-    'LOG OUT':<Logout></Logout>,
-    'MY DONATIONS':<VolunteerActivism></VolunteerActivism>,
-    'BECOME A DONOR':<VolunteerActivism></VolunteerActivism>,
-    
+    'MY REQUESTS': <Bloodtype></Bloodtype>,
+    'PROFILE': <Person></Person>,
+    'LOG OUT': <Logout></Logout>,
+    'MY DONATIONS': <VolunteerActivism></VolunteerActivism>,
+    'BECOME A DONOR': <VolunteerActivism></VolunteerActivism>,
+
   }
 
 
@@ -83,79 +95,84 @@ let NavBar = function () {
   })
   return (
     <>
-      <AppBar position='sticky' sx={{ backgroundColor: 'white', opacity: 0.9, }}>
-        <Toolbar>
-          <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
-            <div onClick={() => { router.push("/") }} style={{ cursor: 'pointer' }}>
-              <Box sx={{ maxWidth: 60 }}>
-                <Image height={70} width={100} src={'/logo.png'} alt='logo picture' />
-              </Box>
-            </div>
-            <StyledBox sx={{ display: { md: 'flex', xs: 'none' }, }}>
+      <HideOnScroll>
 
-              {
-                navItems.map((item, index) => {
-                  return (
-                    <Link key={index} style={{ display: 'block', width: '100%' }} href={item.path}>
-                      <Box display='flex' justifyContent={'center'}>
-                        <Button
-                          size='small'
-                          sx={{ padding:0,margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
-                        >
-                          <Typography sx={{padding:'0.19em 0.5em', fontSize: { md: '1.3em', lg: '1.55em' },'&:hover': { color: 'white' } }} color='primary' variant='h6'>{item.name}</Typography>
-                        </Button>
-                      </Box>
-                    </Link>
-                  )
-                })
-              }
-            </StyledBox>
+        <AppBar position='sticky'
+          sx={{ backgroundColor: 'white', opacity: 0.9, }}
+        >
+          <Toolbar>
+            <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
+              <div onClick={() => { router.push("/") }} style={{ cursor: 'pointer' }}>
+                <Box sx={{ maxWidth: 60 }}>
+                  <Image height={70} width={100} src={'/logo.png'} alt='logo picture' />
+                </Box>
+              </div>
+              <StyledBox sx={{ display: { md: 'flex', xs: 'none' }, }}>
 
-            <Stack gap={2} sx={{ display: { md: 'flex', xs: 'none' }, }} direction={'row'}>
-              {state.user.isAuthenticated
-                ? <ButtonGroup>
-                  <Button onClick={handleDonateNow} variant='contained'>Donate Now</Button>
-                  <Button onClick={handleCreateRequestNow} variant='contained'>Create Request</Button>
-                </ButtonGroup>
-                : <></>
-              }
-              <Menu
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={() => { setAnchorEl(null) }}
-              >
                 {
-                  userNavs.map((nav, index) => {
+                  navItems.map((item, index) => {
                     return (
-                      <MenuItem key={index} onClick={() => {
-                        setAnchorEl(null); router.push(nav.path)
-                        if (nav.name == 'LOG OUT') { dispatch(logOut()) }
-                      }} >
-                        {nav.name}
-                      </MenuItem>
+                      <Link key={index} style={{ display: 'block', width: '100%' }} href={item.path}>
+                        <Box display='flex' justifyContent={'center'}>
+                          <Button
+                            size='small'
+                            sx={{ padding: 0, margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
+                          >
+                            <Typography sx={{ padding: '0.19em 0.5em', fontSize: { md: '1.3em', lg: '1.55em' }, '&:hover': { color: 'white' } }} color='primary' variant='h6'>{item.name}</Typography>
+                          </Button>
+                        </Box>
+                      </Link>
                     )
                   })
                 }
-              </Menu>
-              {state.user.isAuthenticated
-                ? <Avatar onClick={menuHandler} ></Avatar>
-                : <ButtonGroup>
-                  <Button onClick={() => { router.push(`/login`) }} variant='contained'>Log In</Button>
-                  <Button onClick={() => { router.push(`/signup`) }} variant='contained'>Sign Up</Button>
-                </ButtonGroup>
-              }
-            </Stack>
+              </StyledBox>
 
-            <Box sx={{
-              display: { xs: 'block', md: 'none' }
-            }} >
-              <IconButton onClick={handleDrawerSwitch}>
-                <MenuSharp color='primary'></MenuSharp>
-              </IconButton>
-            </Box>
-          </Stack>
-        </Toolbar>
-      </AppBar>
+              <Stack gap={2} sx={{ display: { md: 'flex', xs: 'none' }, }} direction={'row'}>
+                {state.user.isAuthenticated
+                  ? <ButtonGroup>
+                    <Button onClick={handleDonateNow} variant='contained'>Donate Now</Button>
+                    <Button onClick={handleCreateRequestNow} variant='contained'>Create Request</Button>
+                  </ButtonGroup>
+                  : <></>
+                }
+                <Menu
+                  open={Boolean(anchorEl)}
+                  anchorEl={anchorEl}
+                  onClose={() => { setAnchorEl(null) }}
+                >
+                  {
+                    userNavs.map((nav, index) => {
+                      return (
+                        <MenuItem key={index} onClick={() => {
+                          setAnchorEl(null); router.push(nav.path)
+                          if (nav.name == 'LOG OUT') { dispatch(logOut()) }
+                        }} >
+                          {nav.name}
+                        </MenuItem>
+                      )
+                    })
+                  }
+                </Menu>
+                {state.user.isAuthenticated
+                  ? <Avatar onClick={menuHandler} ></Avatar>
+                  : <ButtonGroup>
+                    <Button onClick={() => { router.push(`/login`) }} variant='contained'>Log In</Button>
+                    <Button onClick={() => { router.push(`/signup`) }} variant='contained'>Sign Up</Button>
+                  </ButtonGroup>
+                }
+              </Stack>
+
+              <Box sx={{
+                display: { xs: 'block', md: 'none' }
+              }} >
+                <IconButton onClick={handleDrawerSwitch}>
+                  <MenuSharp color='primary'></MenuSharp>
+                </IconButton>
+              </Box>
+            </Stack>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
 
       <Drawer
         open={drawerOpened}
@@ -168,10 +185,10 @@ let NavBar = function () {
               return (
                 <ListItem key={index} disablePadding>
                   <ListItemButton onClick={() => { router.push(`/${item.path}`); setDrawerOpened(!drawerOpened) }}>
-                    <ListItemIcon  sx={{color:'primary.main'}} >
+                    <ListItemIcon sx={{ color: 'primary.main' }} >
                       {navItemsIcon[`${item.name}`]}
                     </ListItemIcon>
-                    <ListItemText sx={{color:'primary.main'}} primary={item.name} ></ListItemText>
+                    <ListItemText sx={{ color: 'primary.main' }} primary={item.name} ></ListItemText>
                   </ListItemButton>
                 </ListItem>
               )
@@ -180,9 +197,9 @@ let NavBar = function () {
             <Divider></Divider>
             {state.user.isAuthenticated
               ? <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
-                <Box display={'flex'} pb={2}  justifyContent={'center'} alignItems='center' >
+                <Box display={'flex'} pb={2} justifyContent={'center'} alignItems='center' >
                   <Avatar ></Avatar>
-                  <Typography sx={{padding:1}}>{state.user.userName}</Typography>
+                  <Typography sx={{ padding: 1 }}>{state.user.userName}</Typography>
                 </Box>
                 {
                   userNavs.map((nav, index) => {
@@ -192,10 +209,10 @@ let NavBar = function () {
                         if (nav.name == 'LOG OUT') { dispatch(logOut()) }
                         router.push(nav.path)
                       }} >
-                      <ListItemIcon sx={{color:'primary.main'}} >
-                        {userNavsIcon[`${nav.name}`]}
-                      </ListItemIcon>
-                        <ListItemText sx={{color:'primary.main'}} >{nav.name}</ListItemText>
+                        <ListItemIcon sx={{ color: 'primary.main' }} >
+                          {userNavsIcon[`${nav.name}`]}
+                        </ListItemIcon>
+                        <ListItemText sx={{ color: 'primary.main' }} >{nav.name}</ListItemText>
                       </ListItemButton>
                     )
                   })
