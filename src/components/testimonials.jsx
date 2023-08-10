@@ -46,7 +46,7 @@ function Testimonials() {
             <Box sx={{
                 paddingTop: '8em'
             }}>
-                <Typography variant='h2' color='dark' align='center'>Testimonials</Typography>
+                <Typography fontWeight={'bold'} variant='h2' color='primary.light' align='center'>Testimonials</Typography>
             </Box>
             <Box paddingX={{ md: 3, xs: 0 }} paddingY={0}>
                 <Carousel

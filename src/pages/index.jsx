@@ -99,9 +99,9 @@ export default function Home() {
             </div>
           </Box>
         </Box>
-        <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }}>
-          <Typography variant='h2' align='center' color='dark'>Look How Easy It Is To Use</Typography>
-          <Box display={'flex'} justifyContent='center' >
+        <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }}  minHeight={'85vh'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+          <Typography variant='h2' fontWeight={'bold'} align='center' color='primary.light'>Look How Easy It Is To Use</Typography>
+          <Box mt={7} display={'flex'} justifyContent='center'  width={'100%'} >
             <Grid container display='flex' justifyContent='center' >
               <Grid item md={3} xs={10}>
                 <div onClick={() => { router.push('/signup') }} style={{ cursor: 'pointer' }}>

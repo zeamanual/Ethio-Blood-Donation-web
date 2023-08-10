@@ -97,8 +97,8 @@ let NavBar = function () {
     <>
       <HideOnScroll>
 
-        <AppBar position='sticky'
-          sx={{ backgroundColor: 'white', opacity: 0.9, }}
+        <AppBar position='fixed'
+          sx={{ backgroundColor: "rgba(190, 0, 0, 0.25)",backdropFilter:'blur(10px)'}}
         >
           <Toolbar>
             <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
@@ -118,7 +118,7 @@ let NavBar = function () {
                             size='small'
                             sx={{ padding: 0, margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
                           >
-                            <Typography sx={{ padding: '0.19em 0.5em', fontSize: { md: '1.3em', lg: '1.55em' }, '&:hover': { color: 'white' } }} color='primary' variant='h6'>{item.name}</Typography>
+                            <Typography sx={{ padding: '0.19em 0.5em',fontWeight:'bold', fontSize: { md: '1.3em', lg: '1.55em' }, '&:hover': { color: 'white' } }} color='white' variant='h6'>{item.name}</Typography>
                           </Button>
                         </Box>
                       </Link>

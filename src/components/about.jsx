@@ -5,7 +5,7 @@ import React from 'react'
 function About() {
     return (
         <Box id='about'>
-            <Typography sx={{ paddingTop: '1.7em', paddingBottom: '0.4em' }} variant='h2' align='center' color='dark'>About</Typography>
+            <Typography fontWeight={'bold'} color='primary.light' sx={{ paddingTop: '1.7em', paddingBottom: '0.4em' }} variant='h2' align='center'>About</Typography>
             <Box sx={{
                 borderRadius: '1em',
                 overflow: 'hidden',
