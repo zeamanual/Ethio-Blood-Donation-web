@@ -1,5 +1,5 @@
 import { VerifiedUser, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Alert, Box, Button, Fade, Grid, IconButton, InputAdornment, LinearProgress, MenuItem, Modal, Snackbar, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Fade, Grid, IconButton, InputAdornment, LinearProgress, MenuItem, Modal, Snackbar, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { resetFormStatus, signUpUser } from '../state/slices/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import Summary from '../components/summary'
 import { useRouter } from 'next/router'
 import { BLOODTYPES, CITIES } from '../constants'
 import CustomResponseModal from '../components/customResponseModal'
+import StyledTextField from '../components/styledTextField'
 
 function SignUp() {
     let state = useSelector(state => state)
@@ -217,36 +218,36 @@ function SignUp() {
                                     let inputField = ''
                                     if (fieldName == 'address') {
                                         inputField = (
-                                            <TextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' select >
+                                            <StyledTextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' select >
                                                 {CITIES.map(city => {
                                                     return <MenuItem key={city.name} value={city.name} >{city.name}</MenuItem>
                                                 })}
-                                            </TextField>
+                                            </StyledTextField>
                                         )
                                     } else if (fieldName == 'gender') {
                                         inputField = (
-                                            <TextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} select variant='outlined'>
+                                            <StyledTextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} select variant='outlined'>
                                                 <MenuItem value='Male'>
                                                     Male
                                                 </MenuItem>
                                                 <MenuItem value='Female'>
                                                     Female
                                                 </MenuItem>
-                                            </TextField>
+                                            </StyledTextField>
                                         )
                                     } else if (fieldName == 'bloodType') {
                                         inputField = (
-                                            <TextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} select variant='outlined' >
+                                            <StyledTextField key={fieldName} size={size} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} select variant='outlined' >
                                                 {
                                                     BLOODTYPES.map(bloodType => {
                                                         return <MenuItem key={bloodType} value={bloodType}>{bloodType}</MenuItem>
                                                     })
                                                 }
-                                            </TextField>
+                                            </StyledTextField>
                                         )
                                     } else if (fieldName == 'password') {
                                         inputField = (
-                                            <TextField
+                                            <StyledTextField
                                                 size={size}
                                                 key={fieldName}
                                                 error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg}
@@ -261,19 +262,19 @@ function SignUp() {
                                                         </InputAdornment>
                                                     ),
                                                 }}
-                                            ></TextField>
+                                            ></StyledTextField>
                                         )
                                     } else if (fieldName == 'phoneNumber') {
                                         inputField = (
-                                            <TextField
+                                            <StyledTextField
                                                 InputProps={{
                                                     startAdornment: <InputAdornment position="start">+251</InputAdornment>,
                                                 }}
-                                                key={fieldName} size={size} type={'number'} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' ></TextField>
+                                                key={fieldName} size={size} type={'number'} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' ></StyledTextField>
                                         )
                                     } else {
                                         inputField = (
-                                            <TextField key={fieldName} size={size} type={fieldName == 'age' ? 'number' : 'text'} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' ></TextField>
+                                            <StyledTextField key={fieldName} size={size} type={fieldName == 'age' ? 'number' : 'text'} error={fieldsValue[fieldName].hasError} helperText={fieldsValue[fieldName].msg} value={fieldsValue[fieldName].value} onChange={fieldsValue[fieldName].changeHandler} label={fieldName} variant='outlined' ></StyledTextField>
                                         )
                                     }
                                     return inputField

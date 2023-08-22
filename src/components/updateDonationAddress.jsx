@@ -8,6 +8,7 @@ import { CITIES } from '../constants'
 import { createDonor, getCurrentDonorData, resetDonorFormStatus, updateDonorAddress } from '../state/slices/donorSlice'
 import CustomProgressModal from './customProgressModal'
 import CustomResponseModalNoRoute from './customResponseModalNoRoute'
+import StyledTextField from './styledTextField'
 
 function UpdateDonationAddress() {
     let dispatch = useDispatch()
@@ -117,14 +118,14 @@ function UpdateDonationAddress() {
                                             isOptionEqualToValue={(option, value) => { return option.name == value.name }}
                                             getOptionLabel={(option) => option.name}
                                             renderInput={(params) => (
-                                                <TextField
+                                                <StyledTextField
                                                     {...params}
                                                     error={Boolean(fieldErrorMsg)}
                                                     helperText={fieldErrorMsg ? fieldErrorMsg : "You can selected more than one location to donate on. For example if you have a diffrent resdential and work address"}
                                                     label="Donation Locations"
                                                     placeholder='location'
 
-                                                ></TextField>
+                                                ></StyledTextField>
                                             )}
                                         >
                                         </Autocomplete>

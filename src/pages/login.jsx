@@ -6,6 +6,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/layout'
 import { logInUser, resetFormStatus } from '../state/slices/userSlice'
+import StyledTextField from '../components/styledTextField'
 
 function Login() {
     let state = useSelector(state=>state)
@@ -102,12 +103,12 @@ function Login() {
                         <Typography sx={{marginBottom:3}} variant='h3'>LogIn</Typography>
                             {state.user.login.errorMsg && <Alert severity='error'>{state.user.login.errorMsg}</Alert>}
                             <Box>
-                                <TextField fullWidth={true}  value={loginDetails.userName} onChange={usernameChangeHandler} size='small' label='Username' ></TextField>
+                                <StyledTextField fullWidth={true}  value={loginDetails.userName} onChange={usernameChangeHandler} size='small' label='Username' ></StyledTextField>
                                 {errorDetails.userName.hasError ? <Alert sx={{padding:0,marginTop:1}} severity="error">{errorDetails.userName.msg}</Alert>:<></> }
                             </Box>
 
                             <Box>
-                            <TextField
+                            <StyledTextField
                             type={showPassword?'text':'password'}
                             value = {loginDetails.password} 
                             onChange={passwordChangeHandler} 
@@ -122,7 +123,7 @@ function Login() {
                             ),
                             }}
                             fullWidth={true}
-                             ></TextField>
+                             ></StyledTextField>
                             {errorDetails.password.hasError ? <Alert sx={{padding:0,marginTop:1}} severity="error">{errorDetails.password.msg}</Alert>:<></> }
                           
                             </Box>

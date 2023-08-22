@@ -69,18 +69,18 @@ let NavBar = function () {
   }
 
   let userNavs = [
-    { path: '/myRequests', name: 'MY REQUESTS' },
-    { path: state.user.roles.includes('DONOR') ? '/myDonations' : "/createDonor", name: state.user.roles.includes('DONOR') ? 'MY DONATIONS' : "BECOME A DONOR" },
-    { path: '/profile', name: "PROFILE" },
-    { path: '', name: 'LOG OUT' },
+    { path: '/myRequests', name: 'My Requests' },
+    { path: state.user.roles.includes('DONOR') ? '/myDonations' : "/createDonor", name: state.user.roles.includes('DONOR') ? 'My Donations' : "Become A Donor" },
+    { path: '/profile', name: "Profile" },
+    { path: '', name: 'Log Out' },
   ]
 
   let userNavsIcon = {
-    'MY REQUESTS': <Bloodtype></Bloodtype>,
-    'PROFILE': <Person></Person>,
-    'LOG OUT': <Logout></Logout>,
-    'MY DONATIONS': <VolunteerActivism></VolunteerActivism>,
-    'BECOME A DONOR': <VolunteerActivism></VolunteerActivism>,
+    'My Requests': <Bloodtype></Bloodtype>,
+    'Profile': <Person></Person>,
+    'Log Out': <Logout></Logout>,
+    'My Donations': <VolunteerActivism></VolunteerActivism>,
+    'Become A Donor': <VolunteerActivism></VolunteerActivism>,
 
   }
 
@@ -98,7 +98,7 @@ let NavBar = function () {
       <HideOnScroll>
 
         <AppBar position='fixed'
-          sx={{ backgroundColor: "rgba(190, 0, 0, 0.25)",backdropFilter:'blur(10px)'}}
+          sx={{ backgroundColor: "rgba(190, 0, 0, 0.25)", backdropFilter: 'blur(10px)' }}
         >
           <Toolbar>
             <Stack direction={'row'} alignItems='center' width={'100%'} justifyContent={'space-between'}>
@@ -118,7 +118,7 @@ let NavBar = function () {
                             size='small'
                             sx={{ padding: 0, margin: { lg: '0 1em', md: '0 0.3em' }, '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
                           >
-                            <Typography sx={{ padding: '0.19em 0.5em',fontWeight:'bold', fontSize: { md: '1.3em', lg: '1.55em' }, '&:hover': { color: 'white' } }} color='white' variant='h6'>{item.name}</Typography>
+                            <Typography sx={{ padding: '0.19em 0.5em', fontWeight: 'bold', fontSize: { md: '1.3em', lg: '1.55em' }, '&:hover': { color: 'white' } }} color='white' variant='h6'>{item.name}</Typography>
                           </Button>
                         </Box>
                       </Link>
@@ -147,7 +147,10 @@ let NavBar = function () {
                           setAnchorEl(null); router.push(nav.path)
                           if (nav.name == 'LOG OUT') { dispatch(logOut()) }
                         }} >
-                          {nav.name}
+                          <ListItemIcon>{userNavsIcon[nav.name]}</ListItemIcon>
+                          <Typography color={'secondary'}>
+                            {nav.name}
+                          </Typography>
                         </MenuItem>
                       )
                     })
@@ -199,7 +202,7 @@ let NavBar = function () {
               ? <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
                 <Box display={'flex'} pb={2} justifyContent={'center'} alignItems='center' >
                   <Avatar ></Avatar>
-                  <Typography sx={{ padding: 1 }}>{state.user.userName}</Typography>
+                  <Typography color='secondary' sx={{ padding: 1 }}>{state.user.userName}</Typography>
                 </Box>
                 {
                   userNavs.map((nav, index) => {

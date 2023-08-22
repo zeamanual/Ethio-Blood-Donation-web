@@ -6,6 +6,7 @@ import CustomResponseModal from '../components/customResponseModal'
 import Layout from '../components/layout'
 import { CITIES } from '../constants'
 import { createDonor, resetDonorFormStatus } from '../state/slices/donorSlice'
+import StyledTextField from '../components/styledTextField'
 
 function CreateDonor() {
     let dispatch = useDispatch()
@@ -86,14 +87,14 @@ function CreateDonor() {
                                     isOptionEqualToValue={(option,value)=>{ return option.name==value.name}}
                                     getOptionLabel={(option) => option.name}
                                     renderInput={(params) => (
-                                        <TextField
+                                        <StyledTextField
                                             {...params}
                                             error={Boolean(fieldErrorMsg)}
                                             helperText={fieldErrorMsg ? fieldErrorMsg : "You can selected more than one location to donate on. For example if you have a diffrent resdential and work address"}
                                             label="Donation Locations"
                                             placeholder='location'
 
-                                        ></TextField>
+                                        ></StyledTextField>
                                     )}
                                 >
                                 </Autocomplete>

@@ -3,6 +3,7 @@ import axios from 'axios'
 import React from 'react'
 import CustomProgressModal from './customProgressModal'
 import CustomResponseModal from './customResponseModal'
+import StyledTextField from './styledTextField'
 
 function ContactUs() {
     let [contactUsData, setContactUsData] = React.useState({
@@ -211,10 +212,10 @@ function ContactUs() {
                             width: '100%',
                         }}>
                             <Stack direction='column' padding={2} paddingX={{ xs: 2, md: 6 }} rowGap={2}>
-                                <TextField type='text' error={contactUsData.name.hasError} onChange={nameChangeHandler} helperText={contactUsData.name.errorMsg} value={contactUsData.name.value} variant='standard' label='Name'></TextField>
-                                <TextField type='email' error={contactUsData.email.hasError} onChange={emailChangeHandler} helperText={contactUsData.email.errorMsg} value={contactUsData.email.value} variant='standard' label='Email'></TextField>
-                                <TextField ype='text' error={contactUsData.subject.hasError} onChange={subjectChangeHandler} helperText={contactUsData.subject.errorMsg} value={contactUsData.subject.value} variant='standard' label='Subject'></TextField>
-                                <TextField ype='text' error={contactUsData.message.hasError} onChange={messageChangeHandler} helperText={contactUsData.message.errorMsg} value={contactUsData.message.value} variant='standard' label='Message' multiline rows={2}></TextField>
+                                <StyledTextField type='text' error={contactUsData.name.hasError} onChange={nameChangeHandler} helperText={contactUsData.name.errorMsg} value={contactUsData.name.value} variant='standard' label='Name'></StyledTextField>
+                                <StyledTextField type='email' error={contactUsData.email.hasError} onChange={emailChangeHandler} helperText={contactUsData.email.errorMsg} value={contactUsData.email.value} variant='standard' label='Email'></StyledTextField>
+                                <StyledTextField ype='text' error={contactUsData.subject.hasError} onChange={subjectChangeHandler} helperText={contactUsData.subject.errorMsg} value={contactUsData.subject.value} variant='standard' label='Subject'></StyledTextField>
+                                <StyledTextField ype='text' error={contactUsData.message.hasError} onChange={messageChangeHandler} helperText={contactUsData.message.errorMsg} value={contactUsData.message.value} variant='standard' label='Message' multiline rows={2}></StyledTextField>
                                 <Box>
                                     <Button onClick={submitHandler} variant='contained'>Submit</Button>
                                 </Box>

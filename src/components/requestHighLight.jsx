@@ -1,11 +1,12 @@
 import { AccountCircleRounded } from '@mui/icons-material'
-import { Box, Button, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Button, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Pagination, Stack, Typography, useTheme } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
 import moment from 'moment'
 
 function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestClickHandler }) {
     let router = useRouter()
+    let theme = useTheme()
 
     return (
         <Box>
@@ -15,9 +16,9 @@ function ReqestsHighLight({ requests,pageChangeHandler,totalPageItems,requestCli
                         <ListItem key={index}>
                             <ListItemButton onClick={() => {requestClickHandler(request)}}>
                                 <ListItemAvatar>
-                                    <AccountCircleRounded sx={{color:'black'}} fontSize='large'></AccountCircleRounded>
+                                    <AccountCircleRounded sx={{color:theme.palette.secondary.main}} fontSize='large'></AccountCircleRounded>
                                 </ListItemAvatar>
-                                <ListItemText sx={{color:'black'}} primary={request.userRef.userName} secondary={moment(request.date.toString()).fromNow()}>
+                                <ListItemText  sx={{color:theme.palette.secondary.main}} primary={request.userRef.userName} secondary={moment(request.date.toString()).fromNow()}>
                                     
                                 </ListItemText>
                                 <Stack sx={{padding:'0em'}} direction={'column'} justifyContent='center'>

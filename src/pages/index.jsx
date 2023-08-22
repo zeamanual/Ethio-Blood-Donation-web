@@ -41,7 +41,7 @@ export default function Home() {
             height: '100vh',
             // backgroundImage: `  linear-gradient(to bottom, rgba(255, 0, 0, 0.52), rgba(0, 100, 0, 0.3)),url(/hero.jpeg)`,
             backgroundImage: ` url(/bloodBg.jpg)`,
-            
+
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
@@ -73,15 +73,16 @@ export default function Home() {
         </Box>
         <Box mt={0}
           sx={{
-            height: '100vh',
-            backgroundImage: `  linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.73)),url(/secondHeroImage1.jpg)`,
+            minHeight: '100vh',
+            // backgroundImage: `  linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.73)),url(/secondHeroImage1.jpg)`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             display: 'flex',
             backgroundAttachment: 'fixed',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            flexDirection: { md: 'row', xs: 'column' }
           }}
         >
 
@@ -90,20 +91,45 @@ export default function Home() {
               display: 'flex',
               flexDirection: "column",
               alignItems: 'center',
-              padding: 1
+              px: 5,
+              // py:10 ,
+              width: { xs: '100%', md: '50%' }
             }}
           >
-            <Typography align='center' variant='h3' color='white' >
+            <Typography sx={{ margin: {md:'0 0.8em',xs:'1em 0.8em'} }} textAlign={'center'} color='primary.light' variant='h3' fontFamily={'Alfa Slab One'}>{'Habesha Blood Donation '}</Typography>
+
+            <Typography sx={{ mt: 10 }} align='center' variant='h6' color='secondary.light' >
               {'You\'re In A Need Of Blood Urgently! Just Make A Request And Some One will Be there To Donate For You.'}
             </Typography>
-            <div onClick={handleCreateRequestNow} style={{ cursor: 'pointer' }} className={style.animatedButton}>
+
+            <div onClick={handleCreateRequestNow} style={{ cursor: 'pointer', margin: '2em 0' }} className={style.animatedButton}>
               <h4>Create Request Now</h4>
             </div>
           </Box>
+          <Box
+            // 
+            sx={{
+              // height: '100vh',
+              // width: '100vw',
+              width: { xs: '100%', md: '50%' },
+
+              // backgroundImage: `  linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.73)),url(/secondHeroImage1.jpg)`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              display: 'flex',
+              backgroundAttachment: 'fixed',
+              justifyContent: 'center',
+              alignItems: 'center',
+              p:{md:0,xs:5}
+            }}
+          >
+            <img style={{width:'100%',height:'100%'}} src='/secondHero.jpg'></img>
+          </Box>
         </Box>
-        <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }}  minHeight={'85vh'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+        <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }} minHeight={'85vh'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
           <Typography variant='h2' fontWeight={'bold'} align='center' color='primary.light'>Look How Easy It Is To Use</Typography>
-          <Box mt={7} display={'flex'} justifyContent='center'  width={'100%'} >
+          <Box mt={7} display={'flex'} justifyContent='center' width={'100%'} >
             <Grid container display='flex' justifyContent='center' >
               <Grid item md={3} xs={10}>
                 <div onClick={() => { router.push('/signup') }} style={{ cursor: 'pointer' }}>

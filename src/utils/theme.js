@@ -3,23 +3,29 @@ import { createTheme } from "@mui/material";
 export let theme = createTheme({
   typography: {
     h1: {
-      color: 'black'
+      color: '#00022e'
     },
     h2: {
-      color: 'black'
+      color: '#00022e'
     },
     h3: {
-      color: 'black'
+      color: '#00022e'
     },
     h4: {
-      color: 'black'
+      color: '#00022e'
     },
     h5: {
-      color: 'black'
+      color: '#00022e'
     },
     h6: {
-      color: 'black'
+      color:'#00022e'
     },
+    p: {
+      color: '#00022e'
+    },
+    span: {
+      color: '#00022e'
+    }
     // allVariants: {
     //   color: 'primary.main'
     // }
@@ -58,10 +64,10 @@ export let theme = createTheme({
 
         root: {
           '&:hover fieldset': {
-            borderColor: 'yellow',
+            borderColor: 'secondary.main',
           },
           '&.Mui-focused fieldset': {
-            borderColor: 'yellow',
+            borderColor: 'secondary.main',
           },
         },
         // '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':{

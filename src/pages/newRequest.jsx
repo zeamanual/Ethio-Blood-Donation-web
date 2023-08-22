@@ -8,6 +8,7 @@ import CustomResponseModalNoRoute from '../components/customResponseModalNoRoute
 import Layout from '../components/layout'
 import { BLOODTYPES, CITIES } from '../constants'
 import { createRequest, resetRequestFormStatus } from '../state/slices/requestSlice'
+import StyledTextField from '../components/styledTextField'
 
 function NewRequest() {
     let isAuthenticated = useSelector(state => state.user.isAuthenticated)
@@ -159,7 +160,7 @@ function NewRequest() {
                                 <Typography align='center' variant='h4' >Enter The Details Of Your Request</Typography>
                             </Box>
                             <Stack gap={2} direction={{ xs: 'column', md: 'row' }}>
-                                <TextField
+                                <StyledTextField
                                     fullWidth
                                     error={Boolean(fieldsValue.bloodType.errorMsg)}
                                     helperText={fieldsValue.bloodType.errorMsg}
@@ -173,8 +174,8 @@ function NewRequest() {
                                             return <MenuItem key={bloodType} value={bloodType} >{bloodType}</MenuItem>
                                         })
                                     }
-                                </TextField>
-                                <TextField
+                                </StyledTextField>
+                                <StyledTextField
                                     error={Boolean(fieldsValue.requiredBloodUnit.errorMsg)}
                                     helperText={fieldsValue.requiredBloodUnit.errorMsg}
                                     fullWidth
@@ -189,7 +190,7 @@ function NewRequest() {
                                       }}
                                     
                                 >
-                                </TextField>
+                                </StyledTextField>
 
                             </Stack>
 
@@ -202,26 +203,26 @@ function NewRequest() {
                                 onChange={handleAddressChange}
                                 getOptionLabel={(option) => option.name}
                                 renderInput={(params) => (
-                                    <TextField
+                                    <StyledTextField
                                         {...params}
                                         error={Boolean(fieldsValue.address.errorMsg)}
                                         helperText={fieldsValue.address.errorMsg ? fieldsValue.address.errorMsg : "You can selected more than one near by location to have more avaliable donors"}
                                         label="Request Locations"
                                         placeholder='locaion'
 
-                                    ></TextField>
+                                    ></StyledTextField>
                                 )}
                             >
 
                             </Autocomplete>
-                            <TextField
+                            <StyledTextField
                                 helperText={'Enter Your Specific Location Name, If It Is Not Avaliable On The Above List'}
                                 label="Specific Location Name ( Optional )"
                                 value={fieldsValue.specificLocationName.value}
                                 onChange={(e) => setFieldsValue(prev => ({ ...prev, specificLocationName: { value: e.target.value, errorMsg: "" } }))}
                             >
-                            </TextField>
-                            <TextField
+                            </StyledTextField>
+                            <StyledTextField
                                 label="Message ( Optional )"
                                 value={fieldsValue.message.value}
                                 onChange={(e) => setFieldsValue(prev => ({ ...prev, message: { value: e.target.value, errorMsg: "" } }))}
@@ -229,7 +230,7 @@ function NewRequest() {
                                 rows={3}
                                 sx={{ '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.main' } }}
                             >
-                            </TextField>
+                            </StyledTextField>
                             <Box display={'flex'} alignItems='center' flexDirection={'column'} justifyContent={'center'}>
                                 <Button type="submit" variant='contained'>Create Request</Button>
                             </Box>

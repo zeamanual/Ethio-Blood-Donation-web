@@ -20,7 +20,7 @@
         /* transform: translate(2em,0); */
     }
     50% {
-        color:yellow;
+        color:rgb(255, 187, 0);
         border:10px rgb(127, 226, 34) solid;
         box-shadow: 0 0 20px  rgb(127, 226, 34);
         /* transform: translate(3em,0); */
@@ -29,7 +29,7 @@
         /* transform: translate(2em,0); */
     }
     100%{
-        color:rgb(255, 255, 255);
+        color:rgb(223, 211, 47);
         border:10px rgb(28, 240, 176) solid;
         box-shadow: 0 0 20px rgb(240, 148, 28);
         /* transform: translate(4em,0); */

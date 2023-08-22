@@ -100,9 +100,9 @@ function RequestDetail() {
                               <>
                                 <Typography align='center' variant='h6' >Donor {index + 1} Detail</Typography>
                                 <Typography variant='h6'>
-                                  Username:  <Typography color='gray'>{donor.userName}</Typography>
-                                  Phonenumber:<Typography color='gray' ><a href={`tel:+251${donor.phoneNumber}`}  >+251{donor.phoneNumber}</a></Typography>
-                                  Email:<Typography color='gray' ><a href={`mailto:${donor.email}`}  >{donor.email}</a></Typography></Typography>
+                                  Username:  <Typography variant='h5' color='gray'>{donor.userName}</Typography>
+                                  Phonenumber:<Typography variant='h5' color='gray' ><a href={`tel:+251${donor.phoneNumber}`}  >+251{donor.phoneNumber}</a></Typography>
+                                  Email:<Typography variant='h5' color='gray' ><a href={`mailto:${donor.email}`}  >{donor.email}</a></Typography></Typography>
                               </>
                             )
                           }):<></>
@@ -120,8 +120,8 @@ function RequestDetail() {
                     <Typography variant='h5'>Message : <Typography color='GrayText' variant='h5' component={'span'}>{requestDetail.message}</Typography></Typography>
                   </Grid>
                 </Grid>
-                <Box p={1} display='flex' justifyContent={'space-around'}>
-                  <Button startIcon={<Edit></Edit>} onClick={updateRequestHandler} color='info' variant='contained' >Update</Button>
+                <Box p={1} display='flex' justifyContent={'end'} columnGap={2}>
+                  <Button startIcon={<Edit></Edit>} onClick={updateRequestHandler} color='warning' variant='contained' >Update</Button>
                   <Button startIcon={<Delete></Delete>} onClick={deleteRequestHandler} color='error' variant='contained' >Delete</Button>
                 </Box>
               </Box> : <></>
