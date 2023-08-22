@@ -36,7 +36,8 @@ function Footer() {
         },
     ]
     let StyledBox = styled(Box)({
-        backgroundColor: 'rgb(130, 162, 181)',
+        // backgroundColor: 'rgb(130, 162, 181)',
+        backgroundColor: "rgba(190, 0, 0, 0.45)",backdropFilter:'blur(10px)',
         opacity: 0.9,
         marginTop: 50,
         padding: 20,
@@ -59,7 +60,7 @@ function Footer() {
     return (
         <StyledBox>
             <Grid container>
-                <Grid item xs={12} md={3}>
+                <Grid display={'flex'} alignItems={'center'} justifyContent={'center'} item xs={12} md={3}>
                     <div onClick={()=>{router.push("/")}} style={{cursor:'pointer'}} >
                         <Box
                             sx={{
@@ -78,7 +79,7 @@ function Footer() {
                     </div>
                 </Grid>
                 <Grid sx={{ marginBottom: 4 }} xs={12} md={3} item>
-                    <Typography variant='h5' align='center' sx={{ marginBottom: 1 }}>Quick Links</Typography>
+                    <Typography color='primary.main' variant='h5' align='center' sx={{ marginBottom: 1 }}>Quick Links</Typography>
                     <Stack direction={'column'}
                     >
                         {navItems.map((item, index) => {
@@ -111,7 +112,7 @@ function Footer() {
                         }}
                     >
                         <Box>
-                            <Typography variant='h5' align='center' sx={{ paddingBottom: 1 }} >About The Developer</Typography>
+                            <Typography variant='h5' color='primary.main' align='center' sx={{ paddingBottom: 1 }} >About The Developer</Typography>
                             <Box display={'flex'} justifyContent='center' alignItems='center'>
                                 <Avatar alt='Developer Image' sx={{ width: 90, height: 90 }} src={'/user/crooped.png'}></Avatar>
 
@@ -144,7 +145,7 @@ function Footer() {
                         </Box>
                         <Button sx={{ width: '100%', margin: '1em ', marginTop: '3em' }} onClick={handleDonateNow} variant='contained'>Donate Now</Button>
                         <Button sx={{ width: '100%', margin: '0em 1em ' }} onClick={handleCreateRequestNow} variant='contained'>Create A Request</Button>
-                        <Link href={'/#home'}><Button color="secondary" sx={{ position: 'absolute', bottom: '-5em', right: 1 }} variant='contained' startIcon={<KeyboardArrowUp></KeyboardArrowUp>} >Back To Top</Button></Link>
+                        <Link href={'/#home'}><Button color="primary" sx={{ position: 'absolute', bottom: '-5em', right: 1 }} variant='contained' startIcon={<KeyboardArrowUp></KeyboardArrowUp>} >Back To Top</Button></Link>
                     </Box>
                 </Grid>
             </Grid>

@@ -79,17 +79,17 @@ function Login() {
     }
   return (
     <Layout>
-        <Box my={5} mx={{md:25,xs:2}} sx={{borderRadius:4,overflow:'hidden',boxShadow:'2px 2px 5px gray'}}>
+        <Box mt={14} mx={{md:25,xs:2}} sx={{borderRadius:4,overflow:'hidden',boxShadow:'2px 2px 5px gray'}}>
         { state.user.loading &&  <LinearProgress></LinearProgress>}
             <Grid container >
                 <Grid item xs={12} md={7}>
                     <Box sx={{height:'100%',width:'100%',
-                  backgroundImage:`url(/login2.png)`,
+                  backgroundImage:`url(/logInPic.jpg)`,
                   backgroundPosition:'center',
                   backgroundSize:'contain',
                   backgroundRepeat:'no-repeat',
                   borderRadius:0,
-                  backgroundColor:'rgb(204, 204, 204)'
+                //   backgroundColor:'rgb(204, 204, 204)'
                   }}> 
 
                     </Box>
@@ -131,7 +131,7 @@ function Login() {
                             </Box>
                             <Box>
                            <Typography align='center' color='black'>
-                           Dont have Habesha Donate account yet? <Box component={'span'} color='primary' ><Link underline='hover' href="/signup" >Sign Up</Link></Box> 
+                           Dont have Habesha Donate account yet? <Box component={'span'} sx={{color:'primary.main'}} ><Link underline='hover' href="/signup" >Sign Up</Link></Box> 
                            </Typography> 
                             </Box>
                         </Stack>

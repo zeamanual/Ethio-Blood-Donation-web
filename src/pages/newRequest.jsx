@@ -145,7 +145,7 @@ function NewRequest() {
                 onCloseCallBack={modalCloseHadler}
             ></CustomResponseModalNoRoute>
 
-            <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
+            <Box sx={{ mx: { xl: 10, md: 10, xs: 3 },mt:14, boxShadow: 10, borderRadius: 2 }}>
                 <CustomProgressModal
                     message={'Creating New Request'}
                     open={requestState.loading}
@@ -182,6 +182,12 @@ function NewRequest() {
                                     value={fieldsValue.requiredBloodUnit.value}
                                     type={'number'}
                                     onChange={handleBloodUnitChange}
+                                    sx={{
+                                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                          borderColor: theme => 'yellow',
+                                        },
+                                      }}
+                                    
                                 >
                                 </TextField>
 
@@ -221,6 +227,7 @@ function NewRequest() {
                                 onChange={(e) => setFieldsValue(prev => ({ ...prev, message: { value: e.target.value, errorMsg: "" } }))}
                                 multiline
                                 rows={3}
+                                sx={{ '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'secondary.main' } }}
                             >
                             </TextField>
                             <Box display={'flex'} alignItems='center' flexDirection={'column'} justifyContent={'center'}>

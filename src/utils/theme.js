@@ -26,17 +26,19 @@ export let theme = createTheme({
   },
   palette: {
     primary: {
-      main:"#e0193d",
-      light:'#be000080'
+      main: "#e0193d",
+      light: '#be000080',
+      // dark:"#c91637"
       //   main: "#4DA8DA",
       // main: '#1b447a',
       // main: "rgba(27, 68, 122, 1)"
-        // main: "#ed7966",
+      // main: "#ed7966",
       //   main: "#303179",
       //   main: "rgb(176, 201, 12)",
     },
     secondary: {
-      main: "#303179",
+      // main: "#303179",
+      main: '#00022e'
       //   main: "rgb(95, 211, 237)",
     },
   },
@@ -46,5 +48,37 @@ export let theme = createTheme({
   //      'cursive',
   //   ].join(','),
   // }
+  components: {
+    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: theme => 'yellow',
 
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+
+        root: {
+          '&:hover fieldset': {
+            borderColor: 'yellow',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: 'yellow',
+          },
+        },
+        // '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':{
+        //   borderColor: theme => 'yellow',
+
+        // },
+        // "root": {
+        //    '&.Mui-active .MuiOutlinedInput-notchedOutline': {
+        //   borderColor: theme => 'yellow',
+        //   color:"green"
+
+        //   }
+        // },
+        // focused: {
+        //   borderColor: theme => theme.palette.secondary.main,
+        // },
+      },
+    },
+  },
 })

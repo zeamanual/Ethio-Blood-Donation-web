@@ -55,12 +55,13 @@ function CreateDonor() {
                 severity={'success'}
             ></CustomResponseModal>
 
-            <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
+            <Box sx={{ mx: { xl: 10, md: 15, xs: 3 }, mt:14, boxShadow: 10, borderRadius: 2 }}>
                 {donorState.loading && <LinearProgress></LinearProgress>}
-                <Grid container>
+                <Grid container justifyContent={'center'} alignItems={'center'}>
                     <Grid item md={6} xs={12}>
                         <Box sx={{
                             height: '100%', width: '100%',
+                            minHeight:'70vh',
                             backgroundImage: `url(/locationPick.png)`,
                             backgroundPosition: 'center',
                             backgroundSize: 'contain',

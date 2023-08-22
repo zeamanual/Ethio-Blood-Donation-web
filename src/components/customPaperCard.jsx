@@ -10,7 +10,7 @@ function CustomPaperCard({children}) {
     justifyContent='center' 
     alignItems={'center'}
     mx={{xs:4,md:8,lg:10}}
-    my={3}
+    mt={14}
     p={{xs:3,md:6}}
     sx={{minHeight:'60vh',widht:'100%'}}
     >{children}</Box>

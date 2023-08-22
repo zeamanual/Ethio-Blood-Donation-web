@@ -17,14 +17,18 @@ function About() {
                             minHeight: '100vh', width: '100%',
                             padding: '1em',
                             // backgroundColor: 'rgba(10,145,200,0.2)',
-                            backgroundColor: 'rgba(100,145,200,0.2)',
+                            // backgroundColor: 'rgba(100,145,200,0.2)',
+                            backgroundColor: "#F5ECDB",
+                            display:'flex',
+                            flexDirection:'column',
+                            justifyContent:'center'
                         }}>
-                            <Typography variant='h4' align='center'>What Is The Aim of The Platform ?</Typography>
+                            <Typography color='primary.light' variant='h4' align='center'>What Is The Aim of The Platform ?</Typography>
                             <Box sx={{ padding: '2em' }}>
-                                <Typography><FormatQuoteRounded></FormatQuoteRounded></Typography>
-                                <Typography align='justify' variant='h6' sx={{ fontStyle: 'italic' }} >{"The World Health Organization (WHO) suggests that if  1 percent of a country's population donate blood, national blood demand will be satisfied. So why are we still in shortage? Who wants to be in that 1 percent and save lives?"}
+                                <Typography><FormatQuoteRounded sx={{ color: 'primary.main' }}></FormatQuoteRounded></Typography>
+                                <Typography color='#808080' align='justify' variant='h6' sx={{ fontStyle: 'italic' }} >{"The World Health Organization (WHO) suggests that if  1 percent of a country's population donate blood, national blood demand will be satisfied. So why are we still in shortage? Who wants to be in that 1 percent and save lives?"}
                                 </Typography>
-                                <Typography align='right'><FormatQuoteRounded></FormatQuoteRounded></Typography>
+                                <Typography align='right'><FormatQuoteRounded sx={{ color: 'primary.main' }} ></FormatQuoteRounded></Typography>
 
                             </Box>
 
@@ -34,7 +38,16 @@ function About() {
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={5} >
-                        <Box sx={{ width: '100%', height: '100%', background: 'url(/collaboration.png)', backgroundPosition: 'center', backgroundSize: 'cover', backgroundAttachment: 'scroll' }}></Box>
+                        <Box sx={{
+                            width: '100%', height: '100%',
+                            //  background: 'url(/collaboration.png)', 
+                            background: 'url(/helping.jpg)',
+                            backgroundPosition: 'center',
+                            backgroundSize: 'contain',
+                            bgcolor: '#F5ECDB',
+                            backgroundRepeat: 'no-repeat'
+                            // backgroundAttachment: 'scroll'
+                        }}></Box>
                     </Grid>
                 </Grid>
             </Box>

@@ -42,7 +42,7 @@ function Testimonials() {
 
     ]
     return (
-        <Box id='testimonial'>
+        <Box id='testimonial' sx={{ minHeight:'90vh' }}>
             <Box sx={{
                 paddingTop: '8em'
             }}>
@@ -50,29 +50,39 @@ function Testimonials() {
             </Box>
             <Box paddingX={{ md: 3, xs: 0 }} paddingY={0}>
                 <Carousel
-                    height={customWindowSize == 'md' ? 350 : 600}
+                    height={customWindowSize == 'md' ? 400 : 600}
                     navButtonsAlwaysVisible={true}
                     animation={'slide'}
                 >
                     {
                         testimonials.map((testimoni, index) => {
                             return <Box key={index} margin={3} display='flex' justifyContent={'center'}>
-                                <Box width='80%' display={'flex'} flexDirection={{ xs: 'column', md: 'row' }}
+                                <Box width={{ md: '80%', xs: '100%' }} display={'flex'} flexDirection={{ xs: 'column', md: 'row' }}
                                     sx={{
-                                        padding: '1em 2em',
+                                        // padding: '1em 2em',
+                                        overflow: 'hidden',
                                         borderRadius: '1em',
                                         boxShadow: '0 0 0.5em gray',
-                                        minHeight: '300px'
+                                        minHeight: '320px'
                                     }}
                                 >
-                                    <Box sx={{ width: { md: '30%', xs: '100%' } }} display='flex' justifyContent={'center'} alignItems='center'>
-                                        <Avatar sx={{ width: '6em', height: '6em' }} src={testimoni.url} alt='user image'></Avatar>
+                                    <Box sx={{
+                                        width: { md: '30%', xs: '100%' },
+                                        minHeight: 200,
+                                        background: `url(${testimoni.url})`,
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundSize: 'cover',
+                                        backgroundPosition:'center'
+                                    }} display='flex' justifyContent={'center'} alignItems='center'>
+                                        {/* {
+                                      customWindowSize=='md' && <Avatar sx={{ width: '6em', height: '6em' }} src={testimoni.url} alt='user image'></Avatar>
+                                      }  */}
                                     </Box>
-                                    <Box sx={{ width: { md: '70%', xs: '100%' } }}>
+                                    <Box sx={{ width: { md: '70%', xs: '100%' }, px: { md: '1em', xs: '1em' } }}>
                                         <FormatQuoteRounded sx={{ margin: '0.5em 0' }}></FormatQuoteRounded>
                                         <Typography align='justify' color='gray'>{testimoni.message}</Typography>
                                         <Typography align='right'><FormatQuoteRounded sx={{ margin: '0.5em 0' }}></FormatQuoteRounded></Typography>
-                                        <Typography variant='h4' >{testimoni.writer}</Typography>
+                                        <Typography variant='h4' color="primary.light" >{testimoni.writer}</Typography>
                                         <Typography color='gray' variant='h6'>{testimoni.profession}</Typography>
 
                                     </Box>

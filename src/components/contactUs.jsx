@@ -198,7 +198,7 @@ function ContactUs() {
                 <div onClick={formSubmitErrorHandler}>
                     <CustomResponseModal open={Boolean(contactFormSubmitState.error)} btnName={'Back'} path={'/#contact'} severity={'error'} msg={contactFormSubmitState.error} ></CustomResponseModal>
                 </div>
-                <Typography sx={{ paddingTop: '1em' }} variant='h2' align='center' color='dark' >Get In Touch</Typography>
+                <Typography sx={{ paddingTop: '1em' }} variant='h2' align='center' color='primary.light' >Get In Touch</Typography>
                 <Typography sx={{ padding: '1em 0' }} variant='h6' align='center' color='gray' >Have A Question To Ask Or Wanna Give Feedback, Feel Free To Contact Me</Typography>
                 <Grid container sx={{
                     borderRadius: '1em',

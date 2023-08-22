@@ -39,7 +39,9 @@ export default function Home() {
           mt={0}
           sx={{
             height: '100vh',
-            backgroundImage: `  linear-gradient(to bottom, rgba(255, 0, 0, 0.52), rgba(0, 100, 0, 0.3)),url(/hero.jpeg)`,
+            // backgroundImage: `  linear-gradient(to bottom, rgba(255, 0, 0, 0.52), rgba(0, 100, 0, 0.3)),url(/hero.jpeg)`,
+            backgroundImage: ` url(/bloodBg.jpg)`,
+            
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
@@ -166,7 +168,7 @@ export default function Home() {
                     }
                   }} elevation={10}>
                     <Box sx={{
-                      backgroundImage: 'url(/donateOrRequest.jpg)',
+                      backgroundImage: 'url(/cardImg.jpg)',
                       backgroundPosition: 'center',
                       backgroundSize: 'contain',
                       backgroundRepeat: 'no-repeat',
