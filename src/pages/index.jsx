@@ -138,7 +138,7 @@ export default function Home() {
                     padding: '1em 0.5em',
                     margin: '1em',
                     '&:hover': {
-                      boxShadow: '0 0 1px black'
+                      boxShadow: '0 0 1px #afafaf'
                     }
                   }} elevation={10}>
                     <Box sx={{
@@ -164,7 +164,7 @@ export default function Home() {
                     padding: '1em 0.5em',
                     margin: '1em',
                     '&:hover': {
-                      boxShadow: '0 0 1px black'
+                      boxShadow: '0 0 1px #afafaf'
                     }
                   }} elevation={10}>
                     <Box sx={{
@@ -190,7 +190,7 @@ export default function Home() {
                     padding: '1em 0.5em',
                     margin: '1em',
                     '&:hover': {
-                      boxShadow: '0 0 1px black'
+                      boxShadow: '0 0 1px #afafaf'
                     }
                   }} elevation={10}>
                     <Box sx={{
@@ -220,7 +220,7 @@ export default function Home() {
                     padding: '1em 0.5em',
                     margin: '1em',
                     '&:hover': {
-                      boxShadow: '0 0 1px black'
+                      boxShadow: '0 0 1px #afafaf'
                     }
 
                   }} elevation={10}>

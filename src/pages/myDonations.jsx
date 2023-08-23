@@ -49,7 +49,8 @@ function MyRequests() {
                             <Box>
                                 <Alert severity='error'>{requestState.requests.errorMsg}</Alert>
                             </Box> :
-                            <Box>
+                            <Box overflow={'hidden'}>
+                                <img height={'300px'} src='noData.png' ></img>
                                 <Alert severity='info'>{"Looks Like You Haven't Donated Before"}</Alert>
                             </Box> :
                         <Box width='100%'>

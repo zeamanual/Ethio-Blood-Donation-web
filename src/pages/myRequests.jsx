@@ -50,6 +50,7 @@ function MyRequests() {
                 <Alert severity='error'>{requestState.requests.errorMsg}</Alert>
               </Box> :
               <Box>
+                <img height={'300px'} src='noData.png' ></img>
                 <Alert severity='info'>{"Looks Like You Haven't Created Any Request Before"}</Alert>
               </Box> :
             <Box width='100%'>
