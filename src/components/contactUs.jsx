@@ -204,7 +204,7 @@ function ContactUs() {
                 <Grid container sx={{
                     borderRadius: '1em',
                     overflow: 'hidden',
-                    boxShadow: '0 0 1em gray'
+                    boxShadow: '0 0 5px gray'
                 }}>
                     <Grid item xs={12} md={7}>
                         <Box sx={{

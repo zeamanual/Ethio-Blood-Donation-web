@@ -52,8 +52,8 @@ function Reqests() {
               <Box>
                 <Alert severity='error'>{requestState.requests.errorMsg}</Alert>
               </Box> :
-              <Box>
-                <img height={'300px'} src='noData.png' ></img>
+              <Box display={'flex'} flexDirection={'column'} alignItems={'center'} >
+                <img height={'300px'} src='/noData.png' ></img>
                 <Alert severity='info'>No Requests Found With Your BloodType And Location Now. Thanks For Visiting</Alert>
               </Box> :
             <Box >
