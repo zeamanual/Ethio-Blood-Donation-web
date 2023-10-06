@@ -188,7 +188,7 @@ function SignUp() {
 
     return (
         <Layout>
-            <Box my={10} mx={{ md: 8, xs: 2 }} sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '2px 2px 5px gray' }}>
+            <Box my={10} mt={14} mx={{ md: 8, xs: 2 }} sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '2px 2px 5px gray' }}>
                 {state.user.loading && <LinearProgress></LinearProgress>}
                 <Grid container >
 
