@@ -1,4 +1,4 @@
-export let CITIES = [
+let RAW_CITIES = [
     {
         name: 'Addis Ababa',
         latitude: 9.1450,
@@ -240,5 +240,12 @@ export let CITIES = [
         longitude: 38.5000
     }
 ]
-
+RAW_CITIES.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+});
+export let CITIES = RAW_CITIES
 export let BLOODTYPES = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]

@@ -80,7 +80,7 @@ function Login() {
     }
   return (
     <Layout>
-        <Box mt={14} mx={{md:25,xs:2}} sx={{borderRadius:4,overflow:'hidden',boxShadow:'2px 2px 5px gray'}}>
+        <Box mt={14} mx={{md:25,xs:2}} sx={{borderRadius:4,minHeight:'80vh',display:'flex',alignItems:'center',overflow:'hidden',boxShadow:'2px 2px 5px gray'}}>
         { state.user.loading &&  <LinearProgress></LinearProgress>}
             <Grid container >
                 <Grid item xs={12} md={7}>
