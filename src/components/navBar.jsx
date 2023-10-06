@@ -145,7 +145,7 @@ let NavBar = function () {
                       return (
                         <MenuItem key={index} onClick={() => {
                           setAnchorEl(null); router.push(nav.path)
-                          if (nav.name == 'LOG OUT') { dispatch(logOut()) }
+                          if (nav.name == 'Log Out') { dispatch(logOut()) }
                         }} >
                           <ListItemIcon>{userNavsIcon[nav.name]}</ListItemIcon>
                           <Typography color={'secondary'}>
@@ -209,7 +209,7 @@ let NavBar = function () {
                     return (
                       <ListItemButton key={index} onClick={() => {
                         setAnchorEl(null);
-                        if (nav.name == 'LOG OUT') { dispatch(logOut()) }
+                        if (nav.name == 'Log Out') { dispatch(logOut()) }
                         router.push(nav.path)
                       }} >
                         <ListItemIcon sx={{ color: 'primary.main' }} >
