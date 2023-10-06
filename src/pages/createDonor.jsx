@@ -56,7 +56,7 @@ function CreateDonor() {
                 severity={'success'}
             ></CustomResponseModal>
 
-            <Box sx={{ mx: { xl: 10, md: 15, xs: 3 }, mt:14, boxShadow: 10, borderRadius: 2 }}>
+            <Box sx={{ mx: { xl: 10, md: 15, xs: 3 },minHeight:'80vh', mt:14, boxShadow: 10, borderRadius: 2 }}>
                 {donorState.loading && <LinearProgress></LinearProgress>}
                 <Grid container justifyContent={'center'} alignItems={'center'}>
                     <Grid item md={6} xs={12}>

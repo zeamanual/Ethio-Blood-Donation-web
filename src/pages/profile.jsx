@@ -33,7 +33,7 @@ function Profile() {
     }
     return (
         <Layout>
-            <Box my={5} mx={{ md: 8, xs: 2 }} sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '2px 2px 5px gray' }}>
+            <Box my={5} mt={14} mx={{ md: 8, xs: 2 }} sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: '2px 2px 5px gray' }}>
                 <Box margin={2}>
                     <Typography variant='h2' align='center' >Update Your Profile Information</Typography>
                 </Box>

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/navBar.jsx'
 import Footer from '../components/footer'
-import { Box, Button, Container, Grid, Modal, Paper, Snackbar, Stack, Typography } from '@mui/material'
+import { Box, Button, Card, Container, Grid, Modal, Paper, Snackbar, Stack, Typography } from '@mui/material'
 import Layout from '../components/layout'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
@@ -96,7 +96,7 @@ export default function Home() {
               width: { xs: '100%', md: '50%' }
             }}
           >
-            <Typography sx={{ margin: {md:'0 0.8em',xs:'1em 0.8em'} }} textAlign={'center'} color='primary.light' variant='h3' fontFamily={'Alfa Slab One'}>{'Habesha Blood Donation '}</Typography>
+            <Typography sx={{ margin: { md: '0 0.8em', xs: '1em 0.8em' } }} textAlign={'center'} color='primary.light' variant='h3' fontFamily={'Alfa Slab One'}>{'Habesha Blood Donation '}</Typography>
 
             <Typography sx={{ mt: 10 }} align='center' variant='h6' color='secondary.light' >
               {'You\'re In A Need Of Blood Urgently! Just Make A Request And Some One will Be there To Donate For You.'}
@@ -121,10 +121,10 @@ export default function Home() {
               backgroundAttachment: 'fixed',
               justifyContent: 'center',
               alignItems: 'center',
-              p:{md:0,xs:5}
+              p: { md: 0, xs: 5 }
             }}
           >
-            <img style={{width:'100%',height:'100%'}} src='/secondHero.jpg'></img>
+            <img style={{ width: '100%', height: '100%' }} src='/secondHero.jpg'></img>
           </Box>
         </Box>
         <Box id='guide' padding={'1em 0'} sx={{ paddingTop: '8em' }} minHeight={'85vh'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
@@ -133,14 +133,16 @@ export default function Home() {
             <Grid container display='flex' justifyContent='center' >
               <Grid item md={3} xs={10}>
                 <div onClick={() => { router.push('/signup') }} style={{ cursor: 'pointer' }}>
-                  <Paper sx={{
+                  <Box sx={{
                     height: '300px',
                     padding: '1em 0.5em',
                     margin: '1em',
+                    boxShadow: '1px 1px 10px #dbdbdb',
+                    borderRadius: '0.5em',
                     '&:hover': {
-                      boxShadow: '0 0 1px #afafaf'
+                      boxShadow: '0px 0px 20px #e0e0e0',
                     }
-                  }} elevation={10}>
+                  }} elevation={1}>
                     <Box sx={{
                       backgroundImage: 'url(/register.jpg)',
                       backgroundPosition: 'center',
@@ -154,17 +156,19 @@ export default function Home() {
                       <Typography variant='h6' align='center' color='gray'>Sign Up/Register</Typography>
 
                     </Box>
-                  </Paper>
+                  </Box>
                 </div>
               </Grid>
               <Grid item md={3} xs={10}>
                 <div onClick={() => { router.push('/login') }} style={{ cursor: 'pointer' }}>
-                  <Paper sx={{
+                  <Box sx={{
                     height: '300px',
                     padding: '1em 0.5em',
                     margin: '1em',
+                    boxShadow: '1px 1px 10px #dbdbdb',
+                    borderRadius: '0.5em',
                     '&:hover': {
-                      boxShadow: '0 0 1px #afafaf'
+                      boxShadow: '0px 0px 20px #e0e0e0',
                     }
                   }} elevation={10}>
                     <Box sx={{
@@ -179,18 +183,20 @@ export default function Home() {
                     <Box>
                       <Typography variant='h6' color='gray' align='center'>Sign In</Typography>
                     </Box>
-                  </Paper>
+                  </Box>
                 </div>
               </Grid>
 
               <Grid item md={3} xs={10}>
                 <div>
-                  <Paper sx={{
+                  <Box sx={{
                     height: '300px',
                     padding: '1em 0.5em',
                     margin: '1em',
+                    boxShadow: '1px 1px 10px #dbdbdb',
+                    borderRadius: '0.5em',
                     '&:hover': {
-                      boxShadow: '0 0 1px #afafaf'
+                      boxShadow: '0px 0px 20px #e0e0e0',
                     }
                   }} elevation={10}>
                     <Box sx={{
@@ -209,18 +215,20 @@ export default function Home() {
                         <span onClick={handleCreateRequestNow} ><Typography color='gray' sx={{ cursor: 'pointer', '&:hover': { color: '#131854' } }} component={'span'} variant='h6'> Create Your Request</Typography></span>
                       </Typography>
                     </Box>
-                  </Paper>
+                  </Box>
                 </div>
               </Grid>
 
               <Grid item md={3} xs={10}>
                 <div onClick={() => { router.push('/myRequests') }} style={{ cursor: 'pointer' }}>
-                  <Paper sx={{
+                  <Box sx={{
                     height: '300px',
                     padding: '1em 0.5em',
                     margin: '1em',
+                    boxShadow: '1px 1px 10px #dbdbdb',
+                    borderRadius: '0.5em',
                     '&:hover': {
-                      boxShadow: '0 0 1px #afafaf'
+                      boxShadow: '0px 0px 20px #e0e0e0',
                     }
 
                   }} elevation={10}>
@@ -237,7 +245,7 @@ export default function Home() {
                       <Typography variant='h6' color='gray' align='center'>Check The Status</Typography>
 
                     </Box>
-                  </Paper>
+                  </Box>
                 </div>
               </Grid>
             </Grid>

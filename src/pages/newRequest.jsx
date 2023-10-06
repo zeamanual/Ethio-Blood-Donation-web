@@ -146,7 +146,7 @@ function NewRequest() {
                 onCloseCallBack={modalCloseHadler}
             ></CustomResponseModalNoRoute>
 
-            <Box sx={{ mx: { xl: 10, md: 10, xs: 3 },mt:14, boxShadow: 10, borderRadius: 2 }}>
+            <Box sx={{ mx: { xl: 10, md: 10, xs: 3 },minHeight:'80vh',mt:14, boxShadow: 10, borderRadius: 2 }}>
                 <CustomProgressModal
                     message={'Creating New Request'}
                     open={requestState.loading}

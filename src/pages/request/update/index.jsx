@@ -133,7 +133,7 @@ function UpdateRequest() {
                 severity={'success'}
             ></CustomResponseModal>
 
-            <Box sx={{ margin: { xl: 10, md: 15, xs: 3 }, boxShadow: 10, borderRadius: 2 }}>
+            <Box mx={{ xl: 10, md: 15, xs: 3 }} mt={15} sx={{minHeight:'80vh', boxShadow: 10, borderRadius: 2 }}>
                 <CustomProgressModal message={'Updating Request'} open={requestState.loading} >
                 </CustomProgressModal>
                 <Box sx={{ padding: 4 }}>

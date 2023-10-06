@@ -12,7 +12,7 @@ function CustomPaperCard({children}) {
     mx={{xs:4,md:8,lg:10}}
     mt={14}
     p={{xs:3,md:6}}
-    sx={{minHeight:'60vh',widht:'100%'}}
+    sx={{minHeight:'80vh',widht:'100%'}}
     >{children}</Box>
   )
 }
