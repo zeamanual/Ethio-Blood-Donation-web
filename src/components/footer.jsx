@@ -37,7 +37,7 @@ function Footer() {
     ]
     let StyledBox = styled(Box)({
         // backgroundColor: 'rgb(130, 162, 181)',
-        backgroundColor: "rgba(190, 0, 0, 0.45)",backdropFilter:'blur(10px)',
+        backgroundColor: "rgba(190, 0, 0, 0.45)", backdropFilter: 'blur(10px)',
         opacity: 0.9,
         marginTop: 50,
         padding: 20,
@@ -61,7 +61,7 @@ function Footer() {
         <StyledBox>
             <Grid container>
                 <Grid display={'flex'} alignItems={'center'} justifyContent={'center'} item xs={12} md={3}>
-                    <div onClick={()=>{router.push("/")}} style={{cursor:'pointer'}} >
+                    <div onClick={() => { router.push("/") }} style={{ cursor: 'pointer' }} >
                         <Box
                             sx={{
                                 height: '100%',
@@ -122,7 +122,7 @@ function Footer() {
                             <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
                                 <a href='https://github.com/zeamanual' target={'_blank'} rel='noreferrer'><GitHub sx={{ color: '#171515', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></GitHub></a>
                                 <a href='https://linkedin.com/in/zeamanual-feleke-541310229' rel='noreferrer' target={'_blank'}><LinkedIn sx={{ color: '#0A66C2', transition: 'transform 0.3s linear', '&:hover': { transform: 'scale(2)' } }}></LinkedIn></a>
-                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'} rel='noreferrer'><EmailRounded sx={{ transition: 'transform 0.3s linear',color:'black', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
+                                <a href='mailto:zeamanualfeleke@gmail.com' target={'_blank'} rel='noreferrer'><EmailRounded sx={{ transition: 'transform 0.3s linear', color: 'black', '&:hover': { transform: 'scale(2)' } }}></EmailRounded></a>
                             </Box>
 
                         </Box>
@@ -145,7 +145,10 @@ function Footer() {
                         </Box>
                         <Button sx={{ width: '100%', margin: '1em ', marginTop: '3em' }} onClick={handleDonateNow} variant='contained'>Donate Now</Button>
                         <Button sx={{ width: '100%', margin: '0em 1em ' }} onClick={handleCreateRequestNow} variant='contained'>Create A Request</Button>
-                        <Link href={'/#home'}><Button color="primary" sx={{ position: 'absolute', bottom: '-5em', right: 1 }} variant='contained' startIcon={<KeyboardArrowUp></KeyboardArrowUp>} >Back To Top</Button></Link>
+
+                        {
+                            router.pathname == '/' && <Link href={'/#home'}><Button color="primary" sx={{ position: 'absolute', bottom: '-5em', right: 1 }} variant='contained' startIcon={<KeyboardArrowUp></KeyboardArrowUp>} >Back To Top</Button></Link>
+                        }
                     </Box>
                 </Grid>
             </Grid>
